@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SQL Mastery Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0e1a;--s1:#111827;--s2:#1a2235;--s3:#1e2d42;--b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);--tx:#f0f4ff;--mu:#8899bb;--ac:#60a5fa;--ac2:#34d399;--ac3:#f59e0b;--ac4:#f43f5e;--ac5:#a78bfa;--gbg:rgba(96,165,250,.1);--tbg:rgba(52,211,153,.12);--abg:rgba(245,158,11,.12);--rbg:rgba(244,63,94,.12);--pbg:rgba(167,139,250,.12);--r:12px;--rs:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:Lato,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--b1) 1px,transparent 1px),linear-gradient(90deg,var(--b1) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;opacity:.5}
+.wrap{position:relative;z-index:1;max-width:740px;margin:0 auto;padding:0 16px 80px}
+header{padding:40px 0 26px;text-align:center}
+.badge-top{display:inline-flex;align-items:center;gap:6px;background:var(--gbg);border:1px solid rgba(96,165,250,.3);color:var(--ac);font-family:"IBM Plex Mono",monospace;font-size:11px;padding:5px 12px;border-radius:20px;letter-spacing:.08em;margin-bottom:16px}
+.badge-top span{width:6px;height:6px;background:var(--ac);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:Syne,sans-serif;font-size:clamp(26px,7vw,46px);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin-bottom:8px}
+h1 em{font-style:normal;color:var(--ac)}
+.subtitle{color:var(--mu);font-size:14px;max-width:460px;margin:0 auto 22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px;text-align:center}
+.stat-num{font-family:Syne,sans-serif;font-size:24px;font-weight:700}
+.stat-num.ac{color:var(--ac)}
+.stat-lbl{font-size:11px;color:var(--mu);margin-top:1px}
+.pl{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:6px}
+.pb{background:var(--s2);border-radius:4px;height:5px;overflow:hidden;margin-bottom:22px}
+.pf{height:5px;border-radius:4px;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:6px 14px;border-radius:20px;border:1px solid var(--b2);background:transparent;color:var(--mu);font-family:Lato,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .18s}
+.tab:hover{color:var(--tx)}.tab.active{background:var(--ac);color:#000;border-color:var(--ac)}
+.section{display:none}.section.active{display:block}
+.topic-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.topic-card:hover{border-color:var(--b2)}.topic-card.done{border-left:3px solid var(--ac2)}
+.topic-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+.num{width:30px;height:30px;border-radius:50%;background:var(--s2);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--mu);flex-shrink:0;transition:all .2s}
+.num.dn{background:var(--ac2);border-color:var(--ac2);color:#000}
+.topic-title{font-family:Syne,sans-serif;font-size:14px;font-weight:600;flex:1;line-height:1.3}
+.lb{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:20px;flex-shrink:0;text-transform:uppercase}
+.lb-b{background:var(--gbg);color:var(--ac)}
+.lb-c{background:var(--tbg);color:var(--ac2)}
+.lb-a{background:var(--abg);color:var(--ac3)}
+.lb-e{background:var(--rbg);color:var(--ac4)}
+.lb-x{background:var(--pbg);color:var(--ac5)}
+.chev{color:var(--mu);font-size:16px;flex-shrink:0;transition:transform .22s;line-height:1}
+.chev.open{transform:rotate(180deg)}
+.topic-expand{display:none;padding:0 16px 16px}
+.topic-expand.open{display:block;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.divider{height:1px;background:var(--b1);margin-bottom:14px}
+.explain{background:var(--s2);border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;border-left:2px solid var(--ac)}
+.explain-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--ac);margin-bottom:7px;text-transform:uppercase}
+.explain p{font-size:13.5px;color:#c8d8f0;line-height:1.7;margin-bottom:6px}
+.explain p:last-child{margin-bottom:0}
+.explain p strong{color:var(--tx)}
+.code-block{background:#0d1117;border:1px solid var(--b2);border-radius:var(--rs);padding:12px 14px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:#a5d6ff;line-height:1.85;margin-bottom:14px;overflow-x:auto;white-space:pre}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#6e7f8e}.nm{color:#f2cc60}.op{color:#79c0ff}
+.subtopics{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.sub{font-size:13px;color:var(--mu);padding-left:10px;border-left:2px solid var(--b2);line-height:1.55}
+.sub strong{color:var(--tx);font-weight:700}
+.iq-section{margin-bottom:12px}
+.iq-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--ac3);margin-bottom:8px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.iq-lbl::before{content:'';display:block;width:12px;height:2px;background:var(--ac3);border-radius:1px}
+.iq-card{background:var(--s2);border:1px solid rgba(245,158,11,.15);border-radius:var(--rs);margin-bottom:7px;overflow:hidden}
+.iq-q{padding:10px 13px;font-size:13px;color:#e8d5a3;line-height:1.5;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;user-select:none}
+.iq-q:hover{background:rgba(245,158,11,.05)}
+.iq-q-t{flex:1}
+.rbtn{flex-shrink:0;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ac3);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);padding:3px 9px;border-radius:12px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.rbtn:hover{background:rgba(245,158,11,.22)}.rbtn.on{color:#0d1117;background:var(--ac3);border-color:var(--ac3)}
+.iq-a{display:none;padding:0 13px 11px;border-top:1px solid rgba(245,158,11,.1)}
+.iq-a.open{display:block;animation:fadeUp .18s ease}
+.iq-a-inner{margin-top:9px;font-size:13px;color:#c8d8f0;line-height:1.7;background:rgba(0,0,0,.25);border-radius:6px;padding:10px 12px}
+.iq-a-inner strong{color:var(--ac2)}.iq-a-inner ul{padding-left:14px;margin-top:5px}
+.iq-a-inner ul li{margin-bottom:4px;color:var(--mu)}.iq-a-inner ul li strong{color:var(--tx)}
+.iq-a-inner code{font-family:"IBM Plex Mono",monospace;font-size:11px;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:4px;color:#79c0ff}
+.btn-row{margin-top:4px}
+.btn-done{padding:6px 14px;border-radius:var(--rs);font-family:Lato,sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--ac2);background:var(--ac2);color:#000;transition:all .15s}
+.btn-done:hover{background:#22c77a}.btn-done:disabled{background:var(--s3);border-color:var(--b1);color:var(--mu);cursor:not-allowed}
+.tip-box{background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.tip-title{font-family:Syne,sans-serif;font-size:13px;font-weight:700;color:var(--ac);margin-bottom:10px}
+.tip-item{display:flex;gap:10px;font-size:13px;color:var(--mu);padding:6px 0;border-bottom:1px solid var(--b1);line-height:1.5}
+.tip-item:last-child{border-bottom:none}.tip-item p strong{color:var(--tx)}
+.wk{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ac);background:var(--gbg);padding:2px 7px;border-radius:4px;flex-shrink:0;height:fit-content;margin-top:3px}
+footer{text-align:center;padding:28px 0 16px;color:var(--mu);font-size:12px}
+footer span{color:var(--ac)}
+@media(max-width:480px){h1{font-size:24px}.stats{gap:6px}.stat-num{font-size:20px}.tab{font-size:11px;padding:5px 10px}.topic-title{font-size:13px}.code-block{font-size:11px}}
+</style>
+</head>
+<body><div class="wrap">
+<header>
+  <div class="badge-top"><span></span>SQL MASTERY &middot; 25 TOPICS &middot; 5 LEVELS</div>
+  <h1>SQL<br/><em>Mastery</em> Roadmap</h1>
+  <p class="subtitle">Every command &amp; function &mdash; from SELECT to Window functions &mdash; with code, explanations, and interview Q&amp;As with reveal answers</p>
+</header>
+<div class="stats">
+  <div class="stat"><div class="stat-num ac" id="dc">0</div><div class="stat-lbl">Completed</div></div>
+  <div class="stat"><div class="stat-num">25</div><div class="stat-lbl">Total topics</div></div>
+  <div class="stat"><div class="stat-num" id="ps">0%</div><div class="stat-lbl">Mastery</div></div>
+</div>
+<div class="pl"><span id="pt">Progress: 0 / 25</span><span id="pp">0%</span></div>
+<div class="pb"><div class="pf" id="pf"></div></div>
+<div class="tabs">
+  <button class="tab active" onclick="sw('basics',this)">Basics</button>
+  <button class="tab" onclick="sw('filtering',this)">Filtering</button>
+  <button class="tab" onclick="sw('joins',this)">Joins</button>
+  <button class="tab" onclick="sw('aggregation',this)">Aggregation</button>
+  <button class="tab" onclick="sw('advanced',this)">Advanced</button>
+  <button class="tab" onclick="sw('expert',this)">Expert</button>
+  <button class="tab" onclick="sw('plan',this)">Study plan</button>
+</div>
+
+<div class="section active" id="tab-basics">
+<div class="topic-card" id="card-0"><div class="topic-header" onclick="tg(0)"><div class="num" id="num-0">1</div><div class="topic-title">What is SQL &amp; Relational Databases</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-0">&#8964;</span></div><div class="topic-expand" id="ex-0"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>SQL (Structured Query Language) is the standard language for communicating with relational databases. A relational database stores data in <strong>tables</strong> (rows and columns), with <strong>relationships</strong> between tables enforced by keys. SQL divides into four sublanguages: <strong>DDL</strong> (Data Definition &mdash; CREATE, ALTER, DROP), <strong>DML</strong> (Data Manipulation &mdash; SELECT, INSERT, UPDATE, DELETE), <strong>DCL</strong> (Data Control &mdash; GRANT, REVOKE), and <strong>TCL</strong> (Transaction Control &mdash; COMMIT, ROLLBACK).</p><p>Every table has a <strong>Primary Key</strong> &mdash; a unique identifier for each row. A <strong>Foreign Key</strong> links to a primary key in another table, creating the relationship. Popular databases include MySQL, PostgreSQL, SQL Server, Oracle, and SQLite &mdash; all use near-identical SQL with minor dialect differences.</p></div><div class="subtopics"><div class="sub"><strong>Table</strong> &mdash; rows (records) &times; columns (attributes); each cell holds one value</div><div class="sub"><strong>Primary Key</strong> &mdash; unique, non-NULL identifier per row; one per table</div><div class="sub"><strong>Foreign Key</strong> &mdash; column that references a PK in another table; enforces referential integrity</div><div class="sub"><strong>DDL</strong> &mdash; CREATE, ALTER, DROP &mdash; defines structure</div><div class="sub"><strong>DML</strong> &mdash; SELECT, INSERT, UPDATE, DELETE &mdash; manipulates data</div></div><div class="code-block"><span class="cm">-- Create a table (DDL)</span>
+<span class="kw">CREATE TABLE</span> employees (
+    emp_id    <span class="op">INT</span>          <span class="kw">PRIMARY KEY</span>,
+    name      <span class="op">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    dept_id   <span class="op">INT</span>          <span class="kw">REFERENCES</span> departments(dept_id),
+    salary    <span class="op">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>),
+    hire_date <span class="op">DATE</span>         <span class="kw">DEFAULT</span> <span class="fn">CURRENT_DATE</span>
+);
+
+<span class="cm">-- Insert a row (DML)</span>
+<span class="kw">INSERT INTO</span> employees (emp_id, name, dept_id, salary)
+<span class="kw">VALUES</span> (<span class="nm">1</span>, <span class="st">'Alice'</span>, <span class="nm">10</span>, <span class="nm">75000.00</span>);
+
+<span class="cm">-- Retrieve data (DML)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between a Primary Key and a Foreign Key?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> A <strong>Primary Key (PK)</strong> uniquely identifies each row in its own table &mdash; must be unique and NOT NULL. A <strong>Foreign Key (FK)</strong> is a column in one table that points to a PK in another table, creating a relationship between them. A PK enforces entity integrity; a FK enforces referential integrity (you can't insert an FK value that doesn't exist in the referenced table).</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What are DDL, DML, DCL, and TCL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <ul><li><strong>DDL</strong> (Data Definition Language): CREATE, ALTER, DROP, TRUNCATE &mdash; changes schema structure</li><li><strong>DML</strong> (Data Manipulation Language): SELECT, INSERT, UPDATE, DELETE &mdash; works with data</li><li><strong>DCL</strong> (Data Control Language): GRANT, REVOKE &mdash; manages permissions</li><li><strong>TCL</strong> (Transaction Control Language): COMMIT, ROLLBACK, SAVEPOINT &mdash; manages transactions</li></ul>DDL changes are auto-committed; DML changes require explicit COMMIT in a transaction.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is referential integrity and how is it enforced?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Referential integrity ensures that a foreign key value always points to an existing primary key. Enforced by: <ul><li><strong>ON DELETE CASCADE</strong> &mdash; deleting parent row deletes child rows too</li><li><strong>ON DELETE SET NULL</strong> &mdash; deleting parent sets child FK to NULL</li><li><strong>ON DELETE RESTRICT</strong> (default) &mdash; prevents deletion if child rows exist</li></ul>Without FK constraints, orphan rows accumulate silently.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-0" onclick="md(0)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-1"><div class="topic-header" onclick="tg(1)"><div class="num" id="num-1">2</div><div class="topic-title">SELECT &amp; Column Basics</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-1">&#8964;</span></div><div class="topic-expand" id="ex-1"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>SELECT</strong> is the most fundamental SQL command &mdash; it retrieves data from one or more tables. The basic structure is <code>SELECT columns FROM table</code>. <code>SELECT *</code> returns all columns but is inefficient in production &mdash; always name the columns you actually need. <strong>DISTINCT</strong> removes duplicate rows from the result. Column <strong>aliases</strong> (AS) rename columns in output without changing the table.</p><p>SQL executes in a specific logical order: <code>FROM &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; SELECT &rarr; ORDER BY &rarr; LIMIT</code>. This matters because you cannot reference a SELECT alias in a WHERE clause (WHERE executes before SELECT).</p></div><div class="subtopics"><div class="sub"><strong>SELECT col1, col2</strong> &mdash; name columns explicitly; never SELECT * in production</div><div class="sub"><strong>SELECT DISTINCT</strong> &mdash; removes duplicate rows from result set</div><div class="sub"><strong>AS alias</strong> &mdash; rename column/table in output; quote if alias has spaces</div><div class="sub"><strong>Logical order</strong> &mdash; FROM &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; SELECT &rarr; ORDER BY &rarr; LIMIT</div></div><div class="code-block"><span class="cm">-- Basic SELECT</span>
+<span class="kw">SELECT</span> emp_id, name, salary <span class="kw">FROM</span> employees;
+
+<span class="cm">-- All columns (avoid in production)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees;
+
+<span class="cm">-- Aliases</span>
+<span class="kw">SELECT</span>
+    name         <span class="kw">AS</span> employee_name,
+    salary * <span class="nm">12</span>  <span class="kw">AS</span> annual_salary,
+    dept_id      <span class="kw">AS</span> department
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- DISTINCT &mdash; unique values only</span>
+<span class="kw">SELECT DISTINCT</span> dept_id <span class="kw">FROM</span> employees;
+
+<span class="cm">-- Expression in SELECT</span>
+<span class="kw">SELECT</span> name, salary, salary * <span class="nm">0.1</span> <span class="kw">AS</span> bonus <span class="kw">FROM</span> employees;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why should you avoid SELECT * in production queries?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Three reasons: (1) <strong>Performance</strong> &mdash; fetches all columns including ones you don't need, wasting I/O and network transfer. (2) <strong>Brittleness</strong> &mdash; if a column is added or reordered, your application code may break or return unexpected data. (3) <strong>Index coverage</strong> &mdash; SELECT with named columns can be satisfied by a covering index; SELECT * forces a full table read. Always list the columns you need explicitly.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Can you use a SELECT alias in the WHERE clause? Why or why not?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> No. SQL executes in logical order: FROM &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; SELECT &rarr; ORDER BY. The WHERE clause is evaluated before SELECT, so aliases defined in SELECT don't exist yet when WHERE runs. Fix: wrap in a subquery or CTE: <code>SELECT * FROM (SELECT salary*12 AS annual FROM employees) t WHERE annual &gt; 600000</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is the difference between DISTINCT and GROUP BY for deduplication?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>SELECT DISTINCT col</code> returns unique values of that column &mdash; simple deduplication. <code>GROUP BY col</code> groups rows and lets you aggregate them (COUNT, SUM, etc.) &mdash; more powerful. For pure deduplication of one column they produce the same result. For complex deduplication with aggregation, only GROUP BY works. Performance is similar on modern optimisers.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-1" onclick="md(1)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-2"><div class="topic-header" onclick="tg(2)"><div class="num" id="num-2">3</div><div class="topic-title">Data Types &amp; NULL Handling</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-2">&#8964;</span></div><div class="topic-expand" id="ex-2"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>SQL data types define what values a column can store. Common types: <strong>INT/BIGINT</strong> (integers), <strong>DECIMAL(p,s)</strong> (exact fixed-point &mdash; use for money), <strong>FLOAT/DOUBLE</strong> (approximate &mdash; never use for money), <strong>VARCHAR(n)</strong> (variable-length string up to n chars), <strong>DATE</strong> (date only), <strong>TIMESTAMP</strong> (date + time), <strong>BOOLEAN</strong>.</p><p><strong>NULL</strong> represents an unknown or missing value &mdash; it is not zero, not an empty string, and not false. NULL does not equal anything, including itself: <code>NULL = NULL</code> is NULL (not TRUE). Use <code>IS NULL</code> and <code>IS NOT NULL</code> to check. NULL propagates: any arithmetic or comparison involving NULL returns NULL. Use <code>COALESCE()</code> to provide a default value when NULL is encountered.</p></div><div class="subtopics"><div class="sub"><strong>DECIMAL(p,s)</strong> &mdash; exact numeric; use for money; FLOAT is approximate (rounding errors)</div><div class="sub"><strong>VARCHAR(n)</strong> &mdash; variable-length string; CHAR(n) is fixed-width (pads with spaces)</div><div class="sub"><strong>NULL</strong> &mdash; unknown value; IS NULL / IS NOT NULL to check; never = NULL</div><div class="sub"><strong>COALESCE(a,b,c)</strong> &mdash; returns first non-NULL arg; great for defaults</div><div class="sub"><strong>NULLIF(a,b)</strong> &mdash; returns NULL if a=b; else returns a; prevents divide-by-zero</div></div><div class="code-block"><span class="cm">-- NULL comparison &mdash; this NEVER matches!</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> manager_id = <span class="kw">NULL</span>; <span class="cm">-- WRONG</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> manager_id <span class="kw">IS NULL</span>;  <span class="cm">-- CORRECT</span>
+
+<span class="cm">-- COALESCE &mdash; substitute default for NULL</span>
+<span class="kw">SELECT</span> name, <span class="fn">COALESCE</span>(bonus, <span class="nm">0</span>) <span class="kw">AS</span> bonus <span class="kw">FROM</span> employees;
+
+<span class="cm">-- NULLIF &mdash; avoid divide-by-zero</span>
+<span class="kw">SELECT</span> total_sales / <span class="fn">NULLIF</span>(num_orders, <span class="nm">0</span>) <span class="kw">AS</span> avg_order
+<span class="kw">FROM</span> summary;
+
+<span class="cm">-- CASE with NULL</span>
+<span class="kw">SELECT</span> name,
+    <span class="kw">CASE WHEN</span> manager_id <span class="kw">IS NULL THEN</span> <span class="st">'Top-level'</span>
+         <span class="kw">ELSE</span> <span class="st">'Has manager'</span> <span class="kw">END</span> <span class="kw">AS</span> level
+<span class="kw">FROM</span> employees;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why does WHERE col = NULL never return rows?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> NULL represents an <em>unknown</em> value. The comparison <code>NULL = NULL</code> evaluates to NULL (not TRUE), because you can't know if two unknown values are equal. SQL's WHERE clause only keeps rows where the condition evaluates to TRUE. Use <code>IS NULL</code> or <code>IS NOT NULL</code> instead.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the difference between COALESCE and ISNULL/NVL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> All substitute a default for NULL, but: <code>COALESCE(a,b,c,...)</code> is ANSI SQL standard &mdash; returns the first non-NULL argument from any number of arguments. <code>ISNULL(a,b)</code> is SQL Server-specific (only 2 args). <code>NVL(a,b)</code> is Oracle-specific (only 2 args). Always prefer COALESCE for portability across databases.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Why should you never use FLOAT for financial calculations?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> FLOAT/DOUBLE uses binary floating-point representation which cannot exactly represent most decimal fractions. <code>0.1 + 0.2</code> in floating point is <code>0.30000000000000004</code>. For money, use <code>DECIMAL(p,s)</code> which stores exact decimal values. Example: <code>DECIMAL(10,2)</code> stores up to 10 digits with 2 decimal places &mdash; exact to the penny.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-2" onclick="md(2)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-3"><div class="topic-header" onclick="tg(3)"><div class="num" id="num-3">4</div><div class="topic-title">ORDER BY, LIMIT &amp; OFFSET</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-3">&#8964;</span></div><div class="topic-expand" id="ex-3"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>ORDER BY</strong> sorts the result set by one or more columns, <code>ASC</code> (ascending, default) or <code>DESC</code> (descending). NULL values sort LAST by default in ascending order in most databases (FIRST in Oracle). Multiple columns in ORDER BY sort by the first column, then by the second to break ties.</p><p><strong>LIMIT</strong> (MySQL/PostgreSQL) and <strong>TOP</strong> (SQL Server) restrict the number of rows returned. <strong>OFFSET</strong> skips the first N rows &mdash; used together with LIMIT for <strong>pagination</strong>. Warning: without ORDER BY, pagination is non-deterministic &mdash; always include ORDER BY when paginating. For large tables, OFFSET pagination is slow &mdash; keyset (cursor) pagination is faster.</p></div><div class="subtopics"><div class="sub"><strong>ORDER BY col ASC/DESC</strong> &mdash; multi-column sort; NULLs sort last (ASC)</div><div class="sub"><strong>LIMIT n</strong> &mdash; MySQL/PG; TOP n in SQL Server; ROWNUM in Oracle</div><div class="sub"><strong>LIMIT n OFFSET m</strong> &mdash; skip m rows, return n; used for pagination</div><div class="sub"><strong>NULLS FIRST / NULLS LAST</strong> &mdash; PostgreSQL explicit NULL sort order</div></div><div class="code-block"><span class="cm">-- Sort by salary descending</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;
+
+<span class="cm">-- Multi-column sort</span>
+<span class="kw">SELECT</span> name, dept_id, salary <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> dept_id <span class="kw">ASC</span>, salary <span class="kw">DESC</span>;
+
+<span class="cm">-- Top 5 earners</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="nm">5</span>;
+
+<span class="cm">-- Pagination: page 3 (rows 21-30)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> emp_id
+<span class="kw">LIMIT</span> <span class="nm">10</span> <span class="kw">OFFSET</span> <span class="nm">20</span>;
+
+<span class="cm">-- SQL Server syntax</span>
+<span class="kw">SELECT TOP</span> <span class="nm">5</span> name, salary <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why must ORDER BY always be included when using LIMIT/OFFSET for pagination?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Without ORDER BY, the database returns rows in an undefined order &mdash; it can change between queries (due to query plan variations, parallel execution, or table changes). Pagination without ORDER BY may return the same row twice or skip rows across pages. Always order by a unique column (or combination) like id or created_at + id.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the performance problem with large OFFSET values?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> With <code>LIMIT 10 OFFSET 10000</code>, the database must scan and discard 10,000 rows before returning 10. This gets slower as OFFSET grows &mdash; O(offset) work. Solution: <strong>Keyset pagination</strong> (cursor-based): <code>WHERE id &gt; last_seen_id LIMIT 10</code>. This is O(1) regardless of how deep you paginate, because it uses an index seek instead of a full scan.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you get the Nth highest salary in SQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Using OFFSET: <code>SELECT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET N-1</code>. Using subquery: <code>SELECT MIN(salary) FROM (SELECT salary FROM employees ORDER BY salary DESC LIMIT N) t</code>. Modern approach: <code>SELECT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk FROM employees) t WHERE rnk = N</code> &mdash; handles ties correctly.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-3" onclick="md(3)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-4"><div class="topic-header" onclick="tg(4)"><div class="num" id="num-4">5</div><div class="topic-title">INSERT, UPDATE &amp; DELETE</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-4">&#8964;</span></div><div class="topic-expand" id="ex-4"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>INSERT INTO</strong> adds rows to a table. You can insert a single row with VALUES, or insert results from a SELECT. <strong>UPDATE</strong> modifies existing rows &mdash; always include a WHERE clause or you'll update every single row. <strong>DELETE</strong> removes rows matching a WHERE condition &mdash; again, without WHERE it deletes all rows. <strong>TRUNCATE</strong> removes all rows faster than DELETE but cannot be rolled back (DDL) and doesn't fire triggers.</p><p>The most important production rule: <strong>always run a SELECT with the same WHERE clause before UPDATE or DELETE</strong> to preview which rows will be affected. Wrap in a transaction so you can ROLLBACK if needed.</p></div><div class="subtopics"><div class="sub"><strong>INSERT INTO t (cols) VALUES (...)</strong> &mdash; single row; or INSERT INTO ... SELECT for bulk</div><div class="sub"><strong>UPDATE t SET col=val WHERE condition</strong> &mdash; ALWAYS use WHERE; omitting updates ALL rows</div><div class="sub"><strong>DELETE FROM t WHERE condition</strong> &mdash; ALWAYS use WHERE; omitting deletes ALL rows</div><div class="sub"><strong>TRUNCATE TABLE t</strong> &mdash; deletes all rows fast; DDL; cannot ROLLBACK; no triggers</div></div><div class="code-block"><span class="cm">-- INSERT single row</span>
+<span class="kw">INSERT INTO</span> employees (name, dept_id, salary)
+<span class="kw">VALUES</span> (<span class="st">'Bob'</span>, <span class="nm">20</span>, <span class="nm">85000</span>);
+
+<span class="cm">-- INSERT from SELECT</span>
+<span class="kw">INSERT INTO</span> archive_employees
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> hire_date &lt; <span class="st">'2020-01-01'</span>;
+
+<span class="cm">-- UPDATE &mdash; always WHERE!</span>
+<span class="kw">UPDATE</span> employees
+<span class="kw">SET</span> salary = salary * <span class="nm">1.10</span>  <span class="cm">-- 10% raise</span>
+<span class="kw">WHERE</span> dept_id = <span class="nm">10</span>;
+
+<span class="cm">-- DELETE &mdash; always WHERE!</span>
+<span class="kw">DELETE FROM</span> employees
+<span class="kw">WHERE</span> hire_date &lt; <span class="st">'2015-01-01'</span>;
+
+<span class="cm">-- Safe pattern: preview before delete</span>
+<span class="kw">BEGIN</span>;
+  <span class="kw">DELETE FROM</span> employees <span class="kw">WHERE</span> emp_id = <span class="nm">99</span>;
+  <span class="kw">SELECT ROW_COUNT</span>();  <span class="cm">-- confirm count</span>
+<span class="kw">ROLLBACK</span>;  <span class="cm">-- or COMMIT</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between DELETE, TRUNCATE, and DROP?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <ul><li><strong>DELETE</strong>: DML; removes specific rows (with WHERE) or all rows; can be rolled back; fires triggers; slow on large tables (row-by-row).</li><li><strong>TRUNCATE</strong>: DDL; removes all rows instantly; resets auto-increment; cannot be rolled back; no triggers.</li><li><strong>DROP</strong>: DDL; removes the entire table structure + data permanently.</li></ul>Use DELETE for targeted row removal, TRUNCATE for clearing a table, DROP for removing a table entirely.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What happens if you run UPDATE without a WHERE clause?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Every row in the table is updated. This is a very common production incident. Prevention: (1) always preview with a SELECT using the same WHERE first; (2) wrap in a BEGIN transaction and verify ROW_COUNT() before committing; (3) use <code>SET SQL_SAFE_UPDATES=1</code> in MySQL which prevents UPDATE/DELETE without a WHERE on a key column.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you insert multiple rows efficiently in SQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use multi-row VALUES: <code>INSERT INTO t (a,b) VALUES (1,'x'), (2,'y'), (3,'z')</code>. This is far faster than three separate INSERT statements because it requires only one network round-trip, one transaction, and one index update. For bulk loads from files use database-specific tools: <code>COPY</code> in PostgreSQL, <code>LOAD DATA INFILE</code> in MySQL &mdash; 10&ndash;100x faster than row-by-row inserts.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-4" onclick="md(4)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-filtering">
+<div class="topic-card" id="card-5"><div class="topic-header" onclick="tg(5)"><div class="num" id="num-5">6</div><div class="topic-title">WHERE Clause &amp; Comparison Operators</div><span class="lb lb-c">Filtering</span><span class="chev" id="cv-5">&#8964;</span></div><div class="topic-expand" id="ex-5"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>The <strong>WHERE</strong> clause filters rows before any aggregation. It supports comparison operators (<code>=</code>, <code>!=</code> or <code>&lt;&gt;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>), logical operators (<code>AND</code>, <code>OR</code>, <code>NOT</code>), and special operators. Operator precedence: NOT first, then AND, then OR. Use parentheses to make complex conditions explicit and avoid precedence bugs.</p><p><strong>BETWEEN a AND b</strong> is inclusive on both ends. <strong>IN (list)</strong> is a cleaner alternative to multiple OR conditions. <strong>LIKE</strong> supports pattern matching: <code>%</code> matches any sequence of characters, <code>_</code> matches exactly one character.</p></div><div class="subtopics"><div class="sub"><strong>= &lt;&gt; &lt; &gt; &lt;= &gt;=</strong> &mdash; comparison operators; use &lt;&gt; not != for portability</div><div class="sub"><strong>BETWEEN a AND b</strong> &mdash; inclusive on both ends; equivalent to a &lt;= col &lt;= b</div><div class="sub"><strong>IN (v1,v2,...)</strong> &mdash; match any value in list; cleaner than multiple ORs</div><div class="sub"><strong>LIKE '%pattern%'</strong> &mdash; % = any chars; _ = exactly one char; case-insensitive in MySQL</div><div class="sub"><strong>NOT</strong> &mdash; negates condition; NOT IN, NOT LIKE, NOT BETWEEN, NOT NULL</div></div><div class="code-block"><span class="cm">-- Comparison operators</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> salary &gt;= <span class="nm">50000</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> dept_id &lt;&gt; <span class="nm">10</span>;
+
+<span class="cm">-- BETWEEN (inclusive)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="nm">40000</span> <span class="kw">AND</span> <span class="nm">80000</span>;
+
+<span class="cm">-- IN &mdash; replaces multiple ORs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> dept_id <span class="kw">IN</span> (<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>);
+
+<span class="cm">-- LIKE pattern matching</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">'A%'</span>;     <span class="cm">-- starts with A</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">'%son'</span>;    <span class="cm">-- ends with son</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">'_o%'</span>;     <span class="cm">-- 2nd char is o</span>
+
+<span class="cm">-- Precedence &mdash; use parentheses!</span>
+<span class="kw">WHERE</span> (dept_id = <span class="nm">10</span> <span class="kw">OR</span> dept_id = <span class="nm">20</span>) <span class="kw">AND</span> salary &gt; <span class="nm">60000</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between IN and = ANY in SQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> They are equivalent for simple value lists: <code>WHERE id IN (1,2,3)</code> is the same as <code>WHERE id = ANY(ARRAY[1,2,3])</code> in PostgreSQL. However, IN with a subquery: <code>WHERE id IN (SELECT id FROM t)</code> vs <code>WHERE id = ANY(SELECT id FROM t)</code> behave identically for non-NULL values. Difference: <code>!= ALL(subquery)</code> is equivalent to <code>NOT IN (subquery)</code> &mdash; but NOT IN fails silently if the subquery returns any NULL.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Why does NOT IN fail silently when the subquery returns NULL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>WHERE id NOT IN (SELECT dept_id FROM departments)</code> &mdash; if any dept_id is NULL, then <code>id NOT IN (...NULL...)</code> evaluates to NULL (not TRUE or FALSE), causing NO rows to be returned at all. Fix: use <code>NOT EXISTS</code> or <code>WHERE dept_id IS NOT NULL</code> in the subquery. This is one of the most common SQL bugs in production.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is the performance difference between LIKE '%prefix%' and LIKE 'prefix%'?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>LIKE 'prefix%'</code> (leading pattern) can use a B-tree index &mdash; the database seeks to the first matching value and scans forward. <code>LIKE '%prefix%'</code> or <code>LIKE '%suffix'</code> (leading wildcard) cannot use a standard index &mdash; requires a full table scan. For full-text search, use <code>FULLTEXT</code> index (MySQL) or <code>tsvector/GIN</code> index (PostgreSQL).</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-5" onclick="md(5)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-6"><div class="topic-header" onclick="tg(6)"><div class="num" id="num-6">7</div><div class="topic-title">CASE Expression &amp; Conditional Logic</div><span class="lb lb-c">Filtering</span><span class="chev" id="cv-6">&#8964;</span></div><div class="topic-expand" id="ex-6"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>The <strong>CASE</strong> expression is SQL's if/else. It comes in two forms: <strong>simple CASE</strong> compares one expression against multiple values; <strong>searched CASE</strong> evaluates independent boolean conditions for each branch. CASE can be used anywhere an expression is allowed: SELECT, WHERE, ORDER BY, GROUP BY, even inside aggregate functions.</p><p>A common pattern is using CASE inside SUM or COUNT to create conditional aggregation &mdash; count or sum only rows matching a condition, effectively pivoting data horizontally.</p></div><div class="subtopics"><div class="sub"><strong>Searched CASE WHEN cond THEN val ... ELSE val END</strong> &mdash; evaluates conditions top-to-bottom</div><div class="sub"><strong>Simple CASE expr WHEN val THEN ...</strong> &mdash; compares one expression to values</div><div class="sub"><strong>CASE in SELECT</strong> &mdash; create derived columns based on conditions</div><div class="sub"><strong>SUM(CASE WHEN...)</strong> &mdash; conditional aggregation; pivot data</div><div class="sub"><strong>CASE in ORDER BY</strong> &mdash; custom sort order (e.g. 'High' before 'Medium')</div></div><div class="code-block"><span class="cm">-- Searched CASE (most common)</span>
+<span class="kw">SELECT</span> name, salary,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> salary &gt;= <span class="nm">90000</span> <span class="kw">THEN</span> <span class="st">'Senior'</span>
+        <span class="kw">WHEN</span> salary &gt;= <span class="nm">60000</span> <span class="kw">THEN</span> <span class="st">'Mid'</span>
+        <span class="kw">ELSE</span> <span class="st">'Junior'</span>
+    <span class="kw">END</span> <span class="kw">AS</span> level
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Conditional aggregation (pivot)</span>
+<span class="kw">SELECT</span>
+    dept_id,
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> salary &gt; <span class="nm">70000</span> <span class="kw">THEN</span> <span class="nm">1</span> <span class="kw">ELSE</span> <span class="nm">0</span> <span class="kw">END</span>) <span class="kw">AS</span> senior_count,
+    <span class="fn">AVG</span>(<span class="kw">CASE WHEN</span> gender = <span class="st">'F'</span> <span class="kw">THEN</span> salary <span class="kw">END</span>) <span class="kw">AS</span> avg_female_salary
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> dept_id;
+
+<span class="cm">-- CASE in ORDER BY for custom sort</span>
+<span class="kw">ORDER BY</span>
+    <span class="kw">CASE</span> priority <span class="kw">WHEN</span> <span class="st">'High'</span> <span class="kw">THEN</span> <span class="nm">1</span> <span class="kw">WHEN</span> <span class="st">'Med'</span> <span class="kw">THEN</span> <span class="nm">2</span> <span class="kw">ELSE</span> <span class="nm">3</span> <span class="kw">END</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between searched and simple CASE?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <strong>Simple CASE</strong>: <code>CASE expr WHEN v1 THEN r1 WHEN v2 THEN r2 END</code> &mdash; compares one expression to multiple values using equality only. <strong>Searched CASE</strong>: <code>CASE WHEN cond1 THEN r1 WHEN cond2 THEN r2 END</code> &mdash; each WHEN evaluates an independent boolean condition (can use &gt;, LIKE, IS NULL, etc.). Use searched CASE for range conditions; simple CASE for equality matching a single variable.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you pivot rows to columns using SQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use conditional aggregation: <code>SELECT dept_id, SUM(CASE WHEN month='Jan' THEN sales END) AS jan, SUM(CASE WHEN month='Feb' THEN sales END) AS feb FROM monthly_sales GROUP BY dept_id</code>. This turns one row per (dept, month) into one row per dept with month values as columns. PostgreSQL also has a CROSSTAB function; SQL Server has a PIVOT keyword.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What does CASE return when no WHEN matches and there's no ELSE?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> It returns NULL. This is a common bug &mdash; forgetting ELSE means unmatched rows silently produce NULL. Always include an ELSE clause unless NULL is explicitly the desired behaviour for unmatched rows.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-6" onclick="md(6)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-7"><div class="topic-header" onclick="tg(7)"><div class="num" id="num-7">8</div><div class="topic-title">String Functions</div><span class="lb lb-c">Filtering</span><span class="chev" id="cv-7">&#8964;</span></div><div class="topic-expand" id="ex-7"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>SQL provides rich built-in string functions for text cleaning and manipulation. Most functions are consistent across databases, with minor naming differences. Key functions: <strong>CONCAT</strong> joins strings, <strong>UPPER/LOWER</strong> changes case, <strong>TRIM/LTRIM/RTRIM</strong> removes whitespace, <strong>LENGTH/LEN</strong> counts characters, <strong>SUBSTRING</strong> extracts a portion, <strong>REPLACE</strong> substitutes text, <strong>LIKE/REGEXP</strong> for pattern matching, <strong>POSITION/INSTR</strong> finds a substring's location.</p></div><div class="subtopics"><div class="sub"><strong>CONCAT(a,b) or a || b</strong> &mdash; join strings; CONCAT_WS(sep,...) adds separator</div><div class="sub"><strong>UPPER/LOWER</strong> &mdash; change case; INITCAP capitalizes first letter (PG/Oracle)</div><div class="sub"><strong>TRIM/LTRIM/RTRIM</strong> &mdash; remove leading/trailing spaces</div><div class="sub"><strong>SUBSTRING(s, start, len)</strong> &mdash; extract part of string; 1-indexed</div><div class="sub"><strong>REPLACE(s, old, new)</strong> &mdash; substitute all occurrences</div><div class="sub"><strong>LENGTH(s)</strong> &mdash; char count; MySQL: CHAR_LENGTH vs LENGTH (bytes)</div></div><div class="code-block"><span class="cm">-- CONCAT &mdash; join strings</span>
+<span class="kw">SELECT</span> <span class="fn">CONCAT</span>(first_name, <span class="st">' '</span>, last_name) <span class="kw">AS</span> full_name <span class="kw">FROM</span> employees;
+<span class="kw">SELECT</span> first_name || <span class="st">' '</span> || last_name <span class="kw">AS</span> full_name <span class="kw">FROM</span> employees;  <span class="cm">-- PG/Oracle</span>
+
+<span class="cm">-- CONCAT_WS (with separator &mdash; skips NULLs!)</span>
+<span class="kw">SELECT</span> <span class="fn">CONCAT_WS</span>(<span class="st">', '</span>, city, state, country) <span class="kw">AS</span> address <span class="kw">FROM</span> contacts;
+
+<span class="cm">-- Cleaning & extraction</span>
+<span class="kw">SELECT</span>
+    <span class="fn">UPPER</span>(name)                  <span class="kw">AS</span> upper_name,
+    <span class="fn">TRIM</span>(<span class="st">'  hello  '</span>)            <span class="kw">AS</span> trimmed,      <span class="cm">-- 'hello'</span>
+    <span class="fn">LENGTH</span>(<span class="st">'hello'</span>)              <span class="kw">AS</span> len,           <span class="cm">-- 5</span>
+    <span class="fn">SUBSTRING</span>(name, <span class="nm">1</span>, <span class="nm">3</span>)       <span class="kw">AS</span> prefix,
+    <span class="fn">REPLACE</span>(phone, <span class="st">'-'</span>, <span class="st">''</span>)     <span class="kw">AS</span> clean_phone,
+    <span class="fn">POSITION</span>(<span class="st">'@'</span> <span class="kw">IN</span> email)     <span class="kw">AS</span> at_pos,
+    <span class="fn">LEFT</span>(email, <span class="fn">POSITION</span>(<span class="st">'@'</span> <span class="kw">IN</span> email)-<span class="nm">1</span>) <span class="kw">AS</span> username
+<span class="kw">FROM</span> users;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. How do you extract the domain from an email column in SQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>SUBSTRING(email, POSITION('@' IN email) + 1)</code> &mdash; finds the position of '@' then takes everything after it. Or: <code>SPLIT_PART(email, '@', 2)</code> in PostgreSQL. For just the domain name (without TLD): combine with another POSITION call on the '.'. Always test with NULL emails using COALESCE.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the difference between CHAR_LENGTH and LENGTH in MySQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> In MySQL, <code>LENGTH()</code> returns the byte count (for UTF-8, emoji or non-ASCII chars take 2&ndash;4 bytes each). <code>CHAR_LENGTH()</code> returns the character count (number of characters, regardless of encoding). For ASCII-only text they're identical. For international text or emoji, use <code>CHAR_LENGTH()</code>. In PostgreSQL, <code>LENGTH()</code> returns character count by default.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Why does CONCAT_WS skip NULLs but CONCAT doesn't?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>CONCAT('a', NULL, 'b')</code> returns NULL in standard SQL (NULL propagates). <code>CONCAT_WS(', ', 'a', NULL, 'b')</code> returns 'a, b' &mdash; it automatically ignores NULL arguments. This makes CONCAT_WS ideal for building address or name strings where some components may be absent. In MySQL, CONCAT returns NULL if any argument is NULL; in PostgreSQL it treats NULL as empty string.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-7" onclick="md(7)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-8"><div class="topic-header" onclick="tg(8)"><div class="num" id="num-8">9</div><div class="topic-title">Date &amp; Time Functions</div><span class="lb lb-c">Filtering</span><span class="chev" id="cv-8">&#8964;</span></div><div class="topic-expand" id="ex-8"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Date/time functions are critical for business analytics. Key operations: extracting components (year, month, day), calculating differences between dates, formatting dates for output, and filtering by date ranges. Syntax varies more across databases than most SQL, but the concepts are identical.</p><p>Key functions: <strong>NOW()/CURRENT_TIMESTAMP</strong> returns current datetime, <strong>CURDATE()/CURRENT_DATE</strong> returns today, <strong>DATEDIFF/AGE</strong> calculates the difference between dates, <strong>DATE_ADD/DATEADD</strong> adds an interval, <strong>EXTRACT/YEAR/MONTH/DAY</strong> pulls out components, and <strong>DATE_FORMAT/TO_CHAR</strong> formats dates as strings.</p></div><div class="subtopics"><div class="sub"><strong>NOW()/CURRENT_TIMESTAMP</strong> &mdash; current datetime; CURRENT_DATE for date only</div><div class="sub"><strong>DATEDIFF(end, start)</strong> &mdash; MySQL; AGE(end,start) in PG; DATEDIFF(unit,start,end) in SQL Server</div><div class="sub"><strong>EXTRACT(YEAR FROM date)</strong> &mdash; ANSI standard; YEAR(date) in MySQL</div><div class="sub"><strong>DATE_ADD(date, INTERVAL n unit)</strong> &mdash; MySQL; date + INTERVAL '1 month' in PG</div><div class="sub"><strong>DATE_FORMAT(date, fmt)</strong> &mdash; MySQL; TO_CHAR(date,'YYYY-MM-DD') in PG/Oracle</div></div><div class="code-block"><span class="cm">-- Current date/time</span>
+<span class="kw">SELECT</span> <span class="fn">NOW</span>(), <span class="fn">CURRENT_DATE</span>, <span class="fn">CURRENT_TIME</span>;
+
+<span class="cm">-- Extract components</span>
+<span class="kw">SELECT</span>
+    <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> hire_date)  <span class="kw">AS</span> hire_year,
+    <span class="fn">EXTRACT</span>(<span class="kw">MONTH FROM</span> hire_date) <span class="kw">AS</span> hire_month,
+    <span class="fn">EXTRACT</span>(<span class="kw">DOW FROM</span> hire_date)   <span class="kw">AS</span> day_of_week  <span class="cm">-- PG</span>
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Date difference (days)</span>
+<span class="kw">SELECT</span> name, <span class="fn">DATEDIFF</span>(<span class="fn">NOW</span>(), hire_date) <span class="kw">AS</span> days_employed <span class="cm">-- MySQL</span>
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Add / subtract intervals</span>
+<span class="kw">SELECT</span> hire_date, <span class="fn">DATE_ADD</span>(hire_date, <span class="kw">INTERVAL</span> <span class="nm">1</span> <span class="kw">YEAR</span>) <span class="kw">AS</span> review_date
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Filter current month&apos;s records</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> orders
+<span class="kw">WHERE</span> <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> order_date) = <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> <span class="fn">NOW</span>())
+  <span class="kw">AND</span> <span class="fn">EXTRACT</span>(<span class="kw">MONTH FROM</span> order_date) = <span class="fn">EXTRACT</span>(<span class="kw">MONTH FROM</span> <span class="fn">NOW</span>());</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. How do you filter rows from the last 30 days?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>WHERE order_date &gt;= NOW() - INTERVAL '30 days'</code> (PostgreSQL) or <code>WHERE order_date &gt;= DATE_SUB(NOW(), INTERVAL 30 DAY)</code> (MySQL). Avoid <code>WHERE YEAR(order_date) = 2024</code> style filters on indexed columns &mdash; applying a function to the column prevents index use. Always put the arithmetic on the right side (the constant), keeping the column bare for index efficiency.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the problem with using EXTRACT(YEAR...) in a WHERE clause for range filtering?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Wrapping a column in a function like <code>EXTRACT(YEAR FROM order_date) = 2024</code> makes the query non-sargable &mdash; the database can't use a B-tree index on order_date because it must compute EXTRACT() for every row. Better: <code>WHERE order_date &gt;= '2024-01-01' AND order_date &lt; '2025-01-01'</code> &mdash; this is sargable and can use a range scan on the index.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you calculate a person's age from their birthdate?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> PostgreSQL: <code>DATE_PART('year', AGE(birth_date))</code>. MySQL: <code>TIMESTAMPDIFF(YEAR, birth_date, CURDATE())</code>. SQL Server: <code>DATEDIFF(YEAR, birth_date, GETDATE())</code>. Note: simply doing <code>YEAR(NOW()) - YEAR(birth_date)</code> gives wrong results for people who haven't had their birthday yet this year &mdash; use the database-specific AGE or TIMESTAMPDIFF functions which account for this.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-8" onclick="md(8)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-9"><div class="topic-header" onclick="tg(9)"><div class="num" id="num-9">10</div><div class="topic-title">Numeric &amp; Math Functions</div><span class="lb lb-c">Filtering</span><span class="chev" id="cv-9">&#8964;</span></div><div class="topic-expand" id="ex-9"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>SQL provides comprehensive math functions for calculations. <strong>ROUND(n, decimals)</strong> rounds to a specified number of decimal places. <strong>CEIL/CEILING</strong> rounds up, <strong>FLOOR</strong> rounds down. <strong>ABS</strong> gives the absolute value. <strong>MOD(a,b)</strong> or <code>a % b</code> gives the remainder. <strong>POWER(n,exp)</strong> and <strong>SQRT(n)</strong> for exponents. For statistical analysis: <strong>STDDEV</strong> and <strong>VARIANCE</strong> aggregate functions. These work in SELECT, WHERE, and as part of aggregations.</p></div><div class="subtopics"><div class="sub"><strong>ROUND(n, d)</strong> &mdash; rounds to d decimal places; ROUND(n) rounds to integer</div><div class="sub"><strong>CEIL(n) / FLOOR(n)</strong> &mdash; always round up / always round down</div><div class="sub"><strong>ABS(n)</strong> &mdash; absolute value; useful for differences and deviations</div><div class="sub"><strong>MOD(a,b) or a%b</strong> &mdash; remainder; MOD(id,2)=0 filters even rows</div><div class="sub"><strong>POWER(n,e) / SQRT(n)</strong> &mdash; exponentiation and square root</div></div><div class="code-block"><span class="cm">-- Rounding</span>
+<span class="kw">SELECT</span>
+    <span class="fn">ROUND</span>(<span class="nm">3.14159</span>, <span class="nm">2</span>)    <span class="cm">-- 3.14</span>,
+    <span class="fn">CEIL</span>(<span class="nm">3.1</span>)           <span class="cm">-- 4</span>,
+    <span class="fn">FLOOR</span>(<span class="nm">3.9</span>)          <span class="cm">-- 3</span>,
+    <span class="fn">ABS</span>(-<span class="nm">42</span>)           <span class="cm">-- 42</span>,
+    <span class="fn">MOD</span>(<span class="nm">10</span>, <span class="nm">3</span>)          <span class="cm">-- 1</span>,
+    <span class="fn">POWER</span>(<span class="nm">2</span>, <span class="nm">10</span>)        <span class="cm">-- 1024</span>,
+    <span class="fn">SQRT</span>(<span class="nm">144</span>)           <span class="cm">-- 12</span>;
+
+<span class="cm">-- Financial calculation</span>
+<span class="kw">SELECT</span>
+    order_id,
+    quantity * unit_price <span class="kw">AS</span> subtotal,
+    <span class="fn">ROUND</span>(quantity * unit_price * <span class="nm">0.18</span>, <span class="nm">2</span>) <span class="kw">AS</span> tax,
+    <span class="fn">ROUND</span>(quantity * unit_price * <span class="nm">1.18</span>, <span class="nm">2</span>) <span class="kw">AS</span> total
+<span class="kw">FROM</span> order_items;
+
+<span class="cm">-- Filter odd/even IDs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> <span class="fn">MOD</span>(emp_id, <span class="nm">2</span>) = <span class="nm">0</span>; <span class="cm">-- even</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between ROUND, TRUNCATE, and FLOOR?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>ROUND(3.5)</code> &rarr; 4 (rounds to nearest, ties up). <code>TRUNCATE(3.9, 0)</code> &rarr; 3 (removes decimal part without rounding). <code>FLOOR(3.9)</code> &rarr; 3 (always rounds down to nearest integer). For negative numbers: <code>FLOOR(-3.1)</code> &rarr; -4 (rounds away from zero), <code>TRUNCATE(-3.9)</code> &rarr; -3 (truncates toward zero). Use TRUNCATE for financial floor calculations; ROUND for display.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you avoid divide-by-zero errors in SQL calculations?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use NULLIF: <code>numerator / NULLIF(denominator, 0)</code> &mdash; if denominator is 0, NULLIF returns NULL, and NULL / anything = NULL (no error). Or CASE: <code>CASE WHEN denominator = 0 THEN NULL ELSE numerator / denominator END</code>. In the result, handle NULL with COALESCE: <code>COALESCE(num/NULLIF(den,0), 0)</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you calculate the percentage contribution of each row to a total?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Subquery approach: <code>SELECT name, salary, ROUND(salary * 100.0 / (SELECT SUM(salary) FROM employees), 2) AS pct FROM employees</code>. Better with window functions: <code>SELECT name, salary, ROUND(salary * 100.0 / SUM(salary) OVER(), 2) AS pct FROM employees</code> &mdash; single pass, no subquery needed.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-9" onclick="md(9)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-joins">
+<div class="topic-card" id="card-10"><div class="topic-header" onclick="tg(10)"><div class="num" id="num-10">11</div><div class="topic-title">INNER JOIN &amp; JOIN Types</div><span class="lb lb-a">Joins</span><span class="chev" id="cv-10">&#8964;</span></div><div class="topic-expand" id="ex-10"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A <strong>JOIN</strong> combines rows from two or more tables based on a related column. <strong>INNER JOIN</strong> (the default) returns only rows where there is a match in both tables &mdash; unmatched rows are excluded from both sides. <strong>LEFT JOIN</strong> returns all rows from the left table and matching rows from the right (NULLs for no match). <strong>RIGHT JOIN</strong> is the mirror. <strong>FULL OUTER JOIN</strong> returns all rows from both, NULLs where no match exists. <strong>CROSS JOIN</strong> produces a Cartesian product &mdash; every row from table A combined with every row from table B.</p></div><div class="subtopics"><div class="sub"><strong>INNER JOIN</strong> &mdash; only matching rows from both tables</div><div class="sub"><strong>LEFT JOIN</strong> &mdash; all left rows + matching right; NULLs for unmatched right</div><div class="sub"><strong>RIGHT JOIN</strong> &mdash; all right rows + matching left; mirror of LEFT JOIN</div><div class="sub"><strong>FULL OUTER JOIN</strong> &mdash; all rows from both; NULLs where no match</div><div class="sub"><strong>CROSS JOIN</strong> &mdash; Cartesian product; every combination; A&times;B rows</div></div><div class="code-block"><span class="cm">-- INNER JOIN: only matched rows</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+
+<span class="cm">-- LEFT JOIN: all employees, dept may be NULL</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+
+<span class="cm">-- Find unmatched rows (employees without a dept)</span>
+<span class="kw">SELECT</span> e.name
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id
+<span class="kw">WHERE</span> d.dept_id <span class="kw">IS NULL</span>;
+
+<span class="cm">-- FULL OUTER JOIN</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">FULL OUTER JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+
+<span class="cm">-- CROSS JOIN (use with care!)</span>
+<span class="kw">SELECT</span> colors.name, sizes.name
+<span class="kw">FROM</span> colors <span class="kw">CROSS JOIN</span> sizes;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Explain the difference between INNER JOIN and LEFT JOIN with a real example.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Say <code>employees</code> has Alice (dept=10), Bob (dept=NULL), and <code>departments</code> has dept 10 (Engineering) and dept 20 (Marketing). INNER JOIN returns only Alice (matched). LEFT JOIN returns Alice (with dept name) AND Bob (with NULL dept name). Use INNER JOIN when you only want complete matches; LEFT JOIN when you want to keep all left rows regardless of match &mdash; e.g., 'all employees, show department if they have one'.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you find rows in Table A that don't exist in Table B?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> LEFT JOIN + IS NULL filter: <code>SELECT a.* FROM a LEFT JOIN b ON a.id = b.id WHERE b.id IS NULL</code>. This is the anti-join pattern &mdash; the LEFT JOIN includes all rows from A; filtering WHERE b.id IS NULL keeps only those with no match. Alternative: <code>WHERE a.id NOT IN (SELECT id FROM b WHERE id IS NOT NULL)</code> or <code>WHERE NOT EXISTS (SELECT 1 FROM b WHERE b.id = a.id)</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What causes row multiplication (fan-out) in a JOIN and how do you prevent it?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> If the join key has duplicate values in either table, each duplicate in table A matches each in table B &mdash; a Cartesian product of duplicates. 3 rows with id=5 in A &times; 2 rows with id=5 in B = 6 output rows. Prevention: (1) ensure the join key is unique in at least one table, (2) use DISTINCT or GROUP BY after joining, (3) verify with <code>COUNT(*)</code> before and after the join.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-10" onclick="md(10)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-11"><div class="topic-header" onclick="tg(11)"><div class="num" id="num-11">12</div><div class="topic-title">SELF JOIN &amp; Multi-Table Joins</div><span class="lb lb-a">Joins</span><span class="chev" id="cv-11">&#8964;</span></div><div class="topic-expand" id="ex-11"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A <strong>SELF JOIN</strong> joins a table to itself. It is used for hierarchical data (employees and their managers, who are also employees), finding pairs within the same table, and comparing rows within the same table. You must use aliases to distinguish the two instances of the same table.</p><p><strong>Multi-table joins</strong> chain multiple joins together. SQL processes them left to right, creating an intermediate result set at each step. You can join as many tables as needed. Table aliases are essential for readability when joining multiple tables.</p></div><div class="subtopics"><div class="sub"><strong>SELF JOIN</strong> &mdash; table joined to itself; requires aliases (e AS mgr, e AS emp)</div><div class="sub"><strong>Multi-table JOIN</strong> &mdash; chain JOINs; SQL processes left to right</div><div class="sub"><strong>Alias clarity</strong> &mdash; always alias tables; e for employees, d for departments</div><div class="sub"><strong>JOIN on multiple columns</strong> &mdash; ON a.col1=b.col1 AND a.col2=b.col2</div></div><div class="code-block"><span class="cm">-- SELF JOIN: find each employee&apos;s manager</span>
+<span class="kw">SELECT</span>
+    emp.name <span class="kw">AS</span> employee,
+    mgr.name <span class="kw">AS</span> manager
+<span class="kw">FROM</span> employees emp
+<span class="kw">LEFT JOIN</span> employees mgr <span class="kw">ON</span> emp.manager_id = mgr.emp_id;
+
+<span class="cm">-- SELF JOIN: find pairs with same department</span>
+<span class="kw">SELECT</span> a.name, b.name, a.dept_id
+<span class="kw">FROM</span> employees a
+<span class="kw">JOIN</span> employees b
+    <span class="kw">ON</span> a.dept_id = b.dept_id <span class="kw">AND</span> a.emp_id &lt; b.emp_id;
+
+<span class="cm">-- Multi-table JOIN</span>
+<span class="kw">SELECT</span>
+    e.name,
+    d.dept_name,
+    p.project_name,
+    l.city <span class="kw">AS</span> office_location
+<span class="kw">FROM</span> employees e
+<span class="kw">JOIN</span> departments d   <span class="kw">ON</span> e.dept_id    = d.dept_id
+<span class="kw">JOIN</span> emp_projects ep <span class="kw">ON</span> e.emp_id     = ep.emp_id
+<span class="kw">JOIN</span> projects p      <span class="kw">ON</span> ep.proj_id  = p.proj_id
+<span class="kw">JOIN</span> locations l     <span class="kw">ON</span> d.location_id = l.loc_id;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. When would you use a SELF JOIN?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Three main use cases: (1) <strong>Hierarchical data</strong> &mdash; employee-manager relationships where both are in the same table. (2) <strong>Finding pairs</strong> &mdash; customers who live in the same city, products with the same price. (3) <strong>Row comparison</strong> &mdash; compare consecutive records (previous order date vs current). The key technique: alias the table twice with different names (<code>e1, e2</code> or <code>emp, mgr</code>).</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Write a query to find all employees who earn more than their manager.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>SELECT e.name, e.salary, m.name AS manager, m.salary AS manager_salary FROM employees e JOIN employees m ON e.manager_id = m.emp_id WHERE e.salary > m.salary</code>. This is a classic self-join interview question. The key: join employees to themselves using the manager_id &rarr; emp_id relationship, then filter where the employee's salary exceeds the manager's.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Does the order of tables in a JOIN affect the result?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> For INNER JOIN, no &mdash; the result is the same regardless of table order. For LEFT/RIGHT JOIN, yes &mdash; order determines which table is 'preserved'. Any LEFT JOIN can be rewritten as a RIGHT JOIN by swapping the tables. Modern query optimisers may reorder INNER JOIN tables for performance, but always produce the correct result. For consistency, put the main/driving table first.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-11" onclick="md(11)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-12"><div class="topic-header" onclick="tg(12)"><div class="num" id="num-12">13</div><div class="topic-title">Subqueries &amp; EXISTS</div><span class="lb lb-a">Joins</span><span class="chev" id="cv-12">&#8964;</span></div><div class="topic-expand" id="ex-12"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A <strong>subquery</strong> (inner query) is a query nested inside another query. Subqueries can appear in WHERE, FROM, SELECT, or HAVING clauses. A <strong>correlated subquery</strong> references the outer query &mdash; it is executed once per row of the outer query (can be slow). An <strong>uncorrelated subquery</strong> runs independently once and its result is reused.</p><p><strong>EXISTS</strong> tests whether a subquery returns any rows. It stops processing as soon as it finds the first match, making it faster than <code>IN</code> for large datasets. <strong>NOT EXISTS</strong> is the anti-join pattern. Key insight: prefer EXISTS/NOT EXISTS over IN/NOT IN when dealing with NULLs.</p></div><div class="subtopics"><div class="sub"><strong>Scalar subquery</strong> &mdash; returns exactly one value; used in SELECT or WHERE</div><div class="sub"><strong>Inline view / derived table</strong> &mdash; subquery in FROM clause; must be aliased</div><div class="sub"><strong>Correlated subquery</strong> &mdash; references outer query; runs once per row; can be slow</div><div class="sub"><strong>EXISTS(subquery)</strong> &mdash; returns TRUE if any rows; stops at first match</div><div class="sub"><strong>NOT EXISTS</strong> &mdash; anti-join; safe with NULLs; prefer over NOT IN</div></div><div class="code-block"><span class="cm">-- Scalar subquery in WHERE</span>
+<span class="kw">SELECT</span> name, salary
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary > (<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees);
+
+<span class="cm">-- Subquery in FROM (derived table)</span>
+<span class="kw">SELECT</span> dept_id, avg_sal
+<span class="kw">FROM</span> (<span class="kw">SELECT</span> dept_id, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+      <span class="kw">FROM</span> employees <span class="kw">GROUP BY</span> dept_id) dept_stats
+<span class="kw">WHERE</span> avg_sal &gt; <span class="nm">70000</span>;
+
+<span class="cm">-- EXISTS &mdash; fast anti/semi-join</span>
+<span class="kw">SELECT</span> name
+<span class="kw">FROM</span> departments d
+<span class="kw">WHERE EXISTS</span> (
+    <span class="kw">SELECT</span> <span class="nm">1</span> <span class="kw">FROM</span> employees e
+    <span class="kw">WHERE</span> e.dept_id = d.dept_id
+);
+
+<span class="cm">-- Correlated subquery: salary vs dept avg</span>
+<span class="kw">SELECT</span> name, salary,
+    (<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees e2
+     <span class="kw">WHERE</span> e2.dept_id = e1.dept_id) <span class="kw">AS</span> dept_avg
+<span class="kw">FROM</span> employees e1;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between a correlated and uncorrelated subquery?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <strong>Uncorrelated</strong>: runs once independently. <code>WHERE salary &gt; (SELECT AVG(salary) FROM employees)</code> &mdash; the inner query runs once, its result is reused for every row. <strong>Correlated</strong>: references the outer query, runs once per outer row. <code>WHERE salary &gt; (SELECT AVG(salary) FROM employees WHERE dept_id = e.dept_id)</code> &mdash; runs once per employee. Correlated subqueries can be very slow on large tables; CTEs or window functions are usually faster alternatives.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. When should you use EXISTS instead of IN?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Prefer EXISTS when: (1) the subquery could return NULLs (NOT IN with NULLs returns no rows; NOT EXISTS is NULL-safe); (2) the subquery result set is large (EXISTS stops at first match; IN evaluates all values). Prefer IN when: the list is a small, static set of literals. For large correlated subqueries, EXISTS is often faster because it can short-circuit.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What does SELECT 1 mean inside an EXISTS subquery?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> It means EXISTS only cares whether any rows are returned &mdash; not the actual values. <code>SELECT 1</code>, <code>SELECT *</code>, and <code>SELECT NULL</code> inside EXISTS are equivalent in terms of correctness. The database optimiser ignores the SELECT list inside EXISTS and only checks if the subquery returns at least one row. Using <code>SELECT 1</code> is a conventional signal to readers that the value doesn't matter.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-12" onclick="md(12)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-aggregation">
+<div class="topic-card" id="card-13"><div class="topic-header" onclick="tg(13)"><div class="num" id="num-13">14</div><div class="topic-title">GROUP BY &amp; Aggregate Functions</div><span class="lb lb-e">Aggregation</span><span class="chev" id="cv-13">&#8964;</span></div><div class="topic-expand" id="ex-13"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>GROUP BY</strong> divides rows into groups and applies aggregate functions to each group. Aggregate functions: <strong>COUNT(*)</strong> counts all rows (including NULLs), <strong>COUNT(col)</strong> counts non-NULL values, <strong>SUM</strong>, <strong>AVG</strong>, <strong>MIN</strong>, <strong>MAX</strong>. A key rule: every column in SELECT must either be in GROUP BY or wrapped in an aggregate function (except in MySQL with ONLY_FULL_GROUP_BY disabled).</p><p><strong>HAVING</strong> filters groups after aggregation &mdash; it is the GROUP BY equivalent of WHERE. WHERE filters individual rows before grouping; HAVING filters groups after. You can reference aggregate results in HAVING.</p></div><div class="subtopics"><div class="sub"><strong>COUNT(*)</strong> &mdash; all rows including NULLs; COUNT(col) counts only non-NULLs</div><div class="sub"><strong>SUM / AVG / MIN / MAX</strong> &mdash; all skip NULLs; always verify expected behaviour</div><div class="sub"><strong>GROUP BY rule</strong> &mdash; SELECT cols must be in GROUP BY or aggregated</div><div class="sub"><strong>HAVING</strong> &mdash; filters after aggregation; WHERE filters before; can use aggregates</div><div class="sub"><strong>COUNT(DISTINCT col)</strong> &mdash; count unique non-NULL values</div></div><div class="code-block"><span class="cm">-- Basic GROUP BY</span>
+<span class="kw">SELECT</span> dept_id, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> headcount,
+       <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary,
+       <span class="fn">MAX</span>(salary) <span class="kw">AS</span> max_salary
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> dept_id;
+
+<span class="cm">-- HAVING: keep depts with avg salary > 70k</span>
+<span class="kw">SELECT</span> dept_id, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> hire_date &gt; <span class="st">'2018-01-01'</span>  <span class="cm">-- row filter first</span>
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">HAVING</span> <span class="fn">AVG</span>(salary) &gt; <span class="nm">70000</span>      <span class="cm">-- group filter after</span>
+<span class="kw">ORDER BY</span> avg_sal <span class="kw">DESC</span>;
+
+<span class="cm">-- COUNT DISTINCT</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id) <span class="kw">AS</span> unique_customers
+<span class="kw">FROM</span> orders;
+
+<span class="cm">-- Multi-column GROUP BY</span>
+<span class="kw">SELECT</span> dept_id, <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> hire_date) <span class="kw">AS</span> hire_year,
+       <span class="fn">COUNT</span>(*) <span class="kw">AS</span> hires
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> dept_id, <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> hire_date);</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between WHERE and HAVING?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <strong>WHERE</strong> filters individual rows BEFORE grouping. It cannot reference aggregate functions. <strong>HAVING</strong> filters groups AFTER aggregation. It can reference aggregate functions like COUNT, AVG, SUM. Rule: use WHERE to reduce rows early (more efficient), use HAVING only when filtering on aggregate results. Example: <code>WHERE salary > 50000</code> reduces rows before grouping; <code>HAVING AVG(salary) > 50000</code> keeps only groups whose average exceeds 50000.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the difference between COUNT(*) and COUNT(col)?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>COUNT(*)</code> counts all rows including those with NULL values in any column. <code>COUNT(col)</code> counts only rows where that specific column is NOT NULL. Example: if 100 rows exist but 'bonus' is NULL for 40 of them, <code>COUNT(*)</code> = 100 and <code>COUNT(bonus)</code> = 60. Use COUNT(*) for total row count; COUNT(col) to count non-missing values; COUNT(DISTINCT col) for unique non-NULL values.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Can you use a column alias in HAVING?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> In standard SQL (and PostgreSQL, SQL Server), no &mdash; HAVING executes before SELECT, so aliases don't exist yet. You must repeat the expression: <code>HAVING AVG(salary) &gt; 70000</code>. MySQL is an exception &mdash; it allows aliases in HAVING. To avoid repetition in any database, use a derived table or CTE: <code>SELECT dept_id, avg_sal FROM (SELECT dept_id, AVG(salary) AS avg_sal FROM employees GROUP BY dept_id) t WHERE avg_sal &gt; 70000</code>.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-13" onclick="md(13)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-14"><div class="topic-header" onclick="tg(14)"><div class="num" id="num-14">15</div><div class="topic-title">UNION, INTERSECT &amp; EXCEPT</div><span class="lb lb-e">Aggregation</span><span class="chev" id="cv-14">&#8964;</span></div><div class="topic-expand" id="ex-14"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Set operators combine the results of two queries. <strong>UNION</strong> combines and removes duplicates; <strong>UNION ALL</strong> keeps duplicates (faster, use when you know there are no duplicates). <strong>INTERSECT</strong> returns only rows that appear in BOTH queries. <strong>EXCEPT</strong> (MINUS in Oracle) returns rows from the first query that don't appear in the second.</p><p>Rules for all set operators: (1) both queries must have the same number of columns; (2) corresponding columns must have compatible data types; (3) ORDER BY applies to the final combined result, not individual queries.</p></div><div class="subtopics"><div class="sub"><strong>UNION</strong> &mdash; combine + deduplicate; UNION ALL keeps duplicates (much faster)</div><div class="sub"><strong>INTERSECT</strong> &mdash; rows present in BOTH result sets</div><div class="sub"><strong>EXCEPT / MINUS</strong> &mdash; rows in first set not in second; Oracle uses MINUS</div><div class="sub"><strong>Rules</strong> &mdash; same number of columns; compatible types; ORDER BY on final result</div></div><div class="code-block"><span class="cm">-- UNION: combine sales from two regions</span>
+<span class="kw">SELECT</span> customer_id, order_date, amount <span class="kw">FROM</span> sales_north
+<span class="kw">UNION ALL</span>  <span class="cm">-- faster: no deduplication</span>
+<span class="kw">SELECT</span> customer_id, order_date, amount <span class="kw">FROM</span> sales_south;
+
+<span class="cm">-- UNION removes duplicates (use when needed)</span>
+<span class="kw">SELECT</span> email <span class="kw">FROM</span> customers
+<span class="kw">UNION</span>
+<span class="kw">SELECT</span> email <span class="kw">FROM</span> newsletter_subscribers;
+
+<span class="cm">-- INTERSECT: customers who also subscribed</span>
+<span class="kw">SELECT</span> email <span class="kw">FROM</span> customers
+<span class="kw">INTERSECT</span>
+<span class="kw">SELECT</span> email <span class="kw">FROM</span> newsletter_subscribers;
+
+<span class="cm">-- EXCEPT: subscribers who are NOT customers</span>
+<span class="kw">SELECT</span> email <span class="kw">FROM</span> newsletter_subscribers
+<span class="kw">EXCEPT</span>
+<span class="kw">SELECT</span> email <span class="kw">FROM</span> customers;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. When should you use UNION vs UNION ALL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use <strong>UNION ALL</strong> by default &mdash; it's faster because it doesn't sort/deduplicate. Use <strong>UNION</strong> only when you genuinely need deduplication across the two result sets. UNION internally does a GROUP BY or sort to find duplicates &mdash; significant overhead on large datasets. If you know the two queries can't produce identical rows (e.g., they come from different date ranges), always use UNION ALL.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the difference between EXCEPT and NOT IN / NOT EXISTS?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> They achieve the same result but differently. <code>EXCEPT</code> compares entire rows (all columns must match). <code>NOT IN / NOT EXISTS</code> compares on specific key columns you specify. Use EXCEPT when comparing all columns; use NOT EXISTS when doing a targeted anti-join on a key. Also: EXCEPT handles NULLs correctly (NULLs are considered equal for comparison purposes in EXCEPT).</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Can you ORDER BY inside individual UNION queries?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> No. ORDER BY applies to the final combined result, not individual parts. This is correct: <code>(SELECT a FROM t1) UNION (SELECT a FROM t2) ORDER BY a</code>. If you need to label rows and sort by source: <code>SELECT a, 'source1' AS src FROM t1 UNION ALL SELECT a, 'source2' FROM t2 ORDER BY src, a</code>.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-14" onclick="md(14)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-15"><div class="topic-header" onclick="tg(15)"><div class="num" id="num-15">16</div><div class="topic-title">ROLLUP, CUBE &amp; GROUPING SETS</div><span class="lb lb-e">Aggregation</span><span class="chev" id="cv-15">&#8964;</span></div><div class="topic-expand" id="ex-15"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>ROLLUP</strong> creates subtotals and grand totals automatically. <code>GROUP BY ROLLUP(a, b)</code> produces three levels: (a,b), (a), and () &mdash; the grand total. It follows a hierarchy: right-to-left rollup. <strong>CUBE</strong> produces all possible combinations of subtotals: <code>GROUP BY CUBE(a, b)</code> produces (a,b), (a), (b), and (). <strong>GROUPING SETS</strong> gives you explicit control over which groupings to compute. The <strong>GROUPING()</strong> function returns 1 when a column is part of the aggregate subtotal (NULL due to rollup), helping distinguish real NULLs from rollup NULLs.</p></div><div class="subtopics"><div class="sub"><strong>ROLLUP(a,b,c)</strong> &mdash; hierarchical subtotals: (a,b,c),(a,b),(a),() &mdash; grand total</div><div class="sub"><strong>CUBE(a,b,c)</strong> &mdash; all 2^n grouping combinations; expensive for many columns</div><div class="sub"><strong>GROUPING SETS((a),(b),())</strong> &mdash; explicit control; most flexible</div><div class="sub"><strong>GROUPING(col)</strong> &mdash; returns 1 if col is NULL due to ROLLUP/CUBE; 0 if real NULL</div></div><div class="code-block"><span class="cm">-- ROLLUP: totals per year, then grand total</span>
+<span class="kw">SELECT</span>
+    <span class="fn">COALESCE</span>(<span class="fn">CAST</span>(year <span class="kw">AS</span> <span class="op">VARCHAR</span>), <span class="st">'Grand Total'</span>) <span class="kw">AS</span> year,
+    <span class="fn">COALESCE</span>(product, <span class="st">'All Products'</span>) <span class="kw">AS</span> product,
+    <span class="fn">SUM</span>(revenue) <span class="kw">AS</span> revenue
+<span class="kw">FROM</span> sales
+<span class="kw">GROUP BY</span> <span class="kw">ROLLUP</span>(year, product);
+
+<span class="cm">-- GROUPING() distinguishes real vs rollup NULLs</span>
+<span class="kw">SELECT</span>
+    dept_id,
+    <span class="kw">CASE WHEN</span> <span class="fn">GROUPING</span>(dept_id)=<span class="nm">1</span> <span class="kw">THEN</span> <span class="st">'ALL DEPTS'</span>
+         <span class="kw">ELSE</span> <span class="fn">CAST</span>(dept_id <span class="kw">AS</span> <span class="op">VARCHAR</span>) <span class="kw">END</span> <span class="kw">AS</span> dept_label,
+    <span class="fn">SUM</span>(salary) <span class="kw">AS</span> total_salary
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> <span class="kw">ROLLUP</span>(dept_id);
+
+<span class="cm">-- GROUPING SETS: explicit combinations</span>
+<span class="kw">SELECT</span> region, product, <span class="fn">SUM</span>(sales)
+<span class="kw">FROM</span> data
+<span class="kw">GROUP BY</span> <span class="kw">GROUPING SETS</span>((region, product),(region),(product),());</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between ROLLUP and CUBE?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>ROLLUP(a,b,c)</code> creates n+1 groupings following a hierarchy from right to left: (a,b,c), (a,b), (a), (). Perfect for time hierarchies (year &rarr; quarter &rarr; month). <code>CUBE(a,b,c)</code> creates all 2^n possible groupings: (a,b,c), (a,b), (a,c), (b,c), (a), (b), (c), (). Expensive but gives every possible subtotal combination. Use ROLLUP for hierarchical data; CUBE for multidimensional analysis.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you distinguish real NULL values from NULL values generated by ROLLUP?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use the <code>GROUPING(col)</code> function, which returns 1 when the NULL was generated by ROLLUP/CUBE (meaning 'all values'), and 0 when it's a real NULL from the data. <code>CASE WHEN GROUPING(dept_id)=1 THEN 'All Departments' ELSE CAST(dept_id AS VARCHAR) END</code>. Without GROUPING(), you can't tell if dept_id=NULL means 'this employee has no department' or 'this is a total across all departments'.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is GROUPING SETS and when would you prefer it over ROLLUP/CUBE?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> GROUPING SETS lets you specify exactly which grouping combinations you want, without computing all rollup or cube combinations. E.g., <code>GROUP BY GROUPING SETS((region, year), (region), (year))</code> &mdash; subtotals by region+year, by region only, and by year only &mdash; but NOT the grand total. More efficient than CUBE when you only need specific combinations; more flexible than ROLLUP when the hierarchy isn't strictly linear.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-15" onclick="md(15)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-advanced">
+<div class="topic-card" id="card-16"><div class="topic-header" onclick="tg(16)"><div class="num" id="num-16">17</div><div class="topic-title">CTEs (WITH Clause)</div><span class="lb lb-x">Advanced</span><span class="chev" id="cv-16">&#8964;</span></div><div class="topic-expand" id="ex-16"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A <strong>Common Table Expression (CTE)</strong> is a named temporary result set defined with the <code>WITH</code> keyword. CTEs make complex queries readable by breaking them into named, logical steps. Multiple CTEs can be chained together. A <strong>Recursive CTE</strong> references itself, enabling traversal of hierarchical data like org charts, category trees, or bill of materials &mdash; structures that can't be queried with regular JOINs.</p><p>CTEs exist only for the duration of the query. They are not materialised by default (the database may or may not re-execute them). For expensive CTEs, some databases support <code>WITH ... AS MATERIALIZED</code>.</p></div><div class="subtopics"><div class="sub"><strong>WITH cte AS (SELECT...)</strong> &mdash; named subquery; reusable in the main query</div><div class="sub"><strong>Multiple CTEs</strong> &mdash; chain with commas; later CTEs can reference earlier ones</div><div class="sub"><strong>Recursive CTE</strong> &mdash; WITH RECURSIVE; anchor + recursive member; UNION ALL to combine</div><div class="sub"><strong>Readability</strong> &mdash; CTEs make nested subquery logic linear and understandable</div></div><div class="code-block"><span class="cm">-- Simple CTE</span>
+<span class="kw">WITH</span> dept_stats <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> dept_id, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+    <span class="kw">FROM</span> employees <span class="kw">GROUP BY</span> dept_id
+)
+<span class="kw">SELECT</span> e.name, e.salary, d.avg_sal
+<span class="kw">FROM</span> employees e
+<span class="kw">JOIN</span> dept_stats d <span class="kw">ON</span> e.dept_id = d.dept_id
+<span class="kw">WHERE</span> e.salary &gt; d.avg_sal;
+
+<span class="cm">-- Chained CTEs</span>
+<span class="kw">WITH</span>
+high_earners <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> salary &gt; <span class="nm">80000</span>
+),
+dept_summary <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> dept_id, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> cnt <span class="kw">FROM</span> high_earners <span class="kw">GROUP BY</span> dept_id
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> dept_summary <span class="kw">WHERE</span> cnt &gt; <span class="nm">5</span>;
+
+<span class="cm">-- Recursive CTE: org hierarchy</span>
+<span class="kw">WITH RECURSIVE</span> org_tree <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> emp_id, name, manager_id, <span class="nm">0</span> <span class="kw">AS</span> level
+    <span class="kw">FROM</span> employees <span class="kw">WHERE</span> manager_id <span class="kw">IS NULL</span>  <span class="cm">-- anchor</span>
+    <span class="kw">UNION ALL</span>
+    <span class="kw">SELECT</span> e.emp_id, e.name, e.manager_id, t.level+<span class="nm">1</span>
+    <span class="kw">FROM</span> employees e
+    <span class="kw">JOIN</span> org_tree t <span class="kw">ON</span> e.manager_id = t.emp_id   <span class="cm">-- recursive</span>
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> org_tree <span class="kw">ORDER BY</span> level, name;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between a CTE and a subquery?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Both produce a temporary named result set, but: CTEs are defined once at the top of the query and can be referenced multiple times, while subqueries must be repeated if used more than once. CTEs are readable &mdash; linear top-to-bottom logic. CTEs can be recursive; subqueries cannot. Performance is similar (both may or may not be materialised). Use CTEs for multi-step logic; subqueries for simple, single-use derivations.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Explain how a recursive CTE works.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> A recursive CTE has two parts: (1) <strong>Anchor member</strong>: the base case query (e.g., top-level rows where manager_id IS NULL). (2) <strong>Recursive member</strong>: references the CTE itself, adding one level per iteration. They are combined with UNION ALL. The database keeps executing the recursive member until it returns no more rows. A LIMIT or MAX recursion depth prevents infinite loops. Classic uses: org hierarchies, file system trees, path finding.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Can a CTE reference another CTE defined in the same WITH clause?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Yes &mdash; later CTEs in the same WITH clause can reference earlier ones. Order matters: <code>WITH a AS (...), b AS (SELECT * FROM a WHERE ...)</code> &mdash; b can use a. This is what makes chained CTEs so powerful for multi-step transformations. But an earlier CTE cannot reference a later one &mdash; they are evaluated top-to-bottom.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-16" onclick="md(16)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-17"><div class="topic-header" onclick="tg(17)"><div class="num" id="num-17">18</div><div class="topic-title">Window Functions &mdash; ROW_NUMBER, RANK, DENSE_RANK</div><span class="lb lb-x">Advanced</span><span class="chev" id="cv-17">&#8964;</span></div><div class="topic-expand" id="ex-17"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>Window functions</strong> perform calculations across a set of rows related to the current row, without collapsing them into a single output row (unlike GROUP BY). They use the <code>OVER()</code> clause which defines the window: <code>PARTITION BY</code> divides into groups (like GROUP BY but preserves rows), <code>ORDER BY</code> defines the ordering within each partition.</p><p><strong>ROW_NUMBER()</strong> assigns a unique sequential integer to each row &mdash; no ties. <strong>RANK()</strong> assigns the same rank to tied rows but leaves gaps (1,2,2,4). <strong>DENSE_RANK()</strong> assigns the same rank to tied rows with no gaps (1,2,2,3). These are the three most commonly tested SQL interview functions.</p></div><div class="subtopics"><div class="sub"><strong>OVER(PARTITION BY col ORDER BY col)</strong> &mdash; defines the window; no PARTITION = whole table</div><div class="sub"><strong>ROW_NUMBER()</strong> &mdash; unique 1,2,3... regardless of ties; for deduplication</div><div class="sub"><strong>RANK()</strong> &mdash; ties get same rank; gaps after ties: 1,2,2,4</div><div class="sub"><strong>DENSE_RANK()</strong> &mdash; ties get same rank; NO gaps: 1,2,2,3</div><div class="sub"><strong>Filter window results</strong> &mdash; wrap in CTE or subquery; cannot use in WHERE directly</div></div><div class="code-block"><span class="cm">-- Rank employees by salary within each dept</span>
+<span class="kw">SELECT</span> name, dept_id, salary,
+    <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> dept_id <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> row_num,
+    <span class="fn">RANK</span>()       <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> dept_id <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rank,
+    <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> dept_id <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> dense_rank
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Top 3 earners per department (most common interview Q)</span>
+<span class="kw">WITH</span> ranked <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> name, dept_id, salary,
+        <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> dept_id <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rnk
+    <span class="kw">FROM</span> employees
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ranked <span class="kw">WHERE</span> rnk &lt;= <span class="nm">3</span>;
+
+<span class="cm">-- Deduplicate: keep most recent row per customer</span>
+<span class="kw">WITH</span> latest <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> *, <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span>(
+        <span class="kw">PARTITION BY</span> customer_id <span class="kw">ORDER BY</span> created_at <span class="kw">DESC</span>) <span class="kw">AS</span> rn
+    <span class="kw">FROM</span> orders
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> latest <span class="kw">WHERE</span> rn = <span class="nm">1</span>;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between ROW_NUMBER, RANK, and DENSE_RANK?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> For salary values [90k, 80k, 80k, 70k]: <ul><li><strong>ROW_NUMBER</strong>: 1,2,3,4 &mdash; always unique, no ties</li><li><strong>RANK</strong>: 1,2,2,4 &mdash; tied rows share rank, next rank skips numbers</li><li><strong>DENSE_RANK</strong>: 1,2,2,3 &mdash; tied rows share rank, no gaps</li></ul>Use ROW_NUMBER for deduplication. Use DENSE_RANK for 'top N per group' (ensures all ties at rank N are included). Use RANK for sports-style standings.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Why can't you filter window function results directly in WHERE?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Window functions are evaluated after WHERE and GROUP BY (in the SELECT stage). So <code>WHERE RANK() OVER(...) = 1</code> is invalid &mdash; the window function doesn't exist at WHERE evaluation time. Solution: wrap in a CTE or subquery, then filter in the outer query's WHERE: <code>WITH r AS (SELECT *, RANK() OVER(...) AS rnk FROM t) SELECT * FROM r WHERE rnk = 1</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How would you write a query to find the top-3 salaries per department?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>WITH ranked AS (SELECT name, dept_id, salary, DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS rnk FROM employees) SELECT * FROM ranked WHERE rnk &lt;= 3</code>. Use DENSE_RANK (not RANK or ROW_NUMBER) so that if two people tie at rank 3, both are included. ROW_NUMBER would arbitrarily drop one; RANK would include them but skip rank 4.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-17" onclick="md(17)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-18"><div class="topic-header" onclick="tg(18)"><div class="num" id="num-18">19</div><div class="topic-title">Window Functions &mdash; LAG, LEAD, SUM OVER, AVG OVER</div><span class="lb lb-x">Advanced</span><span class="chev" id="cv-18">&#8964;</span></div><div class="topic-expand" id="ex-18"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>LAG(col, n)</strong> accesses the value from n rows before the current row within the partition. <strong>LEAD(col, n)</strong> accesses n rows ahead. Both are essential for time-series analysis &mdash; comparing current vs previous values, computing growth rates. <strong>SUM() OVER()</strong> and <strong>AVG() OVER()</strong> compute running totals and moving averages. The <strong>ROWS/RANGE BETWEEN</strong> frame clause controls which rows are included in the window &mdash; essential for proper running totals and moving windows.</p></div><div class="subtopics"><div class="sub"><strong>LAG(col, n, default)</strong> &mdash; value n rows back; default if no prior row</div><div class="sub"><strong>LEAD(col, n, default)</strong> &mdash; value n rows ahead; default if no next row</div><div class="sub"><strong>SUM() OVER(ORDER BY date)</strong> &mdash; running total; use ROWS BETWEEN for frame</div><div class="sub"><strong>ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</strong> &mdash; cumulative sum frame</div><div class="sub"><strong>ROWS BETWEEN N PRECEDING AND CURRENT ROW</strong> &mdash; N-period rolling window</div></div><div class="code-block"><span class="cm">-- LAG: month-over-month revenue comparison</span>
+<span class="kw">SELECT</span>
+    month, revenue,
+    <span class="fn">LAG</span>(revenue) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month) <span class="kw">AS</span> prev_revenue,
+    revenue - <span class="fn">LAG</span>(revenue) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month) <span class="kw">AS</span> mom_change,
+    <span class="fn">ROUND</span>(
+        (revenue - <span class="fn">LAG</span>(revenue) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month))
+        * <span class="nm">100.0</span> / <span class="fn">NULLIF</span>(<span class="fn">LAG</span>(revenue) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month), <span class="nm">0</span>)
+    , <span class="nm">2</span>) <span class="kw">AS</span> mom_pct_change
+<span class="kw">FROM</span> monthly_revenue;
+
+<span class="cm">-- Running total</span>
+<span class="kw">SELECT</span> order_date, amount,
+    <span class="fn">SUM</span>(amount) <span class="kw">OVER</span>(
+        <span class="kw">ORDER BY</span> order_date
+        <span class="kw">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+    ) <span class="kw">AS</span> running_total
+<span class="kw">FROM</span> orders;
+
+<span class="cm">-- 7-day moving average</span>
+<span class="kw">SELECT</span> date, sales,
+    <span class="fn">AVG</span>(sales) <span class="kw">OVER</span>(
+        <span class="kw">ORDER BY</span> date
+        <span class="kw">ROWS BETWEEN</span> <span class="nm">6</span> <span class="kw">PRECEDING AND CURRENT ROW</span>
+    ) <span class="kw">AS</span> ma_7
+<span class="kw">FROM</span> daily_sales;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. How do you calculate month-over-month percentage growth using LAG?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>SELECT month, revenue, LAG(revenue) OVER (ORDER BY month) AS prev_rev, ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0 / NULLIF(LAG(revenue) OVER (ORDER BY month), 0), 2) AS growth_pct FROM monthly_revenue</code>. Key: use NULLIF to avoid divide-by-zero when previous month is 0. For partitioned growth (per product per month), add PARTITION BY product_id.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is the difference between ROWS BETWEEN and RANGE BETWEEN in window frames?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <strong>ROWS BETWEEN</strong>: physical rows &mdash; counts actual row positions. ROWS BETWEEN 2 PRECEDING AND CURRENT ROW always uses exactly 3 rows. <strong>RANGE BETWEEN</strong>: logical values &mdash; includes all rows with the same ORDER BY value as 'peers'. If two rows have the same date, RANGE includes both as part of the 'current' frame; ROWS treats them as distinct positions. For running totals, ROWS is usually what you want for precision.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Write a query to find consecutive days with sales above a threshold.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use LAG to detect breaks in sequence: <code>WITH gaps AS (SELECT date, sales, CASE WHEN LAG(date) OVER (ORDER BY date) = date - INTERVAL '1 day' THEN 0 ELSE 1 END AS new_streak FROM sales WHERE sales > threshold), streaks AS (SELECT *, SUM(new_streak) OVER (ORDER BY date) AS streak_id FROM gaps) SELECT streak_id, MIN(date), MAX(date), COUNT(*) AS days FROM streaks GROUP BY streak_id HAVING COUNT(*) >= N</code>.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-18" onclick="md(18)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-19"><div class="topic-header" onclick="tg(19)"><div class="num" id="num-19">20</div><div class="topic-title">FIRST_VALUE, LAST_VALUE, NTILE, PERCENT_RANK</div><span class="lb lb-x">Advanced</span><span class="chev" id="cv-19">&#8964;</span></div><div class="topic-expand" id="ex-19"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>FIRST_VALUE(col)</strong> returns the first value in the window frame. <strong>LAST_VALUE(col)</strong> returns the last &mdash; but its default frame is <code>ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code>, so it only sees up to the current row unless you explicitly extend the frame to <code>ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</code>. <strong>NTILE(n)</strong> divides rows into n equal buckets and assigns each row a bucket number &mdash; useful for quartile/decile analysis. <strong>PERCENT_RANK</strong> and <strong>CUME_DIST</strong> give relative position within the partition.</p></div><div class="subtopics"><div class="sub"><strong>FIRST_VALUE(col) OVER(...)</strong> &mdash; first value in window; useful for baseline comparisons</div><div class="sub"><strong>LAST_VALUE(col) OVER(... ROWS BETWEEN ... AND UNBOUNDED FOLLOWING)</strong> &mdash; must extend frame!</div><div class="sub"><strong>NTILE(n)</strong> &mdash; divide into n equal buckets; bucket 1=top, n=bottom (with ORDER BY DESC)</div><div class="sub"><strong>PERCENT_RANK()</strong> &mdash; relative rank as 0 to 1; (rank-1)/(rows-1)</div><div class="sub"><strong>CUME_DIST()</strong> &mdash; cumulative distribution; fraction of rows &le; current value</div></div><div class="code-block"><span class="cm">-- FIRST_VALUE: compare each sale to dept best</span>
+<span class="kw">SELECT</span> name, dept_id, salary,
+    <span class="fn">FIRST_VALUE</span>(salary) <span class="kw">OVER</span>(
+        <span class="kw">PARTITION BY</span> dept_id <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+        <span class="kw">ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</span>
+    ) <span class="kw">AS</span> dept_max_salary
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- NTILE(4): split into salary quartiles</span>
+<span class="kw">SELECT</span> name, salary,
+    <span class="fn">NTILE</span>(<span class="nm">4</span>) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> quartile
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- PERCENT_RANK and CUME_DIST</span>
+<span class="kw">SELECT</span> name, salary,
+    <span class="fn">ROUND</span>(<span class="fn">PERCENT_RANK</span>() <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> salary)*<span class="nm">100</span>,<span class="nm">1</span>) <span class="kw">AS</span> pct_rank,
+    <span class="fn">ROUND</span>(<span class="fn">CUME_DIST</span>()   <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> salary)*<span class="nm">100</span>,<span class="nm">1</span>) <span class="kw">AS</span> cume_dist
+<span class="kw">FROM</span> employees;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why does LAST_VALUE often return unexpected results?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> LAST_VALUE's default window frame is <code>ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code> &mdash; the window only extends to the current row. So LAST_VALUE just returns the current row's own value! To get the actual last value of the entire partition, you must explicitly set: <code>ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</code>. This is one of the most common SQL window function bugs.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you use NTILE to classify customers into high/mid/low value segments?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>SELECT customer_id, total_spend, NTILE(3) OVER (ORDER BY total_spend DESC) AS segment FROM customer_spending</code>. Bucket 1 = top third (high value), 2 = middle, 3 = bottom. Then: <code>CASE WHEN segment=1 THEN 'High' WHEN segment=2 THEN 'Mid' ELSE 'Low' END AS tier</code>. NTILE handles uneven distributions by putting extra rows in the earlier buckets.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is the difference between PERCENT_RANK and CUME_DIST?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <strong>PERCENT_RANK</strong>: (rank - 1) / (total rows - 1). The minimum value is 0 (for the first row). <strong>CUME_DIST</strong>: number of rows &le; current value / total rows. The minimum value is &gt; 0. For the top earner: PERCENT_RANK = 0, CUME_DIST = 1/n. Use CUME_DIST for 'what % of employees earn at or below this salary'; use PERCENT_RANK for relative ranking position.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-19" onclick="md(19)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-expert">
+<div class="topic-card" id="card-20"><div class="topic-header" onclick="tg(20)"><div class="num" id="num-20">21</div><div class="topic-title">Indexes &amp; Query Performance</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-20">&#8964;</span></div><div class="topic-expand" id="ex-20"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>An <strong>index</strong> is a separate data structure (usually a B-tree) that speeds up data retrieval by avoiding full table scans. Without an index, the database reads every row (full scan). With an index, it jumps directly to the matching rows. Indexes come with a cost: extra storage and slower INSERT/UPDATE/DELETE (index must be kept updated). The golden rule: <strong>index columns used in WHERE, JOIN ON, and ORDER BY</strong>.</p><p>Key concepts: <strong>composite indexes</strong> cover multiple columns; column order matters (leftmost prefix rule). <strong>Covering indexes</strong> include all columns needed by a query (no table lookup needed). <strong>Non-sargable</strong> conditions (function on a column in WHERE) prevent index use.</p></div><div class="subtopics"><div class="sub"><strong>CREATE INDEX idx ON t(col)</strong> &mdash; B-tree index on one column</div><div class="sub"><strong>Composite index (a,b)</strong> &mdash; use when filtering on both; column order = leftmost prefix rule</div><div class="sub"><strong>Covering index</strong> &mdash; include all SELECT columns; no table lookup; fastest possible</div><div class="sub"><strong>Non-sargable</strong> &mdash; WHERE YEAR(col)=2024 blocks index; use col BETWEEN instead</div><div class="sub"><strong>EXPLAIN / EXPLAIN ANALYZE</strong> &mdash; view query plan; look for Seq Scan vs Index Scan</div></div><div class="code-block"><span class="cm">-- Create indexes</span>
+<span class="kw">CREATE INDEX</span> idx_emp_dept    <span class="kw">ON</span> employees (dept_id);
+<span class="kw">CREATE INDEX</span> idx_emp_comp    <span class="kw">ON</span> employees (dept_id, salary);  <span class="cm">-- composite</span>
+<span class="kw">CREATE UNIQUE INDEX</span> idx_email <span class="kw">ON</span> users (email);
+
+<span class="cm">-- Covering index (includes all needed cols)</span>
+<span class="kw">CREATE INDEX</span> idx_cover <span class="kw">ON</span> orders (customer_id, order_date)
+<span class="kw">INCLUDE</span> (amount);  <span class="cm">-- PostgreSQL syntax</span>
+
+<span class="cm">-- EXPLAIN: see query execution plan</span>
+<span class="fn">EXPLAIN ANALYZE</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> dept_id = <span class="nm">10</span>;
+
+<span class="cm">-- Non-sargable (BAD &mdash; blocks index)</span>
+<span class="kw">WHERE</span> <span class="fn">YEAR</span>(hire_date) = <span class="nm">2023</span>  <span class="cm">-- function on column</span>
+
+<span class="cm">-- Sargable (GOOD &mdash; uses index)</span>
+<span class="kw">WHERE</span> hire_date <span class="kw">BETWEEN</span> <span class="st">'2023-01-01'</span> <span class="kw">AND</span> <span class="st">'2023-12-31'</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. When should you NOT add an index?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Indexes hurt when: (1) The table is small (&lt;1000 rows) &mdash; a full scan is faster than index overhead. (2) The column has very low cardinality (e.g., a boolean 'is_active' with only 2 values) &mdash; the index doesn't narrow down results enough to be useful. (3) The table has very frequent writes (logs, events) &mdash; every INSERT/UPDATE/DELETE also updates all indexes. (4) The column is rarely queried. Index read vs write tradeoff.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Explain the leftmost prefix rule for composite indexes.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> A composite index on (a, b, c) can be used for queries filtering on: a alone, a+b together, a+b+c together. But NOT b alone, c alone, or b+c without a. The index is ordered by a first, then b within same a, then c &mdash; so you can only seek efficiently from the leftmost column. Rule: put the most selective (high cardinality) column first, and the column used in ORDER BY last.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What does EXPLAIN ANALYZE show and what should you look for?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> EXPLAIN ANALYZE shows the query execution plan with actual timing. Key things to look for: <strong>Seq Scan</strong> on large tables &rarr; needs an index. <strong>Index Scan</strong> &rarr; index is being used. <strong>Nested Loop</strong> with large loops &rarr; may need a better join strategy. <strong>Sort</strong> with large row counts &rarr; add index to avoid sort. Compare estimated rows vs actual rows &mdash; large discrepancy means stale statistics (run ANALYZE/UPDATE STATISTICS).</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-20" onclick="md(20)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-21"><div class="topic-header" onclick="tg(21)"><div class="num" id="num-21">22</div><div class="topic-title">Transactions &amp; ACID Properties</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-21">&#8964;</span></div><div class="topic-expand" id="ex-21"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A <strong>transaction</strong> is a group of SQL operations that execute as a single unit &mdash; either all succeed (<code>COMMIT</code>) or all fail (<code>ROLLBACK</code>). Transactions guarantee <strong>ACID</strong> properties: <strong>Atomicity</strong> (all or nothing), <strong>Consistency</strong> (database moves from valid state to valid state), <strong>Isolation</strong> (concurrent transactions don't interfere), <strong>Durability</strong> (committed data persists even after crash).</p><p><strong>Isolation levels</strong> trade off consistency for concurrency: <code>READ UNCOMMITTED</code>, <code>READ COMMITTED</code> (default in most DBs), <code>REPEATABLE READ</code>, <code>SERIALIZABLE</code>. Higher isolation = fewer concurrency issues but lower throughput.</p></div><div class="subtopics"><div class="sub"><strong>BEGIN / START TRANSACTION</strong> &mdash; start; COMMIT to save; ROLLBACK to undo</div><div class="sub"><strong>SAVEPOINT name</strong> &mdash; partial rollback point within a transaction</div><div class="sub"><strong>ACID</strong> &mdash; Atomicity, Consistency, Isolation, Durability</div><div class="sub"><strong>Dirty read / Non-repeatable / Phantom read</strong> &mdash; concurrency anomalies per isolation level</div><div class="sub"><strong>SERIALIZABLE</strong> &mdash; highest isolation; prevents all anomalies; lowest concurrency</div></div><div class="code-block"><span class="cm">-- Transfer funds: both ops or neither</span>
+<span class="kw">BEGIN</span>;
+
+<span class="kw">UPDATE</span> accounts <span class="kw">SET</span> balance = balance - <span class="nm">500</span>
+<span class="kw">WHERE</span> account_id = <span class="nm">1</span>;
+
+<span class="kw">UPDATE</span> accounts <span class="kw">SET</span> balance = balance + <span class="nm">500</span>
+<span class="kw">WHERE</span> account_id = <span class="nm">2</span>;
+
+<span class="cm">-- Save if both succeeded</span>
+<span class="kw">COMMIT</span>;
+
+<span class="cm">-- Or undo everything if error occurred</span>
+<span class="kw">ROLLBACK</span>;
+
+<span class="cm">-- SAVEPOINT: partial rollback</span>
+<span class="kw">BEGIN</span>;
+  <span class="kw">INSERT INTO</span> orders ...; 
+  <span class="kw">SAVEPOINT</span> after_order;
+  <span class="kw">INSERT INTO</span> payments ...;
+  <span class="cm">-- Payment failed? Roll back to savepoint</span>
+  <span class="kw">ROLLBACK TO</span> after_order;
+<span class="kw">COMMIT</span>;
+
+<span class="cm">-- Set isolation level</span>
+<span class="kw">SET TRANSACTION ISOLATION LEVEL</span> <span class="kw">SERIALIZABLE</span>;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Explain ACID properties with a real-world example.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Bank transfer of ₹500 from Account A to B: <ul><li><strong>Atomicity</strong>: Either both debit A and credit B happen, or neither. No partial state.</li><li><strong>Consistency</strong>: Total money in the system is the same before and after.</li><li><strong>Isolation</strong>: Another transaction reading Account A during the transfer sees either the old balance or the new balance, not an in-between state.</li><li><strong>Durability</strong>: Once COMMITted, the transfer survives a server crash.</li></ul></div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What are dirty reads, non-repeatable reads, and phantom reads?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <ul><li><strong>Dirty read</strong>: T1 reads data that T2 has modified but not yet committed. T2 then rolls back &mdash; T1 read invalid data.</li><li><strong>Non-repeatable read</strong>: T1 reads a row, T2 updates and commits it, T1 reads the same row again and gets different data.</li><li><strong>Phantom read</strong>: T1 queries a range, T2 inserts a row in that range and commits, T1 re-queries and gets an extra row.</li></ul>Higher isolation levels prevent more of these anomalies.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is the difference between TRUNCATE and DELETE within a transaction?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>DELETE</code> is DML &mdash; it can be rolled back within a transaction. <code>TRUNCATE</code> is DDL in most databases &mdash; it auto-commits and cannot be rolled back (in MySQL, SQL Server). In PostgreSQL, TRUNCATE is transactional and CAN be rolled back. This is a critical difference in disaster recovery. Always wrap DELETE in an explicit transaction so you can ROLLBACK if the WHERE clause was wrong.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-21" onclick="md(21)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-22"><div class="topic-header" onclick="tg(22)"><div class="num" id="num-22">23</div><div class="topic-title">Views, Stored Procedures &amp; Triggers</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-22">&#8964;</span></div><div class="topic-expand" id="ex-22"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A <strong>VIEW</strong> is a named stored SELECT query. It appears as a virtual table. Views simplify complex queries, enforce security (expose only needed columns), and provide abstraction. A <strong>materialized view</strong> stores the query results physically and must be refreshed &mdash; great for expensive aggregations that don't need real-time data.</p><p><strong>Stored Procedures</strong> are compiled SQL programs stored in the database, accepting parameters and containing control flow (IF, loops, variables). They reduce network roundtrips for multi-step operations. <strong>Triggers</strong> automatically execute SQL when a DML event occurs (INSERT, UPDATE, DELETE) &mdash; used for audit logging, enforcing business rules, and cascading updates.</p></div><div class="subtopics"><div class="sub"><strong>CREATE VIEW v AS SELECT...</strong> &mdash; virtual table; no data stored; always fresh</div><div class="sub"><strong>Materialized View</strong> &mdash; stores result; fast reads; requires REFRESH</div><div class="sub"><strong>CREATE PROCEDURE name(params) AS...</strong> &mdash; compiled, reusable SQL program</div><div class="sub"><strong>CREATE TRIGGER name BEFORE/AFTER event ON table</strong> &mdash; auto-fires on DML</div><div class="sub"><strong>INSTEAD OF trigger</strong> &mdash; replaces the triggering operation (for updatable views)</div></div><div class="code-block"><span class="cm">-- Simple VIEW</span>
+<span class="kw">CREATE VIEW</span> vw_senior_employees <span class="kw">AS</span>
+<span class="kw">SELECT</span> emp_id, name, dept_id, salary
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary &gt; <span class="nm">80000</span>;
+
+<span class="cm">-- Query the view like a table</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> vw_senior_employees <span class="kw">WHERE</span> dept_id = <span class="nm">10</span>;
+
+<span class="cm">-- Stored procedure (MySQL syntax)</span>
+<span class="kw">DELIMITER</span> //
+<span class="kw">CREATE PROCEDURE</span> <span class="fn">give_raise</span>(dept <span class="op">INT</span>, pct <span class="op">DECIMAL</span>(<span class="nm">5</span>,<span class="nm">2</span>))
+<span class="kw">BEGIN</span>
+    <span class="kw">UPDATE</span> employees <span class="kw">SET</span> salary = salary * (<span class="nm">1</span> + pct/<span class="nm">100</span>)
+    <span class="kw">WHERE</span> dept_id = dept;
+<span class="kw">END</span> //
+<span class="kw">DELIMITER</span> ;
+<span class="kw">CALL</span> <span class="fn">give_raise</span>(<span class="nm">10</span>, <span class="nm">10.0</span>);
+
+<span class="cm">-- Audit trigger (PostgreSQL)</span>
+<span class="kw">CREATE TRIGGER</span> salary_audit
+<span class="kw">AFTER UPDATE</span> <span class="kw">OF</span> salary <span class="kw">ON</span> employees
+<span class="kw">FOR EACH ROW</span>
+<span class="kw">EXECUTE FUNCTION</span> <span class="fn">log_salary_change</span>();</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What is the difference between a VIEW and a MATERIALIZED VIEW?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> A <strong>VIEW</strong> stores only the query definition &mdash; it re-executes the query every time you SELECT from it. Always up-to-date but potentially slow for complex queries. A <strong>MATERIALIZED VIEW</strong> stores the actual query results as a physical table. Fast to read, but must be refreshed manually (<code>REFRESH MATERIALIZED VIEW</code>) or on a schedule when underlying data changes. Use materialized views for expensive aggregations that don't need real-time data (e.g., daily reports).</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What are the advantages of stored procedures over application code SQL?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> (1) <strong>Performance</strong>: pre-compiled execution plan; no parse/compile overhead per call. (2) <strong>Network reduction</strong>: one procedure call instead of multiple round-trips. (3) <strong>Security</strong>: grant EXECUTE on procedure without granting direct table access. (4) <strong>Reusability</strong>: business logic in one place, shared by multiple applications. Downside: harder to version control, test, and debug than application code.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. When would you use a trigger and what are the risks?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use triggers for: audit logging (record who changed what, when), enforcing complex business rules that can't be handled by constraints, cascading updates. Risks: (1) Hidden side effects &mdash; INSERT seems simple but triggers a chain of operations. (2) Performance &mdash; fires on every row; can slow bulk operations drastically. (3) Hard to debug. (4) Cascading triggers (trigger fires another trigger). Best practice: use triggers sparingly; prefer explicit application logic when possible.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-22" onclick="md(22)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-23"><div class="topic-header" onclick="tg(23)"><div class="num" id="num-23">24</div><div class="topic-title">Query Optimization &amp; Execution Plans</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-23">&#8964;</span></div><div class="topic-expand" id="ex-23"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Query optimization is the skill that separates good SQL developers from great ones. The database query optimiser generates an execution plan &mdash; a tree of operations (scans, joins, sorts, aggregations) with estimated costs. Understanding and reading execution plans lets you identify and fix bottlenecks.</p><p>Key optimisation techniques: write <strong>sargable</strong> conditions (no functions on indexed columns in WHERE), use <strong>EXISTS instead of IN</strong> for large subqueries, avoid <strong>SELECT *</strong>, push <strong>filters as early as possible</strong> (reduce row count before expensive joins), use <strong>appropriate join types</strong>, and keep <strong>statistics up to date</strong> so the optimiser makes correct decisions.</p></div><div class="subtopics"><div class="sub"><strong>EXPLAIN / EXPLAIN ANALYZE</strong> &mdash; read execution plan; Seq Scan = no index</div><div class="sub"><strong>Sargable predicates</strong> &mdash; bare column in WHERE; no function wrapping</div><div class="sub"><strong>Filter early</strong> &mdash; filter before joining; fewer rows = faster joins</div><div class="sub"><strong>EXISTS &gt; IN</strong> for large subqueries; short-circuits at first match</div><div class="sub"><strong>Avoid OR on indexed cols</strong> &mdash; use UNION instead for index utilisation</div></div><div class="code-block"><span class="cm">-- Check execution plan</span>
+<span class="fn">EXPLAIN ANALYZE</span> <span class="kw">SELECT</span> * <span class="kw">FROM</span> orders
+<span class="kw">WHERE</span> customer_id = <span class="nm">100</span> <span class="kw">AND</span> status = <span class="st">'shipped'</span>;
+
+<span class="cm">-- BAD: non-sargable</span>
+<span class="kw">WHERE</span> <span class="fn">UPPER</span>(last_name) = <span class="st">'SMITH'</span>  <span class="cm">-- index ignored</span>
+
+<span class="cm">-- GOOD: sargable</span>
+<span class="kw">WHERE</span> last_name = <span class="st">'Smith'</span>           <span class="cm">-- index used</span>
+
+<span class="cm">-- BAD: OR on indexed column prevents index</span>
+<span class="kw">WHERE</span> status = <span class="st">'new'</span> <span class="kw">OR</span> status = <span class="st">'pending'</span>
+
+<span class="cm">-- GOOD: use IN or UNION</span>
+<span class="kw">WHERE</span> status <span class="kw">IN</span> (<span class="st">'new'</span>, <span class="st">'pending'</span>)  <span class="cm">-- single index scan</span>
+
+<span class="cm">-- Filter early: reduce rows BEFORE join</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> (<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> dept_id = <span class="nm">10</span>) e
+<span class="kw">JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What makes a WHERE clause non-sargable and how do you fix it?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> A condition is non-sargable when it wraps the indexed column in a function, preventing index use. Common non-sargable patterns and fixes: <ul><li><code>YEAR(date)=2024</code> &rarr; <code>date BETWEEN '2024-01-01' AND '2024-12-31'</code></li><li><code>UPPER(name)='SMITH'</code> &rarr; store lowercase, <code>name='Smith'</code>, or use a functional index</li><li><code>salary + 0 > 50000</code> &rarr; <code>salary > 50000</code></li><li><code>CAST(id AS VARCHAR)='100'</code> &rarr; <code>id = 100</code> (fix the data type)</li></ul></div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Why does SELECT * hurt query performance?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> (1) Fetches columns you don't need &mdash; more I/O, more memory, more network. (2) Cannot use covering indexes (the index must include all columns SELECT * requests &mdash; impossible for *). (3) Prevents certain optimisations (index-only scans). (4) In applications, schema changes (added/removed columns) break downstream code silently. Always name the specific columns you need.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What are statistics in a database and why do they matter for optimisation?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Statistics are metadata about the distribution of data in each column &mdash; cardinality (distinct values), null fraction, most common values, histogram of value distribution. The query optimiser uses statistics to estimate how many rows a condition will return, which determines join order, join algorithm (hash vs nested loop), and index vs sequential scan decisions. Stale statistics (after bulk inserts/deletes) cause the optimiser to choose bad plans. Fix: <code>ANALYZE</code> (PostgreSQL), <code>UPDATE STATISTICS</code> (SQL Server), <code>ANALYZE TABLE</code> (MySQL).</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-23" onclick="md(23)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-24"><div class="topic-header" onclick="tg(24)"><div class="num" id="num-24">25</div><div class="topic-title">Database Design &amp; Normalization</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-24">&#8964;</span></div><div class="topic-expand" id="ex-24"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>Normalization</strong> is the process of organizing a database to reduce redundancy and dependency. The normal forms (1NF through 5NF) progressively eliminate different types of data anomalies. <strong>1NF</strong>: atomic values, no repeating groups. <strong>2NF</strong>: no partial dependencies (non-key columns must depend on the whole PK, not just part of it). <strong>3NF</strong>: no transitive dependencies (non-key columns must depend only on the PK, not on other non-key columns). <strong>BCNF</strong> is a stricter version of 3NF.</p><p><strong>Denormalization</strong> intentionally adds redundancy for read performance &mdash; common in analytics (data warehouses). Star schema (fact table + dimension tables) is the standard analytical model.</p></div><div class="subtopics"><div class="sub"><strong>1NF</strong> &mdash; atomic values; no repeated columns (phone1, phone2); no arrays in cells</div><div class="sub"><strong>2NF</strong> &mdash; no partial dependency; every non-key col depends on WHOLE PK</div><div class="sub"><strong>3NF</strong> &mdash; no transitive dependency; non-key col depends only on PK, not other cols</div><div class="sub"><strong>BCNF</strong> &mdash; stricter 3NF; every determinant is a candidate key</div><div class="sub"><strong>Star schema</strong> &mdash; fact table + dimension tables; denormalized for analytics</div></div><div class="code-block"><span class="cm">-- NOT in 1NF: storing CSV in a column</span>
+<span class="cm">-- BAD: skills = 'SQL,Python,R'</span>
+
+<span class="cm">-- 1NF fix: separate table</span>
+<span class="kw">CREATE TABLE</span> employee_skills (
+    emp_id <span class="op">INT</span>, skill <span class="op">VARCHAR</span>(<span class="nm">50</span>),
+    <span class="kw">PRIMARY KEY</span> (emp_id, skill)
+);
+
+<span class="cm">-- NOT in 2NF (composite PK: order_id + product_id)</span>
+<span class="cm">-- BAD: product_name depends only on product_id, not whole PK</span>
+<span class="cm">-- 2NF fix: move product_name to products table</span>
+
+<span class="cm">-- NOT in 3NF</span>
+<span class="cm">-- BAD: employees has dept_id AND dept_name</span>
+<span class="cm">-- dept_name depends on dept_id (transitive dep)</span>
+<span class="cm">-- 3NF fix: move dept_name to departments table</span>
+
+<span class="cm">-- Star schema for analytics</span>
+<span class="cm">-- fact_sales(sale_id, date_id, product_id, amount)</span>
+<span class="cm">-- dim_date(date_id, year, month, quarter)</span>
+<span class="cm">-- dim_product(product_id, name, category)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Explain 1NF, 2NF, and 3NF in simple terms.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <ul><li><strong>1NF</strong>: Each cell must contain one atomic value. No 'phone1, phone2' columns. No comma-separated lists in a cell. Fix: create a separate table for multi-valued attributes.</li><li><strong>2NF</strong>: For tables with composite PKs (multiple columns), every non-key column must depend on the ENTIRE primary key, not just part of it. Fix: split into separate tables.</li><li><strong>3NF</strong>: Non-key columns must depend directly on the primary key, not on other non-key columns (transitive dependency). If 'city' determines 'zip_code', and both are in a table with 'customer_id' as PK, that's a 3NF violation &mdash; move city+zip to a separate table.</li></ul></div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. When would you deliberately denormalize a database?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Denormalize for <strong>read performance</strong> when: (1) The table is read far more than written (analytics, reporting). (2) JOINs are too expensive and can't be fixed with indexes. (3) Building a data warehouse (star schema is intentionally denormalized). Trade-offs of denormalization: faster reads, but update anomalies (same data in multiple places must stay in sync), more storage, more complex writes. Rule: normalize for OLTP (transactional), denormalize for OLAP (analytical).</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is a star schema and how does it differ from a normalized schema?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> A <strong>star schema</strong> has a central <strong>fact table</strong> (containing measurable events: sales, clicks, transactions) surrounded by <strong>dimension tables</strong> (descriptive attributes: date, customer, product). Dimensions are denormalized &mdash; all attributes of a product are in one row. Advantages: simpler queries (fewer JOINs), faster aggregations, intuitive for BI tools. Normalized schema (snowflake): dimensions are further normalized into sub-tables. More storage-efficient but requires more JOINs.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-24" onclick="md(24)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-plan">
+  <div class="tip-box">
+    <div class="tip-title">&#9654; 6-Week Study Plan</div>
+    <div class="tip-item"><span class="wk">WK 1</span><p><strong>Basics (Topics 1&ndash;5)</strong> &mdash; SELECT, DDL/DML, NULL handling, ORDER BY, CRUD. Every SQL interview starts here.</p></div>
+    <div class="tip-item"><span class="wk">WK 2</span><p><strong>Filtering (Topics 6&ndash;10)</strong> &mdash; WHERE, CASE, string/date/math functions. 60% of analyst queries use only these.</p></div>
+    <div class="tip-item"><span class="wk">WK 3</span><p><strong>Joins (Topics 11&ndash;13)</strong> &mdash; JOIN types, self joins, subqueries. Master LEFT JOIN anti-pattern and EXISTS.</p></div>
+    <div class="tip-item"><span class="wk">WK 4</span><p><strong>Aggregation (Topics 14&ndash;16)</strong> &mdash; GROUP BY + HAVING + COUNT/SUM/AVG. ROLLUP for reporting. Most tested data analyst skills.</p></div>
+    <div class="tip-item"><span class="wk">WK 5</span><p><strong>Advanced (Topics 17&ndash;20)</strong> &mdash; CTEs and window functions. ROW_NUMBER/RANK/DENSE_RANK are the most common interview problems.</p></div>
+    <div class="tip-item"><span class="wk">WK 6</span><p><strong>Expert (Topics 21&ndash;25)</strong> &mdash; Indexes, transactions, ACID, views, query optimization. Separates analyst from data engineer.</p></div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">&#9654; Top 6 Most Asked SQL Interview Topics</div>
+    <div class="tip-item"><span class="wk">#1</span><p><strong>Window functions (ROW_NUMBER, RANK, DENSE_RANK)</strong> &mdash; top-N per group is asked in nearly every interview</p></div>
+    <div class="tip-item"><span class="wk">#2</span><p><strong>JOIN types</strong> &mdash; inner vs left, anti-join with IS NULL, fan-out from duplicates</p></div>
+    <div class="tip-item"><span class="wk">#3</span><p><strong>GROUP BY + HAVING</strong> &mdash; WHERE vs HAVING, COUNT(*) vs COUNT(col)</p></div>
+    <div class="tip-item"><span class="wk">#4</span><p><strong>CTEs</strong> &mdash; rewrite nested subqueries, recursive hierarchy traversal</p></div>
+    <div class="tip-item"><span class="wk">#5</span><p><strong>NULL handling</strong> &mdash; IS NULL, COALESCE, NOT IN + NULL trap</p></div>
+    <div class="tip-item"><span class="wk">#6</span><p><strong>CASE + conditional aggregation</strong> &mdash; pivoting, conditional counts</p></div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">&#9654; Learning Rules</div>
+    <div class="tip-item"><span class="wk">PRACTICE</span><p>Run every code snippet on a real database. Use <a href="https://sqliteonline.com" style="color:var(--ac)">sqliteonline.com</a>, <a href="https://db-fiddle.com" style="color:var(--ac)">db-fiddle.com</a>, or a local PostgreSQL install.</p></div>
+    <div class="tip-item"><span class="wk">DATASETS</span><p>Use the classic datasets: Employees (HR analytics), AdventureWorks (sales), Northwind (orders) &mdash; all available free online.</p></div>
+    <div class="tip-item"><span class="wk">BUILD</span><p>After week 4: write a complete sales analysis query using JOINs, GROUP BY, HAVING, and window functions &mdash; all in one query.</p></div>
+    <div class="tip-item"><span class="wk">GOAL</span><p>Final milestone: solve 20 LeetCode SQL problems (Easy &rarr; Medium) without looking at hints.</p></div>
+  </div>
+</div>
+
+</div>
+<footer>Built for your journey &nbsp;&middot;&nbsp; <span>SQL Mastery Roadmap</span> &nbsp;&middot;&nbsp; 25 Topics &middot; 5 Levels &middot; Reveal answers &middot; Progress tracker</footer>
+<script>
+const T=25;
+let done=[];
+try{done=JSON.parse(localStorage.getItem('sqlv1')||'[]');}catch(e){}
+function save(){try{localStorage.setItem('sqlv1',JSON.stringify(done));}catch(e){}}
+function tg(i){
+  document.getElementById('ex-'+i).classList.toggle('open');
+  document.getElementById('cv-'+i).classList.toggle('open');
+}
+function ri(qEl){
+  const card=qEl.closest('.iq-card');
+  const ans=card.querySelector('.iq-a');
+  const btn=card.querySelector('.rbtn');
+  const isOpen=ans.classList.contains('open');
+  ans.classList.toggle('open',!isOpen);
+  btn.textContent=isOpen?'Reveal':'Hide';
+  btn.classList.toggle('on',!isOpen);
+}
+function md(i){
+  if(done.includes(i))return;
+  done.push(i);save();
+  const c=document.getElementById('card-'+i);
+  const n=document.getElementById('num-'+i);
+  const b=document.getElementById('dn-'+i);
+  if(c)c.classList.add('done');
+  if(n){n.classList.add('dn');n.innerHTML='&#10003;';}
+  if(b){b.disabled=true;b.textContent='Completed!';}
+  up();
+}
+function up(){
+  const n=done.length,p=Math.round(n/T*100);
+  document.getElementById('dc').textContent=n;
+  document.getElementById('ps').textContent=p+'%';
+  document.getElementById('pf').style.width=p+'%';
+  document.getElementById('pt').textContent='Progress: '+n+' / '+T;
+  document.getElementById('pp').textContent=p+'%';
+}
+function sw(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+}
+done.forEach(i=>{
+  const c=document.getElementById('card-'+i);
+  const n=document.getElementById('num-'+i);
+  const b=document.getElementById('dn-'+i);
+  if(c)c.classList.add('done');
+  if(n){n.classList.add('dn');n.innerHTML='&#10003;';}
+  if(b){b.disabled=true;b.textContent='Completed!';}
+});
+up();
+</script></body></html>
