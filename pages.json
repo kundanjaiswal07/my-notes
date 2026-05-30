@@ -1,0 +1,14 @@
+[
+  {
+    "file": "git-cheatsheet.html",
+    "title": "Git Cheatsheet",
+    "category": "Dev Tools",
+    "desc": "Essential git commands for daily use — stash, rebase, bisect, cherry-pick.",
+    "tags": [
+      "git",
+      "cli",
+      "terminal"
+    ],
+    "date": "2025-05-30"
+  }
+]
