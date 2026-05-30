@@ -27,10 +27,18 @@
   },
   {
     "file": "sql-mastery.html",
-    "title": "SQL Mastery Roadmap",
-    "category": "Uncategorized",
-    "desc": "",
-    "tags": [],
-    "date": ""
+    "title": "SQL\nMastery Roadmap",
+    "category": "Dev Tools",
+    "desc": "Every command & function — from SELECT to Window functions — with code, explanations, and interview Q&As with reveal answers",
+    "tags": [
+      "Basics",
+      "Filtering",
+      "Joins",
+      "Aggregation",
+      "Advanced",
+      "Expert",
+      "Study Plan"
+    ],
+    "date": "2025-05-30"
   }
 ]
