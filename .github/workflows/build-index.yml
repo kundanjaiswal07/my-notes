@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '_notes/**'
+      - 'notes/**'
       - '.github/workflows/build-index.yml'
   workflow_dispatch:
 
@@ -18,13 +18,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Scan _notes and build pages.json
+      - name: Scan notes and build pages.json
         run: |
           python3 - <<'EOF'
           import os, json, re
           from datetime import datetime
 
-          notes_dir = "_notes"
+          notes_dir = "notes"
           output = []
 
           for fname in sorted(os.listdir(notes_dir)):
