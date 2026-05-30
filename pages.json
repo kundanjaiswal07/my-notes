@@ -13,11 +13,17 @@
   },
   {
     "file": "pandas-mastery.html",
-    "title": "Pandas Mastery Roadmap",
-    "category": "Uncategorized",
-    "desc": "",
-    "tags": [],
-    "date": ""
+    "title": "Pandas\nMastery Roadmap",
+    "category": "Dev Tools",
+    "desc": "Concise explanations · Code examples · 2–3 Interview Q&As with reveal answers · Progress tracker",
+    "tags": [
+      "Basic",
+      "Core ops",
+      "Advanced",
+      "Expert/ML",
+      "Study Plan"
+    ],
+    "date": "2025-05-30"
   },
   {
     "file": "sql-mastery.html",
