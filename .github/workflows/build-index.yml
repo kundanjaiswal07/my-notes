@@ -1,0 +1,76 @@
+name: Build pages index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_notes/**'
+      - '.github/workflows/build-index.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Scan _notes and build pages.json
+        run: |
+          python3 - <<'EOF'
+          import os, json, re
+          from datetime import datetime
+
+          notes_dir = "_notes"
+          output = []
+
+          for fname in sorted(os.listdir(notes_dir)):
+              if not fname.endswith(".html") or fname.startswith("_"):
+                  continue
+
+              path = os.path.join(notes_dir, fname)
+              with open(path, "r", encoding="utf-8") as f:
+                  content = f.read()
+
+              # Read meta tags from the HTML file
+              def meta(name):
+                  m = re.search(rf'<meta\s+name="{name}"\s+content="([^"]*)"', content, re.IGNORECASE)
+                  return m.group(1).strip() if m else ""
+
+              title = meta("note-title")
+              if not title:
+                  # Fall back to <title> tag
+                  m = re.search(r"<title>([^<]+)</title>", content, re.IGNORECASE)
+                  title = m.group(1).strip() if m else fname.replace("-", " ").replace(".html", "").title()
+
+              category = meta("note-category") or "Uncategorized"
+              desc     = meta("note-desc")
+              tags_raw = meta("note-tags")
+              tags     = [t.strip() for t in tags_raw.split(",") if t.strip()] if tags_raw else []
+              date     = meta("note-date")
+
+              output.append({
+                  "file":     fname,
+                  "title":    title,
+                  "category": category,
+                  "desc":     desc,
+                  "tags":     tags,
+                  "date":     date,
+              })
+
+          with open("pages.json", "w", encoding="utf-8") as f:
+              json.dump(output, f, indent=2, ensure_ascii=False)
+
+          print(f"Built pages.json with {len(output)} notes.")
+          EOF
+
+      - name: Commit pages.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pages.json
+          git diff --cached --quiet || git commit -m "chore: rebuild pages.json [skip ci]"
+          git push
