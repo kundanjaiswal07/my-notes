@@ -26,6 +26,22 @@
     "date": "2025-05-30"
   },
   {
+    "file": "python-mastery.html",
+    "title": "Python Mastery\nRoadmap",
+    "category": "Dev Tools",
+    "desc": "Every function, pattern & concept — from print() to metaclasses — with real code, explanations, and interview Q&As",
+    "tags": [
+      "Basic",
+      "Data Structures",
+      "Functions",
+      "OOP",
+      "Advanced",
+      "Expert",
+      "Study Plan"
+    ],
+    "date": "2025-05-30"
+  },
+  {
     "file": "sql-mastery.html",
     "title": "SQL\nMastery Roadmap",
     "category": "Dev Tools",
