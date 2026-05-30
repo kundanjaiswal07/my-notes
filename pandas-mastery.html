@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Pandas Mastery Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0e1a;--s1:#111827;--s2:#1a2235;--s3:#1e2d42;--b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);--tx:#f0f4ff;--mu:#8899bb;--ac:#00e5a0;--ac2:#3b82f6;--ac3:#f59e0b;--ac4:#f43f5e;--gbg:rgba(0,229,160,.1);--bbg:rgba(59,130,246,.12);--abg:rgba(245,158,11,.12);--rbg:rgba(244,63,94,.12);--r:12px;--rs:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:Lato,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--b1) 1px,transparent 1px),linear-gradient(90deg,var(--b1) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;opacity:.5}
+.wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 16px 80px}
+header{padding:40px 0 26px;text-align:center}
+.badge-top{display:inline-flex;align-items:center;gap:6px;background:var(--gbg);border:1px solid rgba(0,229,160,.25);color:var(--ac);font-family:"IBM Plex Mono",monospace;font-size:11px;padding:5px 12px;border-radius:20px;letter-spacing:.08em;margin-bottom:16px}
+.badge-top span{width:6px;height:6px;background:var(--ac);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:Syne,sans-serif;font-size:clamp(26px,7vw,46px);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin-bottom:8px}
+h1 em{font-style:normal;color:var(--ac)}
+.subtitle{color:var(--mu);font-size:14px;max-width:420px;margin:0 auto 22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px;text-align:center}
+.stat-num{font-family:Syne,sans-serif;font-size:24px;font-weight:700}
+.stat-num.ac{color:var(--ac)}
+.stat-lbl{font-size:11px;color:var(--mu);margin-top:1px}
+.pl{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:6px}
+.pb{background:var(--s2);border-radius:4px;height:5px;overflow:hidden;margin-bottom:22px}
+.pf{height:5px;border-radius:4px;background:linear-gradient(90deg,var(--ac),#00bfff);transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:6px 14px;border-radius:20px;border:1px solid var(--b2);background:transparent;color:var(--mu);font-family:Lato,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .18s}
+.tab:hover{color:var(--tx)}.tab.active{background:var(--ac);color:#000;border-color:var(--ac)}
+.section{display:none}.section.active{display:block}
+.topic-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.topic-card:hover{border-color:var(--b2)}.topic-card.done{border-left:3px solid var(--ac)}
+.topic-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+.num{width:30px;height:30px;border-radius:50%;background:var(--s2);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--mu);flex-shrink:0;transition:all .2s}
+.num.dn{background:var(--ac);border-color:var(--ac);color:#000}
+.topic-title{font-family:Syne,sans-serif;font-size:14px;font-weight:600;flex:1;line-height:1.3}
+.lb{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:20px;flex-shrink:0;text-transform:uppercase}
+.lb-b{background:var(--gbg);color:var(--ac)}.lb-c{background:var(--bbg);color:var(--ac2)}
+.lb-a{background:var(--abg);color:var(--ac3)}.lb-e{background:var(--rbg);color:var(--ac4)}
+.chev{color:var(--mu);font-size:16px;flex-shrink:0;transition:transform .22s;line-height:1}
+.chev.open{transform:rotate(180deg)}
+.topic-expand{display:none;padding:0 16px 16px}
+.topic-expand.open{display:block;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.divider{height:1px;background:var(--b1);margin-bottom:14px}
+.explain{background:var(--s2);border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;border-left:2px solid var(--ac2)}
+.explain-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--ac2);margin-bottom:7px;text-transform:uppercase}
+.explain p{font-size:13.5px;color:#c8d8f0;line-height:1.7;margin-bottom:6px}
+.explain p:last-child{margin-bottom:0}
+.explain ul{padding-left:14px;margin-top:4px}
+.explain ul li{font-size:13px;color:var(--mu);line-height:1.65;margin-bottom:3px}
+.explain ul li strong,.explain p strong{color:var(--tx)}
+.code-block{background:#0d1117;border:1px solid var(--b2);border-radius:var(--rs);padding:12px 14px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:#a5d6ff;line-height:1.75;margin-bottom:14px;overflow-x:auto;white-space:pre}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#79c0ff}.cm{color:#6e7f8e}.nm{color:#f2cc60}
+.subtopics{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.sub{font-size:13px;color:var(--mu);padding-left:10px;border-left:2px solid var(--b2);line-height:1.55}
+.sub strong{color:var(--tx);font-weight:700}
+.iq-section{margin-bottom:12px}
+.iq-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--ac3);margin-bottom:8px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.iq-lbl::before{content:'';display:block;width:12px;height:2px;background:var(--ac3);border-radius:1px}
+.iq-card{background:var(--s2);border:1px solid rgba(245,158,11,.15);border-radius:var(--rs);margin-bottom:7px;overflow:hidden}
+.iq-q{padding:10px 13px;font-size:13px;color:#e8d5a3;line-height:1.5;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;user-select:none}
+.iq-q:hover{background:rgba(245,158,11,.05)}
+.iq-q-t{flex:1}
+.rbtn{flex-shrink:0;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ac3);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);padding:3px 9px;border-radius:12px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.rbtn:hover{background:rgba(245,158,11,.22)}.rbtn.on{color:#0d1117;background:var(--ac3);border-color:var(--ac3)}
+.iq-a{display:none;padding:0 13px 11px;border-top:1px solid rgba(245,158,11,.1);animation:fadeUp .18s ease}
+.iq-a.open{display:block}
+.iq-a-inner{margin-top:9px;font-size:13px;color:#c8d8f0;line-height:1.7;background:rgba(0,0,0,.25);border-radius:6px;padding:10px 12px}
+.iq-a-inner strong{color:var(--ac)}.iq-a-inner ul{padding-left:14px;margin-top:5px}
+.iq-a-inner ul li{margin-bottom:4px;color:var(--mu)}.iq-a-inner ul li strong{color:var(--tx)}
+.iq-a-inner code{font-family:"IBM Plex Mono",monospace;font-size:11px;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:4px;color:#79c0ff}
+.btn-row{margin-top:4px}
+.btn-done{padding:6px 14px;border-radius:var(--rs);font-family:Lato,sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--ac);background:var(--ac);color:#000;transition:all .15s}
+.btn-done:hover{background:#00c98a}.btn-done:disabled{background:var(--s3);border-color:var(--b1);color:var(--mu);cursor:not-allowed}
+.tip-box{background:var(--s2);border:1px solid var(--b2);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.tip-title{font-family:Syne,sans-serif;font-size:13px;font-weight:700;color:var(--ac);margin-bottom:10px}
+.tip-item{display:flex;gap:10px;font-size:13px;color:var(--mu);padding:6px 0;border-bottom:1px solid var(--b1);line-height:1.5}
+.tip-item:last-child{border-bottom:none}.tip-item p strong{color:var(--tx)}
+.wk{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ac);background:var(--gbg);padding:2px 7px;border-radius:4px;flex-shrink:0;height:fit-content;margin-top:3px}
+footer{text-align:center;padding:28px 0 16px;color:var(--mu);font-size:12px}
+footer span{color:var(--ac)}
+@media(max-width:480px){h1{font-size:24px}.stats{gap:6px}.stat-num{font-size:20px}.tab{font-size:11px;padding:5px 10px}.topic-title{font-size:13px}.code-block{font-size:11px}}
+</style>
+</head>
+<body><div class="wrap">
+<header>
+  <div class="badge-top"><span></span>LIVE ROADMAP &middot; 18 TOPICS</div>
+  <h1>Pandas<br/><em>Mastery</em> Roadmap</h1>
+  <p class="subtitle">Concise explanations &middot; Code examples &middot; 2&ndash;3 Interview Q&As with reveal answers &middot; Progress tracker</p>
+</header>
+<div class="stats">
+  <div class="stat"><div class="stat-num ac" id="dc">0</div><div class="stat-lbl">Completed</div></div>
+  <div class="stat"><div class="stat-num">18</div><div class="stat-lbl">Total topics</div></div>
+  <div class="stat"><div class="stat-num" id="ps">0%</div><div class="stat-lbl">Mastery</div></div>
+</div>
+<div class="pl"><span id="pt">Progress: 0 / 18</span><span id="pp">0%</span></div>
+<div class="pb"><div class="pf" id="pf"></div></div>
+<div class="tabs">
+  <button class="tab active" onclick="sw('basics',this)">Basics</button>
+  <button class="tab" onclick="sw('core',this)">Core ops</button>
+  <button class="tab" onclick="sw('advanced',this)">Advanced</button>
+  <button class="tab" onclick="sw('expert',this)">Expert / ML</button>
+  <button class="tab" onclick="sw('plan',this)">Study plan</button>
+</div>
+
+<div class="section active" id="tab-basics">
+<div class="topic-card" id="card-0"><div class="topic-header" onclick="tg(0)"><div class="num" id="num-0">1</div><div class="topic-title">What is Pandas &amp; Core Data Structures</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-0">&#8964;</span></div><div class="topic-expand" id="ex-0"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Pandas gives you two structures built on NumPy: <strong>Series</strong> (1D labelled array) and <strong>DataFrame</strong> (2D table of Series sharing an index). The <strong>Index</strong> enables fast lookups, auto-alignment during arithmetic, and time-series ops. <strong>dtypes</strong> control memory: <code>int64</code>, <code>float64</code>, <code>object</code> (strings &mdash; expensive), <code>bool</code>, <code>datetime64</code>, and <code>category</code> (low-cardinality strings &mdash; 90% memory saving).</p></div><div class="subtopics"><div class="sub"><strong>Series</strong> &mdash; 1D; s['label'] or s[0]</div><div class="sub"><strong>DataFrame</strong> &mdash; 2D; df['col'] returns Series; df[['a','b']] returns DataFrame</div><div class="sub"><strong>Index</strong> &mdash; immutable labels; default RangeIndex (0,1,2&hellip;)</div><div class="sub"><strong>dtypes</strong> &mdash; int64, float64, object, bool, datetime64[ns], category</div></div><div class="code-block"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+s = pd.Series([<span class="nm">10</span>,<span class="nm">20</span>,<span class="nm">30</span>], index=[<span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>])
+s[<span class="st">'b'</span>]  <span class="cm"># 20</span>
+
+df = pd.DataFrame({<span class="st">'name'</span>:[<span class="st">'Alice'</span>,<span class="st">'Bob'</span>], <span class="st">'age'</span>:[<span class="nm">25</span>,<span class="nm">30</span>]})
+df.dtypes      <span class="cm"># name: object, age: int64</span>
+df.shape       <span class="cm"># (2, 2)</span>
+df[<span class="st">'age'</span>]      <span class="cm"># returns a Series</span>
+df[[<span class="st">'name'</span>,<span class="st">'age'</span>]]  <span class="cm"># double brackets = DataFrame</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between Series and DataFrame? Can you convert between them?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Series is 1D (one column + index); DataFrame is 2D (multiple Series sharing an index). Convert: <code>s.to_frame()</code> (Series&rarr;DataFrame), <code>df['col']</code> (DataFrame column&rarr;Series). Key insight: a DataFrame is essentially a dict of Series objects.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Why is the default RangeIndex important?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> It enables <code>.loc[]</code> lookups, auto-aligns data during arithmetic, and powers time-series ops (DatetimeIndex). Mismatched indexes after a reset silently introduce NaN in joins.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Why is 'object' dtype inefficient for strings?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Stores Python object pointers — each string is a separate heap allocation. Use <code>astype('category')</code> for low-cardinality columns (city, gender) — cuts memory up to 90% by storing integer codes internally.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-0" onclick="md(0)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-1"><div class="topic-header" onclick="tg(1)"><div class="num" id="num-1">2</div><div class="topic-title">Reading &amp; Writing Data</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-1">&#8964;</span></div><div class="topic-expand" id="ex-1"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><code>read_csv()</code> is the most-used Pandas function. The professional parameters: <strong>usecols</strong> loads only needed columns; <strong>dtype</strong> avoids wrong type inference; <strong>parse_dates</strong> auto-converts date strings; <strong>chunksize</strong> processes files larger than RAM by returning an iterator of smaller DataFrames. Always write with <strong>index=False</strong> to avoid the mysterious <code>Unnamed: 0</code> column. Prefer Parquet for large data &mdash; 3&ndash;10x smaller and much faster.</p></div><div class="subtopics"><div class="sub"><strong>usecols + dtype</strong> &mdash; load only what you need; specify types upfront</div><div class="sub"><strong>chunksize</strong> &mdash; iterate huge files without loading all into RAM</div><div class="sub"><strong>to_csv(index=False)</strong> &mdash; always; omitting creates Unnamed:0 on re-read</div><div class="sub"><strong>read_parquet / to_parquet</strong> &mdash; columnar, compressed, dtype-preserving</div></div><div class="code-block"><span class="cm"># Only needed columns + correct types</span>
+df = pd.<span class="fn">read_csv</span>(<span class="st">'data.csv'</span>, usecols=[<span class="st">'date'</span>,<span class="st">'sales'</span>],
+         dtype={<span class="st">'sales'</span>:<span class="st">'float32'</span>}, parse_dates=[<span class="st">'date'</span>])
+
+<span class="cm"># 10 GB file &mdash; process in chunks</span>
+results = []
+<span class="kw">for</span> chunk <span class="kw">in</span> pd.<span class="fn">read_csv</span>(<span class="st">'big.csv'</span>, chunksize=<span class="nm">50000</span>):
+    results.append(chunk[chunk[<span class="st">'sales'</span>] &gt; <span class="nm">0</span>])
+df = pd.<span class="fn">concat</span>(results, ignore_index=<span class="kw">True</span>)
+
+df.<span class="fn">to_csv</span>(<span class="st">'out.csv'</span>, index=<span class="kw">False</span>)   <span class="cm"># critical!</span>
+df.<span class="fn">to_parquet</span>(<span class="st">'out.parquet'</span>)          <span class="cm"># 5-10x faster/smaller</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. How do you read only specific columns from a 10 GB CSV without OOM errors?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Two approaches: (1) <code>usecols=['a','b']</code> &mdash; reads only those columns at OS level, ignoring the rest. (2) <code>chunksize=100000</code> &mdash; iterate, filter/aggregate, concat results. Best: combine both plus <code>dtype</code> spec for maximum efficiency.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Why does to_csv() sometimes produce 'Unnamed: 0' when re-read?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Without <code>index=False</code>, Pandas writes the row index (0,1,2&hellip;) as the first column. On re-read it appears as <code>Unnamed: 0</code>. Fix: always write with <code>df.to_csv('f.csv', index=False)</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. When would you use Parquet over CSV?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use Parquet when: data is accessed repeatedly, file is &gt;100MB, or dtypes must be preserved (CSV loses them on re-read). Parquet is columnar &mdash; reads only requested columns, 3&ndash;10x smaller, 5&ndash;20x faster. Use CSV for one-time loads or sharing with non-Python tools.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-1" onclick="md(1)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-2"><div class="topic-header" onclick="tg(2)"><div class="num" id="num-2">3</div><div class="topic-title">Exploring DataFrames (EDA)</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-2">&#8964;</span></div><div class="topic-expand" id="ex-2"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Good EDA follows a fixed sequence. <code>info()</code> shows dtypes + non-null counts &mdash; call it first. <code>describe()</code> gives stats for numerics; if mean differs greatly from 50th percentile, the column is skewed. <code>value_counts(normalize=True)</code> shows category proportions. <code>isnull().mean()*100</code> gives % missing per column &mdash; sort descending to see worst offenders. Always check <code>duplicated().sum()</code> &mdash; duplicate rows silently inflate aggregates.</p></div><div class="subtopics"><div class="sub"><strong>info()</strong> &mdash; dtypes + non-null counts + memory; always first</div><div class="sub"><strong>describe(include='all')</strong> &mdash; numeric stats + string top/freq</div><div class="sub"><strong>isnull().mean()*100</strong> &mdash; % missing; sort to see worst columns</div><div class="sub"><strong>value_counts(normalize=True)</strong> &mdash; proportional frequency</div><div class="sub"><strong>duplicated().sum()</strong> &mdash; always check for silent duplicates</div></div><div class="code-block">df.shape
+df.<span class="fn">info</span>()                          <span class="cm"># dtypes + nulls</span>
+df.<span class="fn">describe</span>(include=<span class="st">'all'</span>)         <span class="cm"># full stats</span>
+(df.<span class="fn">isnull</span>().<span class="fn">mean</span>() * <span class="nm">100</span>).<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>)
+df[<span class="st">'city'</span>].<span class="fn">value_counts</span>(normalize=<span class="kw">True</span>)  <span class="cm"># proportions</span>
+df.<span class="fn">duplicated</span>().<span class="fn">sum</span>()               <span class="cm"># duplicate rows</span>
+df.<span class="fn">nunique</span>()                         <span class="cm"># distinct values per col</span>
+df.<span class="fn">memory_usage</span>(deep=<span class="kw">True</span>).<span class="fn">sum</span>() / <span class="nm">1024</span>**<span class="nm">2</span>  <span class="cm"># MB</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Walk me through your first 5 EDA lines on a new dataset.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>df.shape</code> (size), <code>df.info()</code> (dtypes + nulls), <code>df.describe(include='all')</code> (outliers, constant cols), <code>df.isnull().sum()</code> (missing), <code>df.duplicated().sum()</code> (duplicate rows). Then value_counts for categoricals and distribution plots for numerics.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What's the difference between df.info() and df.describe()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>info()</code> is structural &mdash; dtypes, non-null counts, memory. Use it to spot wrong types and missing data. <code>describe()</code> is statistical &mdash; mean, std, percentiles for numerics. A large gap between mean and median (50%) signals outliers or skew.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you find % of missing values per column?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>(df.isnull().sum() / len(df) * 100).sort_values(ascending=False)</code>. <code>isnull()</code> returns boolean (True=1), <code>.sum()</code> counts them, dividing by row count gives proportion, *100 gives percent. Sorting shows worst columns first.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-2" onclick="md(2)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-3"><div class="topic-header" onclick="tg(3)"><div class="num" id="num-3">4</div><div class="topic-title">Indexing &amp; Selection (.loc / .iloc)</div><span class="lb lb-b">Basics</span><span class="chev" id="cv-3">&#8964;</span></div><div class="topic-expand" id="ex-3"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>.loc</strong> is label-based &mdash; uses the actual index labels. Its slices are inclusive on both ends: <code>df.loc[0:3]</code> gives 4 rows (0,1,2,3). <strong>.iloc</strong> is position-based &mdash; uses integer positions like Python lists; slices are exclusive on the right: <code>df.iloc[0:3]</code> gives 3 rows (0,1,2). <strong>Boolean masking</strong> filters rows by condition &mdash; use <code>&amp;</code> (not <code>and</code>), <code>|</code> (not <code>or</code>), <code>~</code> (not), each condition in parentheses.</p></div><div class="subtopics"><div class="sub"><strong>.loc[row_label, col_label]</strong> &mdash; label-based; inclusive slice</div><div class="sub"><strong>.iloc[row_int, col_int]</strong> &mdash; position-based; exclusive on right</div><div class="sub"><strong>.at/.iat</strong> &mdash; single-cell access; fastest</div><div class="sub"><strong>Boolean mask</strong> &mdash; &amp; | ~ with parentheses; never use Python 'and'/'or'</div></div><div class="code-block"><span class="cm"># .loc &mdash; LABELS, inclusive both ends</span>
+df.<span class="fn">loc</span>[<span class="nm">0</span>:<span class="nm">3</span>]                 <span class="cm"># rows 0,1,2,3 (4 rows!)</span>
+df.<span class="fn">loc</span>[<span class="nm">0</span>:<span class="nm">3</span>, <span class="st">'name'</span>:<span class="st">'age'</span>]    <span class="cm"># rows 0-3, cols name&rarr;age</span>
+df.<span class="fn">loc</span>[df[<span class="st">'age'</span>]&gt;<span class="nm">25</span>, <span class="st">'name'</span>]  <span class="cm"># filter rows + pick col</span>
+
+<span class="cm"># .iloc &mdash; POSITIONS, exclusive on right</span>
+df.<span class="fn">iloc</span>[<span class="nm">0</span>:<span class="nm">3</span>]                 <span class="cm"># rows 0,1,2 (3 rows!)</span>
+df.<span class="fn">iloc</span>[-<span class="nm">1</span>]                  <span class="cm"># last row</span>
+
+<span class="cm"># Boolean masking &mdash; parentheses required!</span>
+df[(df[<span class="st">'age'</span>] &gt; <span class="nm">25</span>) &amp; (df[<span class="st">'city'</span>] == <span class="st">'Mumbai'</span>)]
+df[~df[<span class="st">'city'</span>].<span class="fn">isin</span>([<span class="st">'Delhi'</span>])]  <span class="cm"># NOT in list</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between .loc and .iloc? When does one fail?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>.loc</code> uses labels (inclusive slice); <code>.iloc</code> uses positions (exclusive right, like Python list). When .loc fails: if index is strings ['a','b','c'], <code>df.loc[0]</code> raises KeyError &mdash; use <code>df.iloc[0]</code>. Slicing gotcha: <code>df.loc[0:3]</code> = 4 rows; <code>df.iloc[0:3]</code> = 3 rows.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Why must you use & instead of 'and' in boolean filtering?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Python's <code>and</code> expects a single scalar bool. A Pandas Series is not a scalar &mdash; using <code>and</code> raises <code>ValueError: The truth value of a Series is ambiguous</code>. Use <code>&amp;</code> (bitwise AND, element-wise). Also wrap each condition in parentheses: <code>(df['a']>5) &amp; (df['b']=='x')</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is SettingWithCopyWarning and how do you fix it?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Triggered by chained indexing: <code>df[df['age']>25]['name'] = 'x'</code> &mdash; Pandas isn't sure if the slice is a view or copy, so the assignment may silently not stick. Fix: use <code>df.loc[df['age']>25, 'name'] = 'x'</code>. For read operations, call <code>.copy()</code> on the slice to be explicit.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-3" onclick="md(3)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-core">
+<div class="topic-card" id="card-4"><div class="topic-header" onclick="tg(4)"><div class="num" id="num-4">5</div><div class="topic-title">Handling Missing Data</div><span class="lb lb-c">Core ops</span><span class="chev" id="cv-4">&#8964;</span></div><div class="topic-expand" id="ex-4"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Real datasets always have NaN. They propagate silently: <code>NaN + 5 = NaN</code>. <strong>dropna()</strong> removes rows/cols: <code>how='any'</code> drops if any cell is NaN, <code>how='all'</code> only if every cell is NaN, <code>thresh=n</code> keeps rows with at least n valid values. <strong>fillna()</strong> replaces NaN with a scalar, per-column dict, <code>ffill</code> (carry last valid forward), or <code>bfill</code>. For time series, <code>ffill</code> is the standard approach.</p></div><div class="subtopics"><div class="sub"><strong>isnull().sum()</strong> &mdash; count NaN per col; .mean()*100 gives %</div><div class="sub"><strong>dropna(how, thresh, subset)</strong> &mdash; remove rows/cols with NaN</div><div class="sub"><strong>fillna(value / method)</strong> &mdash; scalar, dict, ffill, bfill</div><div class="sub"><strong>interpolate()</strong> &mdash; estimate values between known points (time series)</div></div><div class="code-block">df.<span class="fn">isnull</span>().<span class="fn">sum</span>()                     <span class="cm"># count per col</span>
+df.<span class="fn">dropna</span>()                            <span class="cm"># drop if ANY col NaN</span>
+df.<span class="fn">dropna</span>(how=<span class="st">'all'</span>)                  <span class="cm"># drop only if ALL NaN</span>
+df.<span class="fn">dropna</span>(subset=[<span class="st">'age'</span>], thresh=<span class="nm">3</span>)  <span class="cm"># custom logic</span>
+
+df[<span class="st">'age'</span>].<span class="fn">fillna</span>(df[<span class="st">'age'</span>].<span class="fn">median</span>())  <span class="cm"># fill with median</span>
+df.<span class="fn">fillna</span>({<span class="st">'age'</span>:<span class="nm">0</span>, <span class="st">'city'</span>:<span class="st">'Unknown'</span>}) <span class="cm"># per-column</span>
+df.<span class="fn">fillna</span>(method=<span class="st">'ffill'</span>)              <span class="cm"># forward fill</span>
+df[<span class="st">'temp'</span>].<span class="fn">interpolate</span>(method=<span class="st">'linear'</span>)<span class="cm"># smooth gaps</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between dropna(how='any') and dropna(thresh=n)?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>how='any'</code> drops a row if at least 1 value is NaN &mdash; aggressive. <code>how='all'</code> drops only if every value is NaN &mdash; lenient. <code>thresh=n</code> keeps a row only if it has at least n non-NaN values &mdash; granular control. Example: a row with 4 good values and 1 NaN: <code>how='any'</code> drops it, <code>thresh=3</code> keeps it.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. When to use ffill vs fillna(mean)?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>ffill</code> is for time series where the last known value is still valid (stock price, sensor reading, daily log). <code>fillna(mean)</code> is for independent random missing values where no temporal relationship exists. Use <code>fillna(median)</code> instead of mean when the column has outliers &mdash; median is robust to skew.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do NaN values affect sum() and mean()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Pandas skips NaN by default (<code>skipna=True</code>). <code>sum()</code> treats NaN as 0; <code>mean()</code> divides by count of non-NaN values. To force NaN propagation: <code>col.mean(skipna=False)</code>. Note: <code>count()</code> counts non-NaN; <code>len(df)</code> counts all rows &mdash; use <code>count()</code> for data quality checks.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-4" onclick="md(4)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-5"><div class="topic-header" onclick="tg(5)"><div class="num" id="num-5">6</div><div class="topic-title">Filtering &amp; Querying</div><span class="lb lb-c">Core ops</span><span class="chev" id="cv-5">&#8964;</span></div><div class="topic-expand" id="ex-5"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>Boolean masking</strong> creates a True/False Series used as a row selector. Combine conditions with <code>&amp;</code> (AND), <code>|</code> (OR), <code>~</code> (NOT) &mdash; always wrap each condition in parentheses. <strong>query()</strong> writes the same filter as a readable string; it uses <code>@var</code> to inject Python variables and internally uses numexpr for faster execution on large DataFrames. <strong>isin()</strong> replaces long OR chains cleanly.</p></div><div class="subtopics"><div class="sub"><strong>&amp; | ~</strong> with parentheses &mdash; Boolean mask; never use Python 'and'/'or'</div><div class="sub"><strong>query("expr")</strong> &mdash; string expression; @var injection; numexpr-backed</div><div class="sub"><strong>isin(list)</strong> &mdash; match any value in a list; ~ to negate</div><div class="sub"><strong>between(lo, hi)</strong> &mdash; inclusive range; str.contains(na=False) for strings</div></div><div class="code-block"><span class="cm"># Boolean mask</span>
+df[(df[<span class="st">'age'</span>] &gt; <span class="nm">25</span>) &amp; (df[<span class="st">'city'</span>] == <span class="st">'Mumbai'</span>)]
+df[~df[<span class="st">'city'</span>].<span class="fn">isin</span>([<span class="st">'Delhi'</span>])]      <span class="cm"># NOT in list</span>
+
+<span class="cm"># query() &mdash; cleaner syntax</span>
+min_age = <span class="nm">25</span>
+df.<span class="fn">query</span>(<span class="st">'age &gt; @min_age and city == "Mumbai"'</span>)
+
+df[df[<span class="st">'salary'</span>].<span class="fn">between</span>(<span class="nm">30000</span>, <span class="nm">80000</span>)]  <span class="cm"># inclusive</span>
+df[df[<span class="st">'name'</span>].str.<span class="fn">contains</span>(<span class="st">'kumar'</span>, case=<span class="kw">False</span>, na=<span class="kw">False</span>)]</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Advantage of query() over boolean masking?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Readability &mdash; 3+ conditions are much cleaner as a string. Performance &mdash; uses numexpr on large DataFrames (>200K rows), evaluating in C without intermediate arrays. Variable injection via <code>@var</code>. Limitation: column names with spaces need backticks: <code>`first name` == 'x'</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you filter rows where a column's value is in a list?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>df[df['city'].isin(['Mumbai','Delhi','Pune'])]</code>. Much cleaner than OR chain. To exclude: <code>df[~df['city'].isin(['Mumbai'])]</code>. Can also do a semi-join: <code>df[df['id'].isin(other_df['id'])]</code> &mdash; keeps only rows whose id appears in another DataFrame.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What does na=False do in str.contains()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> By default, <code>str.contains()</code> returns NaN for rows where the column is NaN. Using that as a boolean filter raises ValueError. <code>na=False</code> treats NaN rows as "no match" (returns False), making the filter safe. Always use it: <code>df[df['col'].str.contains('x', na=False)]</code>.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-5" onclick="md(5)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-6"><div class="topic-header" onclick="tg(6)"><div class="num" id="num-6">7</div><div class="topic-title">Adding, Renaming &amp; Dropping</div><span class="lb lb-c">Core ops</span><span class="chev" id="cv-6">&#8964;</span></div><div class="topic-expand" id="ex-6"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>assign()</strong> adds new columns and returns a new DataFrame &mdash; perfect for method chaining. Use a lambda when the new column references another column you just created in the same chain. <strong>rename()</strong> accepts a dict of old&rarr;new names &mdash; surgical, only renames what you specify. Avoid <strong>inplace=True</strong>: it doesn't actually save memory, breaks chaining, and is being deprecated in Pandas 2.0+.</p></div><div class="subtopics"><div class="sub"><strong>assign(col=expr)</strong> &mdash; returns new df; lambda references intermediate cols</div><div class="sub"><strong>rename(columns={'old':'new'})</strong> &mdash; surgical; only specified cols renamed</div><div class="sub"><strong>df.columns = df.columns.str.lower().str.replace(' ','_')</strong> &mdash; clean all at once</div><div class="sub"><strong>drop(columns=['a'])</strong> &mdash; remove cols; prefer reassignment over inplace=True</div></div><div class="code-block"><span class="cm"># assign &mdash; chain-friendly</span>
+df = (df
+  .<span class="fn">assign</span>(bmi = df[<span class="st">'weight'</span>] / df[<span class="st">'height'</span>]**<span class="nm">2</span>)
+  .<span class="fn">assign</span>(category = <span class="kw">lambda</span> x: pd.<span class="fn">cut</span>(x[<span class="st">'bmi'</span>],
+      bins=[<span class="nm">0</span>,<span class="nm">18.5</span>,<span class="nm">25</span>,<span class="nm">999</span>], labels=[<span class="st">'under'</span>,<span class="st">'normal'</span>,<span class="st">'over'</span>]))
+)
+<span class="cm"># rename columns</span>
+df = df.<span class="fn">rename</span>(columns={<span class="st">'cust_id'</span>:<span class="st">'customer_id'</span>})
+<span class="cm"># clean all column names in one line</span>
+df.columns = df.columns.str.<span class="fn">lower</span>().<span class="fn">str</span>.<span class="fn">replace</span>(<span class="st">' '</span>,<span class="st">'_'</span>)
+df = df.<span class="fn">drop</span>(columns=[<span class="st">'tmp'</span>])</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. inplace=True vs df = df.op() — which is better and why?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Prefer <code>df = df.op()</code>. Reasons: it's chainable (<code>df.drop(...).rename(...).fillna(...)</code>); <code>inplace=True</code> doesn't save memory (Pandas creates internal copies anyway); it returns None, breaking chains; and it's being deprecated in Pandas 2.0+.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you add a column that references another column just created in the same operation?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use two chained <code>assign()</code> calls with a lambda. <code>df.assign(tax=df['price']*0.18).assign(total=lambda x: x['price']+x['tax'])</code>. The lambda receives the DataFrame after the previous assign step, so 'tax' already exists when 'total' is computed.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you clean all column names (lowercase, underscores) in one line?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>df.columns = df.columns.str.lower().str.strip().str.replace(' ', '_')</code>. The Index object supports the same <code>.str</code> accessor as a Series. Very common when loading Excel files with inconsistent header formatting.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-6" onclick="md(6)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-7"><div class="topic-header" onclick="tg(7)"><div class="num" id="num-7">8</div><div class="topic-title">Sorting &amp; Ranking</div><span class="lb lb-c">Core ops</span><span class="chev" id="cv-7">&#8964;</span></div><div class="topic-expand" id="ex-7"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>sort_values()</strong> sorts by one or more columns; pass a list of ascending booleans for multi-column sort. NaN values go last by default. <strong>rank()</strong> assigns numerical ranks with five methods for handling ties: <code>average</code> (mean of tied positions), <code>min</code> (lowest tied rank), <code>max</code>, <code>first</code> (appearance order), and <code>dense</code> (same rank, no gaps &mdash; most useful for leaderboards). <code>nlargest(n, col)</code> is faster than sort+head for top-N.</p></div><div class="subtopics"><div class="sub"><strong>sort_values(by, ascending, na_position)</strong> &mdash; list for multi-column</div><div class="sub"><strong>rank(method='dense', ascending)</strong> &mdash; dense = tied items same rank, no gaps</div><div class="sub"><strong>groupby + rank</strong> &mdash; rank within groups (very common interview task)</div><div class="sub"><strong>nlargest(n) / nsmallest(n)</strong> &mdash; faster than sort + head</div></div><div class="code-block">df.<span class="fn">sort_values</span>([<span class="st">'dept'</span>,<span class="st">'salary'</span>],
+               ascending=[<span class="kw">True</span>,<span class="kw">False</span>], na_position=<span class="st">'last'</span>)
+
+<span class="cm"># dense: [100,90,90,80] &rarr; ranks [1,2,2,3]</span>
+df[<span class="st">'rank'</span>] = df[<span class="st">'score'</span>].<span class="fn">rank</span>(method=<span class="st">'dense'</span>, ascending=<span class="kw">False</span>)
+
+<span class="cm"># Rank within group (top-3 per dept)</span>
+df[<span class="st">'dept_rank'</span>] = df.<span class="fn">groupby</span>(<span class="st">'dept'</span>)[<span class="st">'salary'</span>].<span class="fn">rank</span>(
+    method=<span class="st">'dense'</span>, ascending=<span class="kw">False</span>)
+
+df.<span class="fn">nlargest</span>(<span class="nm">5</span>, <span class="st">'salary'</span>)  <span class="cm"># faster than sort+head</span></div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between rank(method='dense') and rank(method='average')?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> For values [100,90,90,80]: <code>average</code> gives [1, 2.5, 2.5, 4] &mdash; tied items share the mean of their positions. <code>dense</code> gives [1, 2, 2, 3] &mdash; tied items share the same rank with no gaps. Use <code>dense</code> for leaderboards where you want position 3 to follow position 2 meaningfully.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you find the top-3 earner in each department?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>df[df.groupby('dept')['salary'].rank(method='dense', ascending=False) <= 3]</code>. The groupby+rank returns a Series of ranks relative to each department group. Filtering on rank &lt;= 3 keeps the top 3 per group.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Why is nlargest() faster than sort_values().head()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>sort_values()</code> fully sorts the array &mdash; O(n log n). <code>nlargest(k)</code> uses a partial heap sort &mdash; O(n log k) &mdash; finding only the top k without sorting everything else. For 1M rows and k=5, this is dramatically faster.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-7" onclick="md(7)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-8"><div class="topic-header" onclick="tg(8)"><div class="num" id="num-8">9</div><div class="topic-title">GroupBy &amp; Aggregation</div><span class="lb lb-c">Core ops</span><span class="chev" id="cv-8">&#8964;</span></div><div class="topic-expand" id="ex-8"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>GroupBy follows split-apply-combine: split data into groups, apply a function, combine results. <strong>agg()</strong> reduces each group to one row (sum, mean, count). Use named agg syntax <code>agg(alias=('col','func'))</code> for clean flat column names. <strong>transform()</strong> is the key distinction &mdash; it returns a result with the same shape as the input, broadcasting group-level stats back to every row. <strong>filter()</strong> keeps/drops entire groups. <strong>apply()</strong> is the most flexible but slowest.</p></div><div class="subtopics"><div class="sub"><strong>groupby(col).agg(name=('col','func'))</strong> &mdash; named agg; flat output names</div><div class="sub"><strong>transform()</strong> &mdash; same shape as input; broadcasts group stat to each row</div><div class="sub"><strong>filter(lambda x: cond)</strong> &mdash; keep groups where condition is True</div><div class="sub"><strong>as_index=False</strong> &mdash; keeps groupby col as regular column; skip reset_index()</div></div><div class="code-block"><span class="cm"># Named aggregation &mdash; flat column names</span>
+summary = df.<span class="fn">groupby</span>(<span class="st">'dept'</span>).<span class="fn">agg</span>(
+    avg_sal   = (<span class="st">'salary'</span>, <span class="st">'mean'</span>),
+    headcount = (<span class="st">'id'</span>, <span class="st">'count'</span>),
+    max_sal   = (<span class="st">'salary'</span>, <span class="st">'max'</span>)
+).<span class="fn">reset_index</span>()
+
+<span class="cm"># transform &mdash; broadcasts group stat to each row</span>
+df[<span class="st">'dept_avg'</span>]  = df.<span class="fn">groupby</span>(<span class="st">'dept'</span>)[<span class="st">'salary'</span>].<span class="fn">transform</span>(<span class="st">'mean'</span>)
+df[<span class="st">'pct_of_avg'</span>] = df[<span class="st">'salary'</span>] / df[<span class="st">'dept_avg'</span>] * <span class="nm">100</span>
+
+<span class="cm"># filter &mdash; keep depts with avg salary > 60k</span>
+df.<span class="fn">groupby</span>(<span class="st">'dept'</span>).<span class="fn">filter</span>(<span class="kw">lambda</span> x: x[<span class="st">'salary'</span>].<span class="fn">mean</span>() &gt; <span class="nm">60000</span>)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between groupby agg() and transform()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>agg()</code> reduces &mdash; one output row per group (loses original structure). <code>transform()</code> preserves shape &mdash; same number of rows as input, group result broadcast back. Use transform when you want to add a group statistic as a new column without losing original rows (e.g., 'salary as % of department average').</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What does as_index=False do in groupby?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> By default, the grouping column becomes the index of the result. <code>as_index=False</code> keeps it as a regular column &mdash; equivalent to <code>.reset_index()</code>. More convenient when you plan to merge the result back or save to CSV.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you apply multiple aggregation functions to multiple columns at once?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Named agg (preferred): <code>df.groupby('dept').agg(avg_sal=('salary','mean'), max_sal=('salary','max'), med_age=('age','median'))</code>. Flat column names, no MultiIndex. The dict approach <code>agg({'salary':['mean','max']})</code> produces MultiIndex columns that need flattening.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-8" onclick="md(8)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-9"><div class="topic-header" onclick="tg(9)"><div class="num" id="num-9">10</div><div class="topic-title">Merging &amp; Joining</div><span class="lb lb-c">Core ops</span><span class="chev" id="cv-9">&#8964;</span></div><div class="topic-expand" id="ex-9"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>merge()</strong> is SQL-style join on key columns. <code>inner</code> keeps only matching rows; <code>left</code> keeps all left rows (NaN for unmatched right); <code>outer</code> keeps all from both. <strong>Duplicate keys cause row multiplication</strong> &mdash; 3 rows in df1 with key=5 and 2 in df2 gives 6 merged rows. Always validate keys before merging. <strong>concat()</strong> stacks DataFrames (axis=0 for rows, axis=1 for columns) without needing a key.</p></div><div class="subtopics"><div class="sub"><strong>merge(on, how='inner/left/right/outer')</strong> &mdash; SQL-style join on key col</div><div class="sub"><strong>left_on/right_on</strong> &mdash; when key column names differ between DataFrames</div><div class="sub"><strong>validate='1:1'</strong> &mdash; raises error if keys are not unique; prevents silent row explosion</div><div class="sub"><strong>concat([df1,df2], ignore_index=True)</strong> &mdash; stack rows; no key needed</div></div><div class="code-block"><span class="cm"># Inner join &mdash; only matching keys</span>
+pd.<span class="fn">merge</span>(orders, customers, on=<span class="st">'cust_id'</span>)
+
+<span class="cm"># Left join &mdash; keep all orders</span>
+pd.<span class="fn">merge</span>(orders, customers, on=<span class="st">'cust_id'</span>, how=<span class="st">'left'</span>)
+
+<span class="cm"># Different key names</span>
+pd.<span class="fn">merge</span>(df1, df2, left_on=<span class="st">'emp_id'</span>, right_on=<span class="st">'employee_id'</span>)
+
+<span class="cm"># Validate &mdash; catch key duplication early</span>
+pd.<span class="fn">merge</span>(df1, df2, on=<span class="st">'id'</span>, validate=<span class="st">'1:1'</span>)
+
+<span class="cm"># Stack rows</span>
+pd.<span class="fn">concat</span>([jan, feb, mar], ignore_index=<span class="kw">True</span>)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Explain inner vs left vs outer join with an example.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Say orders has ids [1,2,3] and customers has ids [2,3,4]. <code>inner</code>: only [2,3] (both tables). <code>left</code>: [1,2,3] &mdash; id=1 gets NaN customer info. <code>outer</code>: [1,2,3,4] &mdash; all rows from both, NaN where no match. Use outer for reconciliation to find rows that exist in only one table.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What causes duplicate rows after a merge and how do you prevent it?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Duplicate keys in the join column. If df1 has 3 rows with id=5 and df2 has 2 rows with id=5, the merge produces 3&times;2=6 rows for that key. Prevention: <code>df['key'].duplicated().any()</code> before merging, or use <code>validate='1:1'</code> in merge to raise an error if keys are non-unique.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Difference between merge() and concat()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>merge()</code> is SQL join &mdash; combines rows based on matching key values, changes both shape dimensions. <code>concat(axis=0)</code> stacks rows of same-structure DataFrames (like UNION in SQL). <code>concat(axis=1)</code> stacks columns side-by-side, aligning on index. concat needs no key column.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-9" onclick="md(9)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-advanced">
+<div class="topic-card" id="card-10"><div class="topic-header" onclick="tg(10)"><div class="num" id="num-10">11</div><div class="topic-title">Apply, Map &amp; Vectorization</div><span class="lb lb-a">Advanced</span><span class="chev" id="cv-10">&#8964;</span></div><div class="topic-expand" id="ex-10"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><code>apply()</code> runs a Python function row-by-row &mdash; flexible but 10&ndash;100&times; slower than vectorised ops because it breaks out of NumPy's C layer. <strong>Rule: if you can express it as arithmetic, a comparison, or a built-in method, never use apply.</strong> <code>np.where()</code> replaces if/else; <code>np.select()</code> replaces if/elif/else chains. <code>map()</code> is element-wise on a Series &mdash; best for value replacement with a dict.</p></div><div class="subtopics"><div class="sub"><strong>vectorized ops</strong> &mdash; df['a']+df['b'], col*2; C-level speed; always prefer</div><div class="sub"><strong>np.where(cond, val_T, val_F)</strong> &mdash; vectorized if/else</div><div class="sub"><strong>np.select(conditions, choices, default)</strong> &mdash; vectorized if/elif/else</div><div class="sub"><strong>map(dict)</strong> &mdash; element-wise Series replacement; NaN for unmapped values</div><div class="sub"><strong>apply(axis=1)</strong> &mdash; last resort; only for complex multi-column logic</div></div><div class="code-block"><span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># SLOW &mdash; breaks out of C layer</span>
+df[<span class="st">'tax'</span>] = df.<span class="fn">apply</span>(<span class="kw">lambda</span> r: r[<span class="st">'price'</span>]*<span class="nm">0.18</span>, axis=<span class="nm">1</span>)
+
+<span class="cm"># FAST &mdash; vectorised (100x+ faster)</span>
+df[<span class="st">'tax'</span>] = df[<span class="st">'price'</span>] * <span class="nm">0.18</span>
+
+<span class="cm"># np.where &mdash; vectorised if/else</span>
+df[<span class="st">'result'</span>] = np.<span class="fn">where</span>(df[<span class="st">'score'</span>]&gt;<span class="nm">50</span>, <span class="st">'Pass'</span>, <span class="st">'Fail'</span>)
+
+<span class="cm"># np.select &mdash; vectorised if/elif/else</span>
+conds = [df[<span class="st">'score'</span>]&gt;<span class="nm">90</span>, df[<span class="st">'score'</span>]&gt;<span class="nm">75</span>, df[<span class="st">'score'</span>]&gt;<span class="nm">50</span>]
+df[<span class="st">'grade'</span>] = np.<span class="fn">select</span>(conds, [<span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'C'</span>], default=<span class="st">'F'</span>)
+
+<span class="cm"># map &mdash; dict replacement</span>
+df[<span class="st">'code'</span>] = df[<span class="st">'gender'</span>].<span class="fn">map</span>({<span class="st">'M'</span>:<span class="nm">0</span>, <span class="st">'F'</span>:<span class="nm">1</span>})</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why is apply() slow and how do you replace it?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>apply()</code> iterates row-by-row in Python &mdash; each row is extracted as a Series, function called, result collected. This Python overhead is 10&ndash;100&times; slower than NumPy C operations. Replacements: simple arithmetic &rarr; vectorised op; if/else &rarr; <code>np.where()</code>; multi-condition &rarr; <code>np.select()</code>. Only keep apply for genuinely complex multi-column logic with no vectorised equivalent.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Difference between apply() and map() on a Series?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>map()</code> is element-wise on a Series; best for simple value replacement using a dict or function. <code>map({'a':1,'b':2})</code> returns NaN for unmapped values. <code>apply()</code> is more flexible &mdash; can return complex objects, works on DataFrames with axis=0/1. Rule: use <code>map()</code> for dict/value replacement; use <code>apply()</code> only when map isn't enough.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you create a grade column from 4 conditions without using apply?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use <code>np.select()</code>: define a list of boolean conditions (evaluated top-to-bottom, first True wins) and a list of return values. <code>conds=[score>90, score>75, score>60, score>50]; vals=['A','B','C','D']; df['grade']=np.select(conds, vals, default='F')</code>. Fully vectorised &mdash; works on millions of rows instantly.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-10" onclick="md(10)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-11"><div class="topic-header" onclick="tg(11)"><div class="num" id="num-11">12</div><div class="topic-title">String Operations (.str accessor)</div><span class="lb lb-a">Advanced</span><span class="chev" id="cv-11">&#8964;</span></div><div class="topic-expand" id="ex-11"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>The <code>.str</code> accessor gives vectorised Python string methods on a Series &mdash; same API as Python strings but operating on entire columns at once. <code>str.extract(pattern)</code> uses regex capture groups to parse structured text (emails, logs, phone numbers). <code>str.get_dummies(sep)</code> one-hot encodes multi-label columns like "Python,SQL,R". NaN values propagate safely through most str methods &mdash; except <code>str.contains()</code> which needs <code>na=False</code>.</p></div><div class="subtopics"><div class="sub"><strong>str.lower/upper/strip/replace/title</strong> &mdash; vectorised; chainable</div><div class="sub"><strong>str.contains(pat, case, na=False)</strong> &mdash; regex/literal filter; na=False is critical</div><div class="sub"><strong>str.extract(r'(group)')</strong> &mdash; regex capture group &rarr; new column</div><div class="sub"><strong>str.split(pat, expand=True)</strong> &mdash; split into multiple columns</div><div class="sub"><strong>str.get_dummies(sep=',')</strong> &mdash; one-hot for multi-label strings</div></div><div class="code-block"><span class="cm"># Clean text</span>
+df[<span class="st">'name'</span>] = df[<span class="st">'name'</span>].str.<span class="fn">strip</span>().<span class="fn">str</span>.<span class="fn">title</span>()
+
+<span class="cm"># Extract domain from email</span>
+df[<span class="st">'domain'</span>] = df[<span class="st">'email'</span>].str.<span class="fn">extract</span>(<span class="st">r'@(.+)\.'</span>)
+
+<span class="cm"># Split name into first + last</span>
+df[[<span class="st">'first'</span>,<span class="st">'last'</span>]] = df[<span class="st">'name'</span>].str.<span class="fn">split</span>(<span class="st">' '</span>, expand=<span class="kw">True</span>)
+
+<span class="cm"># One-hot: "Python,SQL,Pandas" &rarr; 3 columns</span>
+skills = df[<span class="st">'skills'</span>].str.<span class="fn">get_dummies</span>(sep=<span class="st">','</span>)
+df = pd.<span class="fn">concat</span>([df, skills], axis=<span class="nm">1</span>)
+
+<span class="cm"># Remove non-digits from phone</span>
+df[<span class="st">'phone'</span>] = df[<span class="st">'phone'</span>].str.<span class="fn">replace</span>(<span class="st">r'\D'</span>, <span class="st">''</span>, regex=<span class="kw">True</span>)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. How would you extract the domain name from an email column?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>df['domain'] = df['email'].str.extract(r'@(.+)\.')</code> &mdash; the <code>(.+)</code> capture group matches everything between @ and the last dot. Alternative: <code>df['email'].str.split('@').str[1].str.split('.').str[0]</code> &mdash; more readable but less elegant.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. What is str.get_dummies() and when is it better than pd.get_dummies()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>str.get_dummies(sep)</code> handles multi-label cells (e.g., 'Python,SQL,R'). <code>pd.get_dummies()</code> can't &mdash; it would treat 'Python,SQL' as a single category. Use <code>str.get_dummies</code> when one row can have multiple values in one cell (skills, tags, genres). Use <code>pd.get_dummies</code> for single-value categorical columns.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What happens if you use str methods on a column with NaN values?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Most str methods propagate NaN safely (NaN in &rarr; NaN out, no error). Exception: <code>str.contains()</code> returns NaN for NaN inputs &mdash; using that as a filter raises ValueError. Fix with <code>na=False</code>. Best practice for heavy string work: <code>df['col'].fillna('').str.lower()</code>.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-11" onclick="md(11)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-12"><div class="topic-header" onclick="tg(12)"><div class="num" id="num-12">13</div><div class="topic-title">Datetime Operations (.dt accessor)</div><span class="lb lb-a">Advanced</span><span class="chev" id="cv-12">&#8964;</span></div><div class="topic-expand" id="ex-12"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Always convert string dates to <code>datetime64</code> with <code>pd.to_datetime()</code> &mdash; using <code>errors='coerce'</code> converts bad dates to NaT instead of raising errors. The <code>.dt</code> accessor then unlocks all date components (year, month, weekday, quarter) and arithmetic. <strong>resample()</strong> is GroupBy for time series &mdash; group by period ('D','W','ME','QE') and aggregate. Subtracting two datetime columns gives a Timedelta; use <code>.dt.days</code> for integer days.</p></div><div class="subtopics"><div class="sub"><strong>pd.to_datetime(col, errors='coerce')</strong> &mdash; parse; coerce = bad dates &rarr; NaT</div><div class="sub"><strong>.dt.year/month/day/weekday/quarter/day_name()</strong> &mdash; extract components</div><div class="sub"><strong>(end - start).dt.days</strong> &mdash; Timedelta to integer days</div><div class="sub"><strong>resample('ME', on='date').sum()</strong> &mdash; monthly aggregation</div></div><div class="code-block"><span class="cm"># Parse &mdash; always first step</span>
+df[<span class="st">'date'</span>] = pd.<span class="fn">to_datetime</span>(df[<span class="st">'date'</span>], errors=<span class="st">'coerce'</span>)
+
+df[<span class="st">'year'</span>]    = df[<span class="st">'date'</span>].dt.year
+df[<span class="st">'weekday'</span>] = df[<span class="st">'date'</span>].dt.day_name()   <span class="cm"># 'Monday'</span>
+df[<span class="st">'quarter'</span>] = df[<span class="st">'date'</span>].dt.quarter
+df[<span class="st">'is_wknd'</span>] = df[<span class="st">'date'</span>].dt.weekday &gt;= <span class="nm">5</span>
+
+<span class="cm"># Days between two dates</span>
+df[<span class="st">'tenure'</span>] = (df[<span class="st">'end'</span>] - df[<span class="st">'start'</span>]).dt.days
+
+<span class="cm"># Monthly total using resample</span>
+df.<span class="fn">resample</span>(<span class="st">'ME'</span>, on=<span class="st">'date'</span>)[<span class="st">'sales'</span>].<span class="fn">sum</span>()</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. What does errors='coerce' do in pd.to_datetime()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Default (<code>errors='raise'</code>) raises ValueError if any value can't be parsed. <code>errors='coerce'</code> silently converts invalid dates to NaT (Not a Time) instead. Essential for real data that mixes valid dates with 'N/A', empty strings, or impossible dates like '99/99/9999'. After coercing, use <code>df['date'].isnull().sum()</code> to count failures.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you group a time series by month and sum sales?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Two approaches: (1) <code>df.resample('ME', on='date')['sales'].sum()</code> &mdash; idiomatic time-series approach, requires datetime column. (2) <code>df.groupby(df['date'].dt.to_period('M'))['sales'].sum()</code> &mdash; more explicit, easier to extend to multi-column aggs. resample is preferred for pure time-series work.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. How do you calculate business days between two date columns?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>np.busday_count(df['start'].dt.date, df['end'].dt.date)</code>. Pandas has no built-in business day difference. <code>.dt.date</code> extracts Python date objects (required by busday_count). For custom holidays/weekends use <code>np.busdaycalendar()</code>. For simple calendar days: <code>(df['end']-df['start']).dt.days</code>.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-12" onclick="md(12)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-13"><div class="topic-header" onclick="tg(13)"><div class="num" id="num-13">14</div><div class="topic-title">Pivot Tables &amp; Reshaping</div><span class="lb lb-a">Advanced</span><span class="chev" id="cv-13">&#8964;</span></div><div class="topic-expand" id="ex-13"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>pivot_table()</strong> is the Pandas equivalent of an Excel pivot &mdash; aggregates by row/column groupings. <code>margins=True</code> adds subtotals. <strong>pivot()</strong> reshapes without aggregating but raises ValueError if the (index, columns) pair has duplicates. <strong>melt()</strong> is the inverse &mdash; it converts wide format (one column per measurement) to long format (one row per measurement). Long format is required by seaborn, plotly, and most ML pipelines.</p></div><div class="subtopics"><div class="sub"><strong>pivot_table(values, index, columns, aggfunc, margins)</strong> &mdash; full Excel-style pivot</div><div class="sub"><strong>pivot()</strong> &mdash; reshape only; raises ValueError on duplicate (index,col) pairs</div><div class="sub"><strong>melt(id_vars, var_name, value_name)</strong> &mdash; wide &rarr; long; required for viz/ML</div><div class="sub"><strong>crosstab(normalize='index')</strong> &mdash; frequency table with row-wise proportions</div></div><div class="code-block"><span class="cm"># Pivot table &mdash; sales by region x product</span>
+pd.<span class="fn">pivot_table</span>(df, values=<span class="st">'sales'</span>, index=<span class="st">'region'</span>,
+    columns=<span class="st">'product'</span>, aggfunc=<span class="st">'sum'</span>,
+    fill_value=<span class="nm">0</span>, margins=<span class="kw">True</span>)
+
+<span class="cm"># melt &mdash; wide to long</span>
+<span class="cm"># Before: [id, Jan, Feb, Mar]</span>
+<span class="cm"># After:  [id, month, sales]</span>
+df.<span class="fn">melt</span>(id_vars=[<span class="st">'id'</span>], var_name=<span class="st">'month'</span>,
+        value_name=<span class="st">'sales'</span>)
+
+<span class="cm"># Frequency table with % per row</span>
+pd.<span class="fn">crosstab</span>(df[<span class="st">'gender'</span>], df[<span class="st">'survived'</span>],
+            normalize=<span class="st">'index'</span>)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between pivot() and pivot_table()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>pivot()</code> reshapes without aggregating &mdash; raises <code>ValueError: Index contains duplicate entries</code> if the (index, columns) combination is not unique. <code>pivot_table()</code> handles duplicates by aggregating with aggfunc (default: mean). Rule: try pivot() first; if you get a ValueError about duplicates, switch to pivot_table().</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. When would you use melt() and what problem does it solve?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> melt() converts wide format to long (tidy) format. Use it when: (1) viz libraries like seaborn expect one column for category name and one for value; (2) ML pipelines need one-row-per-observation format; (3) wide monthly/quarterly columns need to become a single 'period' column. Example: [Jan, Feb, Mar] columns &rarr; 'month' + 'sales' columns.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What does normalize='index' do in pd.crosstab()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>normalize='index'</code>: each row sums to 1.0 (% within each row group). <code>normalize='columns'</code>: each column sums to 1.0. <code>normalize=True</code>: overall proportions, each cell as % of grand total. Without normalize: raw counts.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-13" onclick="md(13)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-14"><div class="topic-header" onclick="tg(14)"><div class="num" id="num-14">15</div><div class="topic-title">MultiIndex &amp; Advanced Indexing</div><span class="lb lb-a">Advanced</span><span class="chev" id="cv-14">&#8964;</span></div><div class="topic-expand" id="ex-14"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>A MultiIndex (hierarchical index) has multiple label levels on rows or columns. It arises naturally after groupby or pivot_table. Always call <code>sort_index()</code> after creating a MultiIndex &mdash; without sorted index, range slices silently return wrong results. <code>.xs(key, level=)</code> selects by a single level. <code>pd.IndexSlice</code> provides clean syntax for slicing ranges across levels. <code>reset_index()</code> flattens back to regular columns.</p></div><div class="subtopics"><div class="sub"><strong>set_index(['a','b']).sort_index()</strong> &mdash; always sort after creating MultiIndex</div><div class="sub"><strong>loc[(outer, inner)]</strong> &mdash; exact tuple selection</div><div class="sub"><strong>xs(key, level=)</strong> &mdash; cross-section by one level; drops that level from result</div><div class="sub"><strong>pd.IndexSlice</strong> &mdash; clean range slicing across levels</div></div><div class="code-block">df = df.<span class="fn">set_index</span>([<span class="st">'year'</span>,<span class="st">'month'</span>]).<span class="fn">sort_index</span>()
+
+<span class="cm"># Exact combination</span>
+df.<span class="fn">loc</span>[(<span class="nm">2023</span>, <span class="st">'Jan'</span>)]
+
+<span class="cm"># Cross-section &mdash; all months for 2023</span>
+df.<span class="fn">xs</span>(<span class="nm">2023</span>, level=<span class="st">'year'</span>)
+
+<span class="cm"># Range across both levels</span>
+idx = pd.IndexSlice
+df.<span class="fn">loc</span>[idx[<span class="nm">2022</span>:<span class="nm">2023</span>, <span class="st">'Jan'</span>:<span class="st">'Mar'</span>], :]
+
+<span class="cm"># Flatten MultiIndex columns after groupby</span>
+df.columns = [<span class="st">'_'</span>.<span class="fn">join</span>(c).<span class="fn">strip</span>() <span class="kw">for</span> c <span class="kw">in</span> df.columns]
+df.<span class="fn">reset_index</span>()</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why must you sort_index() after creating a MultiIndex?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Pandas requires the MultiIndex to be lexicographically sorted for range slices to work correctly. Without it: <code>df.loc[2022:2023]</code> may miss rows or return wrong results, and you get <code>PerformanceWarning: indexing past lexsort depth</code>. Always: <code>df.set_index(['a','b']).sort_index()</code>.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. After groupby with multiple agg functions, how do you flatten MultiIndex columns?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>df.columns = ['_'.join(col).strip() for col in df.columns]</code> &mdash; joins the two levels with underscore ('salary_mean', 'salary_max'). Better approach: use named aggregation syntax <code>agg(avg_sal=('salary','mean'))</code> which produces flat column names directly and avoids MultiIndex entirely.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. Difference between xs() and loc[] for MultiIndex?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>loc[(outer, inner)]</code> requires you to specify values at each level. <code>xs(key, level=)</code> selects by one level value regardless of other levels, and drops that level from the result index. Use xs when you want to 'zoom into' one level without specifying all others.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-14" onclick="md(14)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-expert">
+<div class="topic-card" id="card-15"><div class="topic-header" onclick="tg(15)"><div class="num" id="num-15">16</div><div class="topic-title">Performance &amp; Memory Optimization</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-15">&#8964;</span></div><div class="topic-expand" id="ex-15"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>The biggest single win: <strong>category dtype</strong> on low-cardinality string columns. A 1M-row city column as <code>object</code> uses ~50MB; as <code>category</code> it uses ~1MB (stores integer codes + a small lookup table). <strong>Downcasting</strong> numerics (int64&rarr;int8/16/32, float64&rarr;float32) halves or quarters memory. At read time, <code>usecols + dtype</code> is free speed. <strong>eval()</strong> uses numexpr to evaluate expressions in C without intermediate arrays &mdash; faster on large DataFrames.</p></div><div class="subtopics"><div class="sub"><strong>category dtype</strong> &mdash; use when nunique/len &lt; 0.5; 90% memory saving</div><div class="sub"><strong>to_numeric(downcast='integer')</strong> &mdash; auto-selects smallest int type</div><div class="sub"><strong>usecols + dtype at read time</strong> &mdash; cheapest optimisation; never read what you don't need</div><div class="sub"><strong>eval('expr')</strong> &mdash; numexpr-backed; no intermediate arrays; faster on large df</div></div><div class="code-block"><span class="cm"># Check memory first</span>
+df.<span class="fn">memory_usage</span>(deep=<span class="kw">True</span>).<span class="fn">sum</span>() / <span class="nm">1024</span>**<span class="nm">2</span>  <span class="cm"># MB</span>
+
+<span class="cm"># Convert low-cardinality strings to category</span>
+<span class="kw">for</span> col <span class="kw">in</span> df.<span class="fn">select_dtypes</span>(<span class="st">'object'</span>).columns:
+    <span class="kw">if</span> df[col].<span class="fn">nunique</span>() / len(df) &lt; <span class="nm">0.5</span>:
+        df[col] = df[col].<span class="fn">astype</span>(<span class="st">'category'</span>)
+
+<span class="cm"># Downcast numerics</span>
+df[<span class="st">'age'</span>]    = pd.<span class="fn">to_numeric</span>(df[<span class="st">'age'</span>], downcast=<span class="st">'integer'</span>)
+df[<span class="st">'rating'</span>] = pd.<span class="fn">to_numeric</span>(df[<span class="st">'rating'</span>], downcast=<span class="st">'float'</span>)
+
+<span class="cm"># eval &mdash; no intermediate arrays</span>
+df.<span class="fn">eval</span>(<span class="st">'profit = revenue - cost - tax'</span>, inplace=<span class="kw">True</span>)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Name 4 concrete strategies to reduce a 5 GB DataFrame's memory.</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> (1) <strong>usecols</strong> at read time &mdash; load only needed columns. (2) <strong>category dtype</strong> for low-cardinality strings &mdash; 50&ndash;90% reduction. (3) <strong>Downcast numerics</strong> &mdash; int64&rarr;int8/32, float64&rarr;float32. (4) <strong>chunksize</strong> &mdash; never hold more rows in RAM than needed. Bonus: Parquet format is 3&ndash;10x smaller than CSV.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. When should you NOT use category dtype?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> When cardinality is high (many unique values). For a column like customer_id or email where nearly every row is unique, category stores a massive lookup table with no memory saving &mdash; worse than object. Rule: use category when <code>nunique/len &lt; 0.5</code>. Also note: assigning new values not in the existing categories raises ValueError unless you add them first.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is the difference between eval() and a regular Pandas expression?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Regular: <code>df['a'] + df['b'] + df['c']</code> creates two intermediate arrays (step1: a+b, step2: +c) &mdash; significant memory pressure on large DataFrames. <code>eval('result = a + b + c')</code> compiles the entire expression to C via numexpr and evaluates in one pass &mdash; no intermediate arrays, 2&ndash;10x faster on >500K rows. Limitation: only supports arithmetic, comparison, and boolean ops.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-15" onclick="md(15)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-16"><div class="topic-header" onclick="tg(16)"><div class="num" id="num-16">17</div><div class="topic-title">Window Functions (Rolling &amp; Expanding)</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-16">&#8964;</span></div><div class="topic-expand" id="ex-16"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p>Window functions compute aggregate values over a sliding "window" of rows without reducing DataFrame shape &mdash; essential for time series and ML feature engineering. <strong>rolling(n)</strong> uses the last n rows; first n-1 rows are NaN. <strong>expanding()</strong> grows from row 1 to current row &mdash; cumulative stats. <strong>ewm(span)</strong> gives exponentially decaying weights &mdash; more weight to recent values. <strong>shift(n)</strong> creates lag features (yesterday's value as a predictor for today). Always <code>sort_values('date')</code> first.</p></div><div class="subtopics"><div class="sub"><strong>sort by date first</strong> &mdash; critical; window functions assume chronological order</div><div class="sub"><strong>rolling(n, min_periods)</strong> &mdash; last n rows; first n-1 are NaN unless min_periods set</div><div class="sub"><strong>expanding()</strong> &mdash; cumulative from start; equivalent to growing rolling window</div><div class="sub"><strong>shift(n)</strong> &mdash; lag feature; shift(1) = yesterday; always shift rolling features too</div><div class="sub"><strong>pct_change() / diff()</strong> &mdash; period-over-period % change / absolute change</div></div><div class="code-block">df = df.<span class="fn">sort_values</span>(<span class="st">'date'</span>)  <span class="cm"># always first!</span>
+
+df[<span class="st">'ma_7'</span>]   = df[<span class="st">'price'</span>].<span class="fn">rolling</span>(<span class="nm">7</span>).<span class="fn">mean</span>()
+df[<span class="st">'ma_30'</span>]  = df[<span class="st">'price'</span>].<span class="fn">rolling</span>(<span class="nm">30</span>).<span class="fn">mean</span>()
+df[<span class="st">'vol_30'</span>] = df[<span class="st">'price'</span>].<span class="fn">rolling</span>(<span class="nm">30</span>).<span class="fn">std</span>()
+
+<span class="cm"># Lag features for ML</span>
+df[<span class="st">'lag_1'</span>] = df[<span class="st">'sales'</span>].<span class="fn">shift</span>(<span class="nm">1</span>)   <span class="cm"># yesterday</span>
+df[<span class="st">'lag_7'</span>] = df[<span class="st">'sales'</span>].<span class="fn">shift</span>(<span class="nm">7</span>)   <span class="cm"># last week</span>
+<span class="cm"># Shift rolling feature to avoid leakage</span>
+df[<span class="st">'ma7_lag1'</span>] = df[<span class="st">'sales'</span>].<span class="fn">rolling</span>(<span class="nm">7</span>).<span class="fn">mean</span>().<span class="fn">shift</span>(<span class="nm">1</span>)
+
+df[<span class="st">'growth'</span>]    = df[<span class="st">'sales'</span>].<span class="fn">pct_change</span>() * <span class="nm">100</span>
+df[<span class="st">'cum_sales'</span>] = df[<span class="st">'sales'</span>].<span class="fn">expanding</span>().<span class="fn">sum</span>()</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Difference between rolling() and expanding()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>rolling(n)</code>: fixed window of last n rows &mdash; captures recent trend. <code>expanding()</code>: grows from row 1 to current row &mdash; cumulative stats. Use rolling for moving averages, recent volatility. Use expanding for year-to-date, running totals, all-time max. <code>expanding().mean()</code> is equivalent to the cumulative mean at each row.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. How do you create lag features for time series ML without data leakage?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Use <code>shift(n)</code> after sorting by date. To avoid leakage, always shift rolling/expanding features by at least 1: <code>df['sales'].rolling(7).mean().shift(1)</code> gives the 7-day MA of values up to yesterday &mdash; not including today's value. If you use <code>rolling(7).mean()</code> without shift, today's own sales value leaks into the feature.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is min_periods in rolling() and when should you set it?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> By default, <code>rolling(7)</code> requires exactly 7 values in the window &mdash; first 6 rows return NaN. <code>min_periods=1</code> produces results from row 1 using however many values are available. Use <code>min_periods=1</code> when you want best-available stats at the start of a series. Keep default when statistical stability is more important than coverage.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-16" onclick="md(16)">&#10003; Mark done</button></div></div></div>
+<div class="topic-card" id="card-17"><div class="topic-header" onclick="tg(17)"><div class="num" id="num-17">18</div><div class="topic-title">Pandas for ML Preprocessing</div><span class="lb lb-e">Expert</span><span class="chev" id="cv-17">&#8964;</span></div><div class="topic-expand" id="ex-17"><div class="divider"></div><div class="explain"><div class="explain-title">&#128214; Explanation</div><p><strong>get_dummies(drop_first=True)</strong> one-hot encodes categoricals; <code>drop_first</code> removes one column to prevent the dummy variable trap (perfect multicollinearity in linear models). <strong>cut()</strong> bins continuous variables into user-defined equal-width intervals; <strong>qcut()</strong> creates equal-frequency bins (each bin has the same number of rows &mdash; better for skewed distributions). <strong>clip()</strong> caps outliers without dropping rows. <strong>pipe()</strong> chains preprocessing steps into a clean, readable, testable pipeline.</p></div><div class="subtopics"><div class="sub"><strong>get_dummies(drop_first=True)</strong> &mdash; one-hot; drop_first prevents multicollinearity</div><div class="sub"><strong>cut(bins, labels)</strong> &mdash; equal-width; user-defined breakpoints</div><div class="sub"><strong>qcut(q, labels)</strong> &mdash; equal-frequency; robust for skewed data</div><div class="sub"><strong>clip(lo, hi)</strong> &mdash; cap outliers; preserves rows unlike dropna</div><div class="sub"><strong>pipe(func)</strong> &mdash; chain steps; each func takes df, returns df</div></div><div class="code-block"><span class="cm"># One-hot encode (drop_first avoids dummy trap)</span>
+df = pd.<span class="fn">get_dummies</span>(df, columns=[<span class="st">'city'</span>,<span class="st">'gender'</span>],
+                     drop_first=<span class="kw">True</span>, dtype=<span class="fn">int</span>)
+
+<span class="cm"># Bin age into groups</span>
+df[<span class="st">'age_grp'</span>] = pd.<span class="fn">cut</span>(df[<span class="st">'age'</span>],
+    bins=[<span class="nm">0</span>,<span class="nm">18</span>,<span class="nm">35</span>,<span class="nm">55</span>,<span class="nm">100</span>],
+    labels=[<span class="st">'teen'</span>,<span class="st">'young'</span>,<span class="st">'mid'</span>,<span class="st">'senior'</span>])
+
+<span class="cm"># Cap outliers at 5th / 95th percentile</span>
+lo, hi = df[<span class="st">'salary'</span>].<span class="fn">quantile</span>([<span class="nm">.05</span>,<span class="nm">.95</span>])
+df[<span class="st">'salary'</span>] = df[<span class="st">'salary'</span>].<span class="fn">clip</span>(lo, hi)
+
+<span class="cm"># pipe &mdash; clean preprocessing pipeline</span>
+<span class="kw">def</span> <span class="fn">clean</span>(df):  <span class="kw">return</span> df.<span class="fn">drop_duplicates</span>().<span class="fn">fillna</span>(<span class="nm">0</span>)
+df = df.<span class="fn">pipe</span>(clean).<span class="fn">pipe</span>(pd.get_dummies, columns=[<span class="st">'city'</span>], drop_first=<span class="kw">True</span>)</div><div class="iq-section"><div class="iq-lbl">Interview Questions</div><div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q1. Why use drop_first=True in get_dummies? What is the dummy variable trap?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> With k categories you only need k-1 binary columns &mdash; the dropped category is perfectly predictable when all others are 0. Including all k creates perfect multicollinearity: linear regression has a singular matrix and can't be solved uniquely. Tree-based models (XGBoost, Random Forest) don't need drop_first. Linear/logistic regression and SVM do.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q2. Difference between cut() and qcut()?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> <code>cut()</code>: equal-width bins. You define the breakpoints. Problem: skewed data can put 90% of rows in one bin. <code>qcut(q=4)</code>: equal-frequency bins &mdash; each bin gets 25% of rows. Better for skewed data, creating balanced groups for comparison. Use <code>cut</code> when bin edges have domain meaning (generation groups); use <code>qcut</code> when you need balanced groups.</div></div></div>
+<div class="iq-card"><div class="iq-q" onclick="ri(this)"><span class="iq-q-t">Q3. What is pipe() and why is it better than sequential reassignment?</span><span class="rbtn">Reveal</span></div><div class="iq-a"><div class="iq-a-inner"><strong>Answer:</strong> Without pipe: <code>df=step1(df); df=step2(df); df=step3(df)</code> &mdash; noisy. With pipe: <code>df.pipe(step1).pipe(step2).pipe(step3)</code> &mdash; clean, chainable, each step is a function taking and returning a DataFrame. Benefits: easy to add/remove/reorder steps, easy to unit-test each step, clear data lineage. The Pandas equivalent of Unix pipes.</div></div></div>
+</div><div class="btn-row"><button class="btn-done" id="dn-17" onclick="md(17)">&#10003; Mark done</button></div></div></div>
+</div>
+
+<div class="section" id="tab-plan">
+  <div class="tip-box">
+    <div class="tip-title">&#9654; 4-Week Study Plan</div>
+    <div class="tip-item"><span class="wk">WK 1</span><p><strong>Basics (Topics 1&ndash;4)</strong> &mdash; DataFrames, IO, exploration, loc/iloc. Every interview starts here.</p></div>
+    <div class="tip-item"><span class="wk">WK 2</span><p><strong>Core ops (Topics 5&ndash;10)</strong> &mdash; GroupBy and Merge alone cover 80% of data analyst interview questions.</p></div>
+    <div class="tip-item"><span class="wk">WK 3</span><p><strong>Advanced (Topics 11&ndash;15)</strong> &mdash; String + datetime ops are constant in real projects; pivot tables separate intermediate from strong candidates.</p></div>
+    <div class="tip-item"><span class="wk">WK 4</span><p><strong>Expert/ML (Topics 16&ndash;18)</strong> &mdash; Performance awareness and preprocessing pipelines separate analyst from data scientist.</p></div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">&#9654; Top 5 Most Asked Interview Topics</div>
+    <div class="tip-item"><span class="wk">#1</span><p><strong>GroupBy &mdash; agg vs transform</strong> &mdash; appears in 80%+ of data analyst interviews</p></div>
+    <div class="tip-item"><span class="wk">#2</span><p><strong>Merge / join types</strong> &mdash; inner vs left with example is extremely common</p></div>
+    <div class="tip-item"><span class="wk">#3</span><p><strong>Missing data handling</strong> &mdash; fillna strategy choices, dropna thresh vs how</p></div>
+    <div class="tip-item"><span class="wk">#4</span><p><strong>loc vs iloc</strong> &mdash; almost always asked in screening rounds</p></div>
+    <div class="tip-item"><span class="wk">#5</span><p><strong>apply vs vectorization</strong> &mdash; performance awareness tested in senior roles</p></div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">&#9654; Learning Rules</div>
+    <div class="tip-item"><span class="wk">DO</span><p>Run every code snippet on a real dataset (Titanic, IPL, any Kaggle CSV). Reading alone is not learning.</p></div>
+    <div class="tip-item"><span class="wk">TEST</span><p>Try each interview question before revealing. If you can't answer without looking, mark the topic incomplete.</p></div>
+    <div class="tip-item"><span class="wk">BUILD</span><p>After week 2, write a full EDA report on a real dataset using only what you've learned.</p></div>
+    <div class="tip-item"><span class="wk">GOAL</span><p>Final milestone: write a complete preprocessing pipeline using <code>.pipe()</code> in one clean method chain.</p></div>
+  </div>
+</div>
+
+</div></div>
+<footer>Built for your journey &nbsp;&middot;&nbsp; <span>Pandas Mastery Roadmap</span> &nbsp;&middot;&nbsp; 18 Topics &middot; Reveal answers &middot; Progress tracker</footer>
+<script>
+const T=18;
+let done=[];
+try{done=JSON.parse(localStorage.getItem('pmv3')||'[]');}catch(e){}
+function save(){try{localStorage.setItem('pmv3',JSON.stringify(done));}catch(e){}}
+function tg(i){
+  document.getElementById('ex-'+i).classList.toggle('open');
+  document.getElementById('cv-'+i).classList.toggle('open');
+}
+function ri(qEl){
+  const card=qEl.closest('.iq-card');
+  const ans=card.querySelector('.iq-a');
+  const btn=card.querySelector('.rbtn');
+  const isOpen=ans.classList.contains('open');
+  ans.classList.toggle('open',!isOpen);
+  btn.textContent=isOpen?'Reveal':'Hide';
+  btn.classList.toggle('on',!isOpen);
+}
+function md(i){
+  if(done.includes(i))return;
+  done.push(i);save();
+  const c=document.getElementById('card-'+i);
+  const n=document.getElementById('num-'+i);
+  const b=document.getElementById('dn-'+i);
+  if(c)c.classList.add('done');
+  if(n){n.classList.add('dn');n.innerHTML='&#10003;';}
+  if(b){b.disabled=true;b.textContent='Completed!';}
+  up();
+}
+function up(){
+  const n=done.length,p=Math.round(n/T*100);
+  document.getElementById('dc').textContent=n;
+  document.getElementById('ps').textContent=p+'%';
+  document.getElementById('pf').style.width=p+'%';
+  document.getElementById('pt').textContent='Progress: '+n+' / '+T;
+  document.getElementById('pp').textContent=p+'%';
+}
+function sw(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+}
+done.forEach(i=>{
+  const c=document.getElementById('card-'+i);
+  const n=document.getElementById('num-'+i);
+  const b=document.getElementById('dn-'+i);
+  if(c)c.classList.add('done');
+  if(n){n.classList.add('dn');n.innerHTML='&#10003;';}
+  if(b){b.disabled=true;b.textContent='Completed!';}
+});
+up();
+</script></body></html>
