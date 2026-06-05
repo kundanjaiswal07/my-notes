@@ -791,15 +791,28 @@ function ri(qEl){
   btn.textContent=isOpen?'Reveal':'Hide';
   btn.classList.toggle('on',!isOpen);
 }
-function md(i){
-  if(done.includes(i))return;
-  done.push(i);save();
-  const c=document.getElementById('card-'+i);
-  const n=document.getElementById('num-'+i);
-  const b=document.getElementById('dn-'+i);
-  if(c)c.classList.add('done');
-  if(n){n.classList.add('dn');n.innerHTML='&#10003;';}
-  if(b){b.disabled=true;b.textContent='Completed!';}
+function md(i) {
+  const btn = document.getElementById('dn-' + i);
+  const num = document.getElementById('num-' + i);
+  const card = document.getElementById('card-' + i);
+  
+  if (done.includes(i)) {
+    // UNDO: Remove from done
+    done = done.filter(x => x !== i);
+    num.classList.remove('dn');
+    card.classList.remove('done');
+    btn.textContent = '✓ Mark Done';
+    btn.disabled = false;
+  } else {
+    // MARK DONE
+    done.push(i);
+    num.classList.add('dn');
+    card.classList.add('done');
+    btn.textContent = '✗ Undo';
+    btn.disabled = false;
+  }
+  
+  localStorage.setItem(KEY, JSON.stringify(done));
   up();
 }
 function up(){
