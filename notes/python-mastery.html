@@ -4468,16 +4468,29 @@ Roadmap" />
     }
 
     function md(i) {
-        if (done.includes(i)) return;
-        done.push(i);
-        localStorage.setItem(KEY, JSON.stringify(done));
-        document.getElementById('num-' + i).classList.add('dn');
-        document.getElementById('card-' + i).classList.add('done');
-        const btn = document.getElementById('dn-' + i);
-        btn.textContent = '\u2713 Done!';
-        btn.disabled = true;
-        up();
-    }
+  const btn = document.getElementById('dn-' + i);
+  const num = document.getElementById('num-' + i);
+  const card = document.getElementById('card-' + i);
+  
+  if (done.includes(i)) {
+    // UNDO: Remove from done
+    done = done.filter(x => x !== i);
+    num.classList.remove('dn');
+    card.classList.remove('done');
+    btn.textContent = '✓ Mark Done';
+    btn.disabled = false;
+  } else {
+    // MARK DONE
+    done.push(i);
+    num.classList.add('dn');
+    card.classList.add('done');
+    btn.textContent = '✗ Undo';
+    btn.disabled = false;
+  }
+  
+  localStorage.setItem(KEY, JSON.stringify(done));
+  up();
+}
 
     function sw(name, el) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
