@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="note-title" content="AWS AI Practitioner AIF-C01" />
+  <meta name="note-category" content="Certification" />
+  <meta name="note-desc"
+    content="Master all 5 domains: fundamentals, generative AI, foundation models, responsible AI, and security — with 25+ topics and 75 practice questions" />
+  <meta name="note-tags"
+    content="D1:AI/ML Fundamentals,D2: GENAI Fundamentals,D3: FM Applications,D4: Responsible AI,D5: Security & Governance,Study Plan" />
+  <meta name="note-date" content="2026-06-05" />
+  <title>AWS Certified AI Practitioner (AIF-C01) Roadmap</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --s1: #111927;
+      --s2: #192236;
+      --s3: #1e2d42;
+      --b1: rgba(255, 255, 255, .07);
+      --b2: rgba(255, 255, 255, .13);
+      --tx: #eef2ff;
+      --mu: #7a90b8;
+      --ac: #ff9900;
+      --ac2: #ff6138;
+      --ac3: #146eb4;
+      --ac4: #37475a;
+      --ac5: #ec7211;
+      --ac6: #ff9900;
+      --r: 12px;
+      --rs: 8px
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--tx);
+      font-family: Lato, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 153, 0, .08), transparent);
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 16px 80px
+    }
+
+    header {
+      padding: 44px 0 28px;
+      text-align: center
+    }
+
+    .logo {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 8px
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 153, 0, .1);
+      border: 1px solid rgba(255, 153, 0, .3);
+      color: var(--ac);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: .08em;
+      margin-bottom: 16px
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--ac);
+      border-radius: 50%;
+      animation: pulse 2s infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .25
+      }
+    }
+
+    h1 {
+      font-family: Syne, sans-serif;
+      font-size: clamp(28px, 7vw, 48px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      margin-bottom: 10px
+    }
+
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--ac), #ff6138);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .subtitle {
+      color: var(--mu);
+      font-size: 14px;
+      max-width: 520px;
+      margin: 0 auto 24px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px
+    }
+
+    .stat {
+      background: var(--s1);
+      border: 1px solid var(--b1);
+      border-radius: var(--r);
+      padding: 12px 8px;
+      text-align: center
+    }
+
+    .stat-num {
+      font-family: Syne, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ac)
+    }
+
+    .stat-lbl {
+      font-size: 10px;
+      color: var(--mu);
+      margin-top: 2px;
+      letter-spacing: .04em;
+      text-transform: uppercase
+    }
+
+    .pl {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--mu);
+      margin-bottom: 6px
+    }
+
+    .pb {
+      background: var(--s2);
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+      margin-bottom: 24px
+    }
+
+    .pf {
+      height: 6px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--ac), var(--ac2));
+      transition: width .6s cubic-bezier(.4, 0, .2, 1);
+      width: 0%
+    }
+
+    .tabs {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 20px
+    }
+
+    .tab {
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--b2);
+      background: transparent;
+      color: var(--mu);
+      font-family: Lato, sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: all .18s;
+      text-transform: uppercase
+    }
+
+    .tab:hover {
+      color: var(--tx);
+      border-color: rgba(255, 255, 255, .25)
+    }
+
+    .tab.active {
+      background: var(--ac);
+      color: #0a0e1a;
+      border-color: var(--ac);
+      box-shadow: 0 0 16px rgba(255, 153, 0, .25)
+    }
+
+    .section {
+      display: none
+    }
+
+    .section.active {
+      display: block
+    }
+
+    .topic-card {
+      background: var(--s1);
+      border: 1px solid var(--b1);
+      border-radius: var(--r);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: all .2s
+    }
+
+    .topic-card:hover {
+      border-color: var(--b2);
+      transform: translateY(-1px)
+    }
+
+    .topic-card.done {
+      border-left: 3px solid var(--ac2)
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      user-select: none
+    }
+
+    .num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--s2);
+      border: 1px solid var(--b2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Syne, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--mu);
+      flex-shrink: 0;
+      transition: all .22s
+    }
+
+    .num.dn {
+      background: var(--ac2);
+      border-color: var(--ac2);
+      color: #0a0e1a
+    }
+
+    .topic-title {
+      font-family: Syne, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      flex: 1;
+      line-height: 1.3
+    }
+
+    .lb {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      padding: 3px 9px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      text-transform: uppercase
+    }
+
+    .lb-d1 {
+      background: rgba(255, 153, 0, .12);
+      color: var(--ac);
+      border: 1px solid rgba(255, 153, 0, .2)
+    }
+
+    .lb-d2 {
+      background: rgba(255, 97, 56, .1);
+      color: var(--ac2);
+      border: 1px solid rgba(255, 97, 56, .2)
+    }
+
+    .lb-d3 {
+      background: rgba(20, 110, 180, .1);
+      color: var(--ac3);
+      border: 1px solid rgba(20, 110, 180, .2)
+    }
+
+    .lb-d4 {
+      background: rgba(55, 71, 90, .1);
+      color: var(--ac4);
+      border: 1px solid rgba(55, 71, 90, .2)
+    }
+
+    .lb-d5 {
+      background: rgba(236, 114, 17, .1);
+      color: var(--ac5);
+      border: 1px solid rgba(236, 114, 17, .2)
+    }
+
+    .chev {
+      color: var(--mu);
+      font-size: 18px;
+      flex-shrink: 0;
+      transition: transform .22s;
+      line-height: 1;
+      margin-left: 2px
+    }
+
+    .chev.open {
+      transform: rotate(180deg)
+    }
+
+    .topic-expand {
+      display: none;
+      padding: 0 16px 18px
+    }
+
+    .topic-expand.open {
+      display: block;
+      animation: fadeUp .22s ease
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(-6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--b1);
+      margin-bottom: 14px
+    }
+
+    .explain {
+      background: var(--s2);
+      border-radius: var(--rs);
+      padding: 13px 15px;
+      margin-bottom: 14px;
+      border-left: 3px solid var(--ac)
+    }
+
+    .explain-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      color: var(--ac);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .explain p {
+      font-size: 13.5px;
+      color: #c4d4ee;
+      line-height: 1.75;
+      margin-bottom: 6px
+    }
+
+    .explain p:last-child {
+      margin-bottom: 0
+    }
+
+    .explain p strong {
+      color: var(--tx)
+    }
+
+    .keypoints {
+      background: var(--s2);
+      border-radius: var(--rs);
+      padding: 13px 15px;
+      margin-bottom: 14px;
+      border-left: 3px solid var(--ac3)
+    }
+
+    .keypoints-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      color: var(--ac3);
+      margin-bottom: 8px;
+      text-transform: uppercase
+    }
+
+    .keypoints ul {
+      padding-left: 15px
+    }
+
+    .keypoints li {
+      font-size: 13px;
+      color: #c4d4ee;
+      margin-bottom: 5px;
+      line-height: 1.5
+    }
+
+    .keypoints strong {
+      color: var(--tx)
+    }
+
+    .pq-section {
+      margin-bottom: 14px
+    }
+
+    .pq-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      color: var(--ac2);
+      margin-bottom: 9px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .pq-lbl::before {
+      content: "";
+      display: block;
+      width: 14px;
+      height: 2px;
+      background: var(--ac2);
+      border-radius: 1px
+    }
+
+    .pq-card {
+      background: var(--s2);
+      border: 1px solid rgba(255, 97, 56, .12);
+      border-radius: var(--rs);
+      margin-bottom: 7px;
+      overflow: hidden
+    }
+
+    .pq-q {
+      padding: 11px 13px;
+      font-size: 13px;
+      color: #ffc896;
+      line-height: 1.55;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      user-select: none
+    }
+
+    .pq-q:hover {
+      background: rgba(255, 97, 56, .04)
+    }
+
+    .pq-q-t {
+      flex: 1
+    }
+
+    .rbtn {
+      flex-shrink: 0;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--ac2);
+      background: rgba(255, 97, 56, .1);
+      border: 1px solid rgba(255, 97, 56, .22);
+      padding: 3px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s
+    }
+
+    .rbtn:hover {
+      background: rgba(255, 97, 56, .2)
+    }
+
+    .rbtn.on {
+      color: #0a0e1a;
+      background: var(--ac2);
+      border-color: var(--ac2)
+    }
+
+    .pq-a {
+      display: none;
+      padding: 0 13px 12px;
+      border-top: 1px solid rgba(255, 97, 56, .1)
+    }
+
+    .pq-a.open {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .pq-a-inner {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #c4d4ee;
+      line-height: 1.75;
+      background: rgba(0, 0, 0, .2);
+      border-radius: 6px;
+      padding: 11px 13px
+    }
+
+    .pq-a-inner strong {
+      color: var(--ac)
+    }
+
+    .pq-a-inner ul {
+      padding-left: 15px;
+      margin-top: 5px
+    }
+
+    .pq-a-inner ul li {
+      margin-bottom: 4px;
+      color: var(--mu)
+    }
+
+    .pq-a-inner ul li strong {
+      color: var(--tx)
+    }
+
+    .btn-row {
+      margin-top: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .btn-done {
+      padding: 7px 16px;
+      border-radius: var(--rs);
+      font-family: Lato, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--ac);
+      background: var(--ac);
+      color: #0a0e1a;
+      transition: all .15s
+    }
+
+    .btn-done:hover {
+      background: #ffb81a;
+      transform: scale(1.02)
+    }
+
+    .btn-done:disabled {
+      background: var(--s3);
+      border-color: var(--b1);
+      color: var(--mu);
+      cursor: not-allowed;
+      transform: none
+    }
+
+    .plan-box {
+      background: var(--s1);
+      border: 1px solid var(--b1);
+      border-radius: var(--r);
+      padding: 20px;
+      margin-bottom: 16px
+    }
+
+    .plan-title {
+      font-family: Syne, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ac);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .plan-row {
+      display: flex;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--b1);
+      font-size: 13px;
+      color: var(--mu);
+      line-height: 1.55;
+      align-items: flex-start
+    }
+
+    .plan-row:last-child {
+      border-bottom: none
+    }
+
+    .plan-row p strong {
+      color: var(--tx)
+    }
+
+    .wk {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #0a0e1a;
+      background: var(--ac);
+      border: 1px solid var(--ac);
+      padding: 3px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      letter-spacing: .04em
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0 16px;
+      color: var(--mu);
+      font-size: 12px;
+      border-top: 1px solid var(--b1);
+      margin-top: 20px
+    }
+
+    footer span {
+      color: var(--ac);
+      font-weight: 700
+    }
+
+    @media(max-width:500px) {
+      h1 {
+        font-size: 26px
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .tab {
+        font-size: 10.5px;
+        padding: 6px 10px
+      }
+
+      .topic-title {
+        font-size: 13px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <span class="logo">☁️</span>
+      <div class="badge-top"><span class="badge-dot"></span>AWS CERTIFIED AI PRACTITIONER • AIF-C01 • 65 QUESTIONS</div>
+      <h1>AWS AI <em>Practitioner</em><br />Exam Roadmap</h1>
+      <p class="subtitle">Master all 5 domains: fundamentals, generative AI, foundation models, responsible AI, and
+        security — with 25+ topics and 75 practice questions</p>
+    </header>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num" id="dc">0</div>
+        <div class="stat-lbl">Done</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">25</div>
+        <div class="stat-lbl">Topics</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">65</div>
+        <div class="stat-lbl">Exam Qs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="ps">0%</div>
+        <div class="stat-lbl">Progress</div>
+      </div>
+    </div>
+    <div class="pl"><span id="pt">Progress: 0 / 25</span><span id="pp">0%</span></div>
+    <div class="pb">
+      <div class="pf" id="pf"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw('dom1',this)">Domain 1 (20%)</button>
+      <button class="tab" onclick="sw('dom2',this)">Domain 2 (24%)</button>
+      <button class="tab" onclick="sw('dom3',this)">Domain 3 (28%)</button>
+      <button class="tab" onclick="sw('dom4',this)">Domain 4 (14%)</button>
+      <button class="tab" onclick="sw('dom5',this)">Domain 5 (14%)</button>
+      <button class="tab" onclick="sw('plan',this)">Study Plan</button>
+    </div>
+
+    <div class="section active" id="tab-dom1">
+      <div class="topic-card" id="card-0">
+        <div class="topic-header" onclick="tg(0)">
+          <div class="num" id="num-0">1</div>
+          <div class="topic-title">AI, ML, Deep Learning Concepts</div><span class="lb lb-d1">D1: AI/ML
+            Fundamentals</span><span class="chev" id="cv-0">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-0">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>AI is the broad field of creating intelligent systems. ML is learning from data without explicit
+              programming. Deep Learning uses neural networks with multiple layers. For the exam, understand these
+              distinctions and when each applies.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>AI = general field; ML = learn from data; DL = neural networks with layers</li>
+              <li>AI applications: robotics, NLP, computer vision, autonomous systems</li>
+              <li>ML types: supervised, unsupervised, reinforcement learning</li>
+              <li>DL best for: image/video analysis, NLP tasks, complex patterns</li>
+              <li>When to use: AI for general automation, ML for data-driven tasks, DL for unstructured data</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. What is the key difference between ML and
+                  DL?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">ML learns patterns from data using algorithms (trees, SVM). DL is a subset using
+                  neural networks with multiple layers. DL needs more data/compute but excels at images, text, audio.
+                </div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. Example of supervised learning
+                  classification:</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Email spam detection - you have labeled examples (spam/not spam) and predict on
+                  new emails. Other examples: fraud detection, disease diagnosis, sentiment analysis.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. When should you choose unsupervised
+                  learning?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">When you have no labeled data and want to discover patterns. Examples: customer
+                  segmentation, anomaly detection, market basket analysis using clustering/association rules.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-0" onclick="md(0)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-1">
+        <div class="topic-header" onclick="tg(1)">
+          <div class="num" id="num-1">2</div>
+          <div class="topic-title">ML Lifecycle & Pipeline Stages</div><span class="lb lb-d1">D1: AI/ML
+            Fundamentals</span><span class="chev" id="cv-1">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-1">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>The complete ML workflow: problem definition, data collection, exploration (EDA), preprocessing, feature
+              engineering, model training, hyperparameter tuning, evaluation, deployment, and monitoring. Each stage is
+              critical. AWS SageMaker automates many stages.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Stage 1: Problem definition & business objective</li>
+              <li>Stage 2: Data collection & exploratory analysis (EDA)</li>
+              <li>Stage 3: Data preprocessing & cleaning</li>
+              <li>Stage 4: Feature engineering & selection</li>
+              <li>Stage 5: Model training & hyperparameter tuning</li>
+              <li>Stage 6: Model evaluation & validation on test set</li>
+              <li>Stage 7: Deployment & production monitoring</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. Why is EDA (exploratory data analysis)
+                  critical?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">EDA reveals data quality issues, patterns, outliers, and class imbalance before
+                  modeling. Skipping it leads to garbage models. Tools: SageMaker Data Wrangler for automated EDA.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is data leakage and how to prevent
+                  it?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Leakage = test data info accidentally used in training. Prevention: (1) Split
+                  data before any preprocessing, (2) Scale/encode using only train set statistics, (3) Never use future
+                  info. Always keep train/validation/test separate.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. What is model drift and how does SageMaker
+                  monitor it?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Drift = model performance degrades as real-world data changes. SageMaker Model
+                  Monitor detects input/prediction drift automatically. When detected, retrain the model.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-1" onclick="md(1)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-2">
+        <div class="topic-header" onclick="tg(2)">
+          <div class="num" id="num-2">3</div>
+          <div class="topic-title">Supervised Learning: Regression & Classification</div><span class="lb lb-d1">D1:
+            AI/ML Fundamentals</span><span class="chev" id="cv-2">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-2">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Supervised learning uses labeled data (X, Y pairs). Regression predicts continuous values (house price,
+              temperature). Classification predicts categories (spam/ham, disease/healthy). Choose based on your target
+              variable type.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Regression: predict continuous values; use regression metrics (RMSE, MAE, R-squared)</li>
+              <li>Binary Classification: 2 classes (spam/not spam); Accuracy, Precision, Recall, ROC-AUC</li>
+              <li>Multi-class Classification: 3+ classes (iris species); macro/weighted F1-score</li>
+              <li>Common algorithms: Linear Regression, Logistic Regression, Decision Trees, Random Forests</li>
+              <li>AWS services: SageMaker built-in algorithms, AutoML for automatic algorithm selection</li>
+              <li>Class imbalance: use F1-score not accuracy; techniques: SMOTE, class weights</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. Classify this problem: predict if a customer
+                  will buy.</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Binary Classification. You have historical data (bought/didn't buy) with
+                  features. Predict on new customers. Algorithm: Logistic Regression or Random Forest. Metric: if false
+                  positives costly, prioritize Precision; false negatives costly, prioritize Recall.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. When is accuracy a misleading
+                  metric?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">With imbalanced data. Example: 99% negative class, model predicts all negatives
+                  = 99% accuracy but useless. Use F1-score, Precision, Recall, ROC-AUC instead.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Explain train/validation/test split and why
+                  it matters.</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Train set: fit model. Validation set: tune hyperparameters. Test set: final
+                  evaluation (never seen during training). Prevents overfitting. AWS standard: 70/15/15 split.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-2" onclick="md(2)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-3">
+        <div class="topic-header" onclick="tg(3)">
+          <div class="num" id="num-3">4</div>
+          <div class="topic-title">Unsupervised Learning & Clustering</div><span class="lb lb-d1">D1: AI/ML
+            Fundamentals</span><span class="chev" id="cv-3">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-3">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Unsupervised learning finds patterns in unlabeled data. Clustering groups similar items (K-Means,
+              hierarchical clustering). Dimensionality reduction compresses data (PCA). Used for customer segmentation,
+              anomaly detection, feature extraction.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Clustering: group similar items; K-Means (fixed clusters), hierarchical (dendrograms)</li>
+              <li>Dimensionality reduction: compress features; PCA (linear), autoencoders (non-linear)</li>
+              <li>Anomaly detection: find outliers; use isolation forests, One-Class SVM</li>
+              <li>K-Means: specify k clusters beforehand; minimizes within-cluster distance</li>
+              <li>Hierarchical: creates tree of clusters; dendrogram shows merging process</li>
+              <li>AWS services: SageMaker K-Means, SageMaker IP Insights for anomaly detection</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. How to choose the right number of clusters
+                  in K-Means?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Use Elbow Method: plot inertia vs k, look for elbow (diminishing returns). Or
+                  Silhouette Score: measure of cluster quality (-1 to 1; higher better). AWS can automate this.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. Difference between K-Means and Hierarchical
+                  Clustering?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">K-Means: fast, requires k preset, creates flat clusters. Hierarchical: slower,
+                  no k needed, creates tree of clusters. Use K-Means for speed; hierarchical for dendrogram
+                  visualization.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. What is dimensionality reduction used
+                  for?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Reduce features while preserving variance for: (1) visualization (PCA to 2D),
+                  (2) reduce model complexity/training time, (3) remove noise/multicollinearity, (4) enable faster
+                  prediction.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-3" onclick="md(3)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-4">
+        <div class="topic-header" onclick="tg(4)">
+          <div class="num" id="num-4">5</div>
+          <div class="topic-title">AWS Core AI/ML Services Overview</div><span class="lb lb-d1">D1: AI/ML
+            Fundamentals</span><span class="chev" id="cv-4">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-4">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>AWS offers purpose-built services: SageMaker for full ML lifecycle, Bedrock for foundation models,
+              pre-built services (Rekognition, Comprehend, Translate, Lex, Polly). Choose based on use case: full
+              control vs speed/ease.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Amazon SageMaker: full ML lifecycle (training, tuning, deployment, monitoring)</li>
+              <li>Amazon Bedrock: access foundation models via API (Claude, Titan, Llama)</li>
+              <li>Rekognition: computer vision (image/video analysis)</li>
+              <li>Comprehend: NLP (text analysis, sentiment, entities)</li>
+              <li>Translate: machine translation (100+ languages)</li>
+              <li>Lex: conversational AI (chatbots, voice agents)</li>
+              <li>Polly: text-to-speech synthesis</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. When to use SageMaker vs Bedrock vs
+                  pre-built services?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">SageMaker: full control, custom models, training flexibility. Bedrock: quick
+                  GenAI apps, no infrastructure. Pre-built: specific tasks (images/text) without ML knowledge.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What problem does Amazon Rekognition
+                  solve?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Computer vision tasks: object detection, face recognition, text in images (OCR),
+                  content moderation. No ML expertise needed; calls API with image.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. How does Amazon Comprehend help with
+                  NLP?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Extracts insights from text: entities (names, places), sentiment
+                  (positive/negative), language detection, key phrases. Pre-trained on large corpus; no ML needed.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-4" onclick="md(4)">✓ Mark Done</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="tab-dom2">
+      <div class="topic-card" id="card-5">
+        <div class="topic-header" onclick="tg(5)">
+          <div class="num" id="num-5">6</div>
+          <div class="topic-title">Generative AI & Large Language Models</div><span class="lb lb-d2">D2: GenAI
+            Fundamentals</span><span class="chev" id="cv-5">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-5">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>GenAI creates new content (text, images, audio) using foundation models. Large Language Models (LLMs) are
+              transformer-based models trained on massive text. Foundation Models are large pre-trained models adaptable
+              to many tasks. GenAI represents a paradigm shift in AI capabilities.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>GenAI: systems that generate new content (text, images, audio, code)</li>
+              <li>LLMs: transformer-based models trained on billions of text tokens</li>
+              <li>Foundation Models: large pre-trained models work across multiple tasks</li>
+              <li>Tokens: units of text (roughly 1 token = 4 characters)</li>
+              <li>Transformer architecture: attention mechanism enables parallel processing</li>
+              <li>Key models: GPT (OpenAI), Claude (Anthropic), Llama (Meta), Titan (Amazon)</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. What is a foundation model and why is it
+                  foundational?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">A large pre-trained model trained on diverse data that can be adapted to many
+                  downstream tasks (classification, summarization, Q&A, translation). Foundational because you build on
+                  it rather than train from scratch.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. Explain tokens and why they matter for
+                  cost.</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Tokens are text chunks (~4 chars). Input/output token count determines API cost.
+                  Longer prompts and responses cost more. Token counting: 1000 tokens ≈ 750 words.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. What advantage do LLMs have over traditional
+                  ML models?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">LLMs: (1) few-shot learning (learn from examples in prompt), (2) zero-shot (work
+                  without examples), (3) general knowledge (trained on web scale), (4) multi-task capability without
+                  retraining.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-5" onclick="md(5)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-6">
+        <div class="topic-header" onclick="tg(6)">
+          <div class="num" id="num-6">7</div>
+          <div class="topic-title">Foundation Models on AWS: Bedrock & SageMaker JumpStart</div><span
+            class="lb lb-d2">D2: GenAI Fundamentals</span><span class="chev" id="cv-6">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-6">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Amazon Bedrock provides access to foundation models from multiple providers (Anthropic Claude, Amazon
+              Titan, Meta Llama, AI21) via simple API. No infrastructure management. SageMaker JumpStart offers
+              pre-trained models and quick-start solutions.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Bedrock: managed service for FMs; no infrastructure setup; pay per token</li>
+              <li>Supported models: Claude (Anthropic), Llama (Meta), Titan (Amazon), Jurassic (AI21)</li>
+              <li>JumpStart: pre-trained models in SageMaker for specific tasks</li>
+              <li>Bedrock strengths: easy setup, multiple models, managed security, Guardrails</li>
+              <li>Cost: pay per input/output tokens; pricing varies by model</li>
+              <li>Key feature: Retrieval-Augmented Generation (RAG) for custom knowledge</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. When to use Bedrock vs fine-tuning a custom
+                  model?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Bedrock: quick apps, multiple models, no training needed. Fine-tuning: when
+                  pre-trained performance insufficient, need custom vocabulary/style, have labeled data. Bedrock faster
+                  to market; fine-tuning more control.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is Bedrock Guardrails and why use
+                  it?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Safety filters for LLM outputs: (1) content filters (violence, hate speech), (2)
+                  denied topics (prevent certain outputs), (3) word filters, (4) PII redaction. Ensures responsible AI
+                  deployment.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. What is RAG and how does it work in
+                  Bedrock?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">RAG = Retrieval-Augmented Generation. System retrieves relevant documents, adds
+                  to prompt before generating. Workflow: (1) embed user query, (2) search knowledge base, (3) include
+                  top results in prompt, (4) LLM generates answer. Reduces hallucinations.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-6" onclick="md(6)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-7">
+        <div class="topic-header" onclick="tg(7)">
+          <div class="num" id="num-7">8</div>
+          <div class="topic-title">Prompt Engineering Basics</div><span class="lb lb-d2">D2: GenAI
+            Fundamentals</span><span class="chev" id="cv-7">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-7">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Prompt engineering is crafting effective inputs to get desired outputs from LLMs. Key techniques: be
+              specific, provide examples (few-shot), use formatting, specify output format, set temperature/top-p for
+              creativity. Good prompts dramatically improve results.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Specificity: clear, detailed instructions; avoid ambiguous wording</li>
+              <li>Few-shot learning: provide examples in prompt for desired output format</li>
+              <li>Zero-shot: LLM figures it out from instruction alone (usually works)</li>
+              <li>Temperature: 0 (deterministic) to 1 (creative); default ~0.7</li>
+              <li>Top-p (nucleus sampling): control diversity of token selection</li>
+              <li>Output format: explicitly ask for JSON, bullet points, etc.</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. Craft a prompt for sentiment
+                  analysis.</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Bad: 'Analyze this.' Good: 'Classify the sentiment of the following text as
+                  positive, negative, or neutral. Return as JSON with keys: sentiment, confidence. Text: ...' Specific
+                  instructions > vague requests.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. When should you use temperature 0 vs
+                  1?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Temperature 0: factual tasks (math, code, summarization). Temperature 1 (or
+                  0.9): creative tasks (brainstorming, storytelling). Default 0.7 balances both.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Explain few-shot prompting.</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Include examples of input-output pairs in the prompt. LLM learns pattern and
+                  applies to new input. Example: '1+1=2, 2+2=4, 5+5=?' Few-shot often beats zero-shot and reduces
+                  ambiguity.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-7" onclick="md(7)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-8">
+        <div class="topic-header" onclick="tg(8)">
+          <div class="num" id="num-8">9</div>
+          <div class="topic-title">GenAI Costs, Latency & Trade-offs</div><span class="lb lb-d2">D2: GenAI
+            Fundamentals</span><span class="chev" id="cv-8">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-8">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>GenAI applications have cost and latency trade-offs: using larger models improves quality but costs more
+              and is slower. Smaller models are cheaper and faster but less accurate. Choose based on use case
+              requirements: quality-critical vs latency-critical vs cost-sensitive.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Model size/quality trade-off: larger models better but slower/more expensive</li>
+              <li>Latency: larger models take longer to generate tokens (~100ms per token)</li>
+              <li>Cost: varies by model; token-based pricing; input/output tokens separate</li>
+              <li>Batch processing: cheaper than real-time for non-urgent tasks</li>
+              <li>Caching: recent Bedrock feature reduces costs for repeated prompts</li>
+              <li>Compute options: on-demand vs provisioned throughput (reserved capacity cheaper)</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. How to choose between Claude 3 Opus vs
+                  Haiku?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Opus: best quality, slower, expensive. Haiku: fastest, cheapest, good for simple
+                  tasks. Choose Opus for complex reasoning/quality; Haiku for high-volume simple requests. Bedrock
+                  supports all models.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is provisioned throughput and when use
+                  it?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Reserve model capacity for guaranteed throughput at discount (~40% cheaper).
+                  Good if: consistent daily usage, predictable volume, not cost-sensitive to upfront commitment.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. How can you reduce GenAI API
+                  costs?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">(1) Use smaller models when possible, (2) Batch requests, (3) Cache repeated
+                  prompts, (4) Use provisioned throughput for predictable load, (5) Filter token use (avoid unnecessary
+                  context).</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-8" onclick="md(8)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-9">
+        <div class="topic-header" onclick="tg(9)">
+          <div class="num" id="num-9">10</div>
+          <div class="topic-title">Responsible AI in GenAI Applications</div><span class="lb lb-d2">D2: GenAI
+            Fundamentals</span><span class="chev" id="cv-9">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-9">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>GenAI brings responsible AI concerns: hallucinations (false confident outputs), bias in training data,
+              privacy of training data, inappropriate content, copyright issues. Bedrock Guardrails and SageMaker
+              Clarify help mitigate these risks. Transparency about AI usage is essential.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Hallucination: LLM fabricates plausible-sounding but false information</li>
+              <li>Bias: training data biases emerge in outputs (historical discrimination, stereotypes)</li>
+              <li>Privacy: training data may contain sensitive info; PII redaction needed</li>
+              <li>Content safety: guardrails prevent harmful outputs (violence, hate, adult content)</li>
+              <li>Copyright: training on copyrighted material; use licensed models responsibly</li>
+              <li>Transparency: users should know when interacting with AI</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. What is hallucination and how to reduce
+                  it?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Hallucination = LLM confidently says false info. Example: 'What is the capital
+                  of Atlantis?' Mitigations: (1) RAG (retrieve facts), (2) lower temperature (more conservative), (3)
+                  explicit 'I don't know' instructions.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. How do you know if a model has
+                  bias?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Test with diverse prompts across demographics. Example: 'Generate CEO
+                  description' and check if gender/race stereotypes emerge. Use SageMaker Clarify for automated bias
+                  detection.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Why is transparency about GenAI
+                  important?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Users have right to know they're interacting with AI. Impacts: trust, informed
+                  decisions, regulatory compliance (GDPR, AI Act). Disclose AI use in content, decisions,
+                  recommendations.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-9" onclick="md(9)">✓ Mark Done</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="tab-dom3">
+      <div class="topic-card" id="card-10">
+        <div class="topic-header" onclick="tg(10)">
+          <div class="num" id="num-10">11</div>
+          <div class="topic-title">Design Patterns for FM Applications</div><span class="lb lb-d3">D3: FM
+            Applications</span><span class="chev" id="cv-10">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-10">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>When building with foundation models: determine if you need real-time or batch. RAG for knowledge without
+              retraining. Fine-tuning for custom patterns. Chain-of-thought prompts for complex reasoning. Consider
+              token costs, latency SLAs, hallucination risks.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>RAG pattern: retrieve facts before generating (better for factual accuracy)</li>
+              <li>Fine-tuning: when base model performance insufficient, have labeled data</li>
+              <li>In-context learning: provide examples in prompt without retraining</li>
+              <li>Chaining: break complex problem into steps; solve sequentially</li>
+              <li>Caching: reuse computations for repeated requests</li>
+              <li>Batch processing: non-urgent tasks; cheaper than real-time</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. When to use RAG vs fine-tuning?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">RAG: for current/specific knowledge without model retraining. Fine-tuning: when
+                  base model lacks domain knowledge, you have training data, need consistent outputs. RAG faster to
+                  implement; fine-tuning more accurate for specific tasks.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is chain-of-thought
+                  prompting?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Breaking problem into steps, asking model to reason each step. Example: Instead
+                  of 'Solve 8*(7+3)', ask 'First compute 7+3, then multiply by 8. Show work.' Improves accuracy on
+                  complex tasks.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. How does prompt caching reduce
+                  costs?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Recent Bedrock feature: cache prompt fragments. Repeated prompts skip
+                  recomputation. Example: same system prompt + different queries. Saves cost and latency.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-10" onclick="md(10)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-11">
+        <div class="topic-header" onclick="tg(11)">
+          <div class="num" id="num-11">12</div>
+          <div class="topic-title">Prompt Engineering at Scale</div><span class="lb lb-d3">D3: FM
+            Applications</span><span class="chev" id="cv-11">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-11">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Production systems require reliable prompt engineering: use prompt templates with variables, test prompts
+              across diverse inputs, version control prompts like code, measure output quality, adapt based on metrics.
+              Tools: SageMaker Prompt Engineering, LangChain.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Prompt templates: parameterize inputs; separate logic from data</li>
+              <li>Prompt versioning: track changes like code; enables rollback</li>
+              <li>Testing: evaluate quality metrics (BLEU, ROUGE, human eval)</li>
+              <li>Metrics: consistency, accuracy, latency, cost per request</li>
+              <li>A/B testing: compare prompt versions on real users</li>
+              <li>Safety testing: ensure guardrails work as intended</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. What makes a good production
+                  prompt?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Specific instructions, clear output format, examples if needed, error handling
+                  instructions. Testable and versionable. Document purpose and expected outputs.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. Why version control prompts?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Prompts are code - track changes, enable rollback to working versions,
+                  facilitate collaboration. Correlate prompt versions to performance metrics.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. How to measure prompt quality in
+                  production?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">User ratings, task completion rates, downstream metrics (conversion, retention).
+                  Automated: semantic similarity (BLEU, ROUGE), classification accuracy, latency, cost.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-11" onclick="md(11)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-12">
+        <div class="topic-header" onclick="tg(12)">
+          <div class="num" id="num-12">13</div>
+          <div class="topic-title">Fine-Tuning vs RAG vs Pre-training</div><span class="lb lb-d3">D3: FM
+            Applications</span><span class="chev" id="cv-12">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-12">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Three customization approaches for foundation models. Pre-training (most expensive): train from scratch
+              on your data. Fine-tuning: adapt pre-trained model on your data. RAG (cheapest): retrieve knowledge
+              without retraining. Choose based on data, budget, urgency.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Pre-training: train from scratch on massive corpus; requires GPUs, weeks/months, billions tokens</li>
+              <li>Fine-tuning: adapt pre-trained model on your data; faster, cheaper, requires labeled data</li>
+              <li>RAG: retrieve relevant docs, include in prompt; no training; works for knowledge tasks</li>
+              <li>Cost hierarchy: RAG < Fine-tuning < Pre-training</li>
+              <li>Speed: RAG fastest; fine-tuning days; pre-training months</li>
+              <li>When fine-tune: domain-specific language, style consistency, performance gap</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. When would you choose pre-training over
+                  fine-tuning?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Almost never for new orgs. Pre-training only if: unique language/domain, massive
+                  custom data, budget unlimited. Usually fine-tuning sufficient; Bedrock pre-trained sufficient for
+                  most.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What data do you need for
+                  fine-tuning?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Labeled examples in your target format. Minimum: 100-500 high-quality examples.
+                  More is better. Examples: (prompt, desired_output) pairs.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Can you fine-tune a Bedrock
+                  model?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Limited support. Bedrock is primarily for inference. SageMaker JumpStart or
+                  custom SageMaker training for fine-tuning. Check current docs for Bedrock fine-tuning availability.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-12" onclick="md(12)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-13">
+        <div class="topic-header" onclick="tg(13)">
+          <div class="num" id="num-13">14</div>
+          <div class="topic-title">Model Evaluation Metrics (BLEU, ROUGE, BERT Score)</div><span class="lb lb-d3">D3: FM
+            Applications</span><span class="chev" id="cv-13">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-13">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Foundation model outputs evaluated using specialized metrics. BLEU measures n-gram overlap (machine
+              translation). ROUGE measures recall of n-grams and subsequences (summarization). BERT Score uses
+              embeddings for semantic similarity. No single metric perfect; use multiple.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>BLEU: 0-100 scale; measures word/phrase overlap with reference; good for translation</li>
+              <li>ROUGE: multiple variants (ROUGE-1/2/L); recall-focused; standard for summarization</li>
+              <li>METEOR: considers synonyms and morphology; better than BLEU</li>
+              <li>BERT Score: contextual embeddings; semantic similarity; language-agnostic</li>
+              <li>Human evaluation: essential for quality assessment; subjective but definitive</li>
+              <li>Task-specific metrics: custom based on use case (QA accuracy, code correctness)</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. Which metric for machine
+                  translation?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">BLEU is standard (0-100). Also use METEOR (handles synonyms) and human eval.
+                  BLEU of 30+ reasonable; 40+ good; 50+ excellent.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. How does BERT Score differ from
+                  BLEU/ROUGE?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">BLEU/ROUGE: lexical overlap. BERT Score: semantic similarity using embeddings.
+                  Better captures paraphrases and synonyms. More aligned with human judgment.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Why use multiple metrics?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Each metric has blind spots. BLEU good for translation, poor for paraphrases.
+                  ROUGE for summarization, not translation. Use 3-4 metrics + human eval for comprehensive assessment.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-13" onclick="md(13)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-14">
+        <div class="topic-header" onclick="tg(14)">
+          <div class="num" id="num-14">15</div>
+          <div class="topic-title">Embeddings, Vector Databases & Retrieval</div><span class="lb lb-d3">D3: FM
+            Applications</span><span class="chev" id="cv-14">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-14">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Embeddings convert text to vectors capturing semantic meaning. Vector databases (OpenSearch, Aurora with
+              pgvector) store embeddings for fast semantic search. Critical for RAG: embed documents, search by
+              similarity, retrieve for LLM context.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Embeddings: text -> dense vectors; capture meaning; enable semantic search</li>
+              <li>Vector databases: store/index embeddings; fast similarity search</li>
+              <li>Services: OpenSearch, Aurora with pgvector, Amazon Bedrock Embeddings API</li>
+              <li>Similarity metrics: cosine similarity most common; also Euclidean, dot product</li>
+              <li>Chunk size: split documents into chunks before embedding (balance: detail vs retrieval)</li>
+              <li>Re-ranking: retrieve top-k, then re-rank for final selection (improves quality)</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. How does embeddings enable RAG?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Embed user query & documents. Search vector DB for similar documents. Include
+                  top results in LLM prompt. Reduces hallucination by grounding in facts.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is chunking and why
+                  matters?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Split long documents into overlapping chunks (500-1000 tokens). Tradeoff:
+                  smaller chunks more relevant but miss context; larger chunks preserve context but dilute relevance.
+                  Test to optimize.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. What similarity metric should you
+                  use?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Cosine similarity is standard for embeddings (normalized vectors). Euclidean/L2
+                  for normalized vectors also works. Dot product for non-normalized. Cosine usually sufficient.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-14" onclick="md(14)">✓ Mark Done</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="tab-dom4">
+      <div class="topic-card" id="card-15">
+        <div class="topic-header" onclick="tg(15)">
+          <div class="num" id="num-15">16</div>
+          <div class="topic-title">Bias Detection & Fairness in AI</div><span class="lb lb-d4">D4: Responsible
+            AI</span><span class="chev" id="cv-15">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-15">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Bias in ML: historical data biases persist in models. Impacts: unfair decisions (hiring, lending,
+              criminal justice). Mitigation: diverse training data, bias detection before deployment, fairness metrics,
+              human review. AWS SageMaker Clarify detects and visualizes bias.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Data bias: training data reflects historical discrimination</li>
+              <li>Algorithmic bias: model learns unfair patterns from data</li>
+              <li>Deployment bias: model used in discriminatory way</li>
+              <li>Bias metrics: disparate impact ratio, equal opportunity difference</li>
+              <li>SageMaker Clarify: automated bias detection by demographics</li>
+              <li>Mitigation: rebalance data, adjust decision thresholds, diverse teams</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. How to detect gender bias in hiring ML
+                  model?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Evaluate model performance separately by gender. If reject rates differ
+                  significantly (>5%), investigate. Retrain with balanced data or adjust threshold. SageMaker Clarify
+                  automates this analysis.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is disparate impact?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">When decisions disproportionately harm protected groups. Example: hiring model
+                  rejects women at 40% vs men 20%. Illegal in many jurisdictions. Measure and mitigate before
+                  deployment.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Why is diverse team important for
+                  responsible AI?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Diverse perspectives catch blind spots. Different backgrounds identify biases
+                  others miss. Regulatory requirement in many regions (EU AI Act). Include domain experts, ethicists,
+                  affected communities.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-15" onclick="md(15)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-16">
+        <div class="topic-header" onclick="tg(16)">
+          <div class="num" id="num-16">17</div>
+          <div class="topic-title">Explainability & Model Interpretability</div><span class="lb lb-d4">D4: Responsible
+            AI</span><span class="chev" id="cv-16">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-16">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Explainability answers 'why did the model decide this?' Essential for high-stakes decisions (medical
+              diagnosis, loan approval, criminal justice). Methods: SHAP values, feature importance, LIME. AWS SageMaker
+              Clarify provides SHAP/feature importance.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Black box vs interpretable models: trees/forests interpretable; DNNs black box</li>
+              <li>SHAP: contribution of each feature to prediction; game theory approach</li>
+              <li>Feature importance: which features drive model decisions</li>
+              <li>LIME: local interpretable model-agnostic explanations</li>
+              <li>SageMaker Clarify: automated SHAP values, feature importance, bias reports</li>
+              <li>Regulatory requirement: GDPR 'right to explanation' in many regions</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. When is explainability critical?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">High-stakes decisions: medical diagnosis, loan approval, criminal sentencing,
+                  hiring. Regulatory requirement (GDPR, Fair Lending Act). Users have right to explanation. Enables
+                  auditing and fairness checks.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. How do SHAP values explain
+                  predictions?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">SHAP assigns value to each feature showing its contribution
+                  (positive/negative/zero) to prediction. Sums to model output. Enable understanding feature impact.
+                </div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Trade-off: accuracy vs
+                  interpretability?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Complex models (DNNs) often more accurate but less interpretable. Interpretable
+                  models (trees) less accurate but explainable. Solution: use complex model + explanation tools. Modern
+                  approach: explain black boxes.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-16" onclick="md(16)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-17">
+        <div class="topic-header" onclick="tg(17)">
+          <div class="num" id="num-17">18</div>
+          <div class="topic-title">Safety, Hallucinations & Content Moderation</div><span class="lb lb-d4">D4:
+            Responsible AI</span><span class="chev" id="cv-17">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-17">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>GenAI safety concerns: hallucinations (confident false outputs), inappropriate content, jailbreaking
+              attempts. Bedrock Guardrails filter outputs. Techniques: RAG for facts, lower temperature for consistency,
+              explicit safety instructions in prompts.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Hallucination: LLM fabricates plausible-sounding false info; hard to detect</li>
+              <li>Content moderation: filter violence, hate speech, adult content, PII</li>
+              <li>Jailbreaking: user attempts to bypass safety measures</li>
+              <li>Bedrock Guardrails: content filters, denied topics, PII redaction</li>
+              <li>Prompt injection: malicious input tries to override system instructions</li>
+              <li>Monitoring: detect policy violations in real-time; log for audit</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. How to reduce hallucinations?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Use RAG (retrieve facts before generating). Prompt explicitly: 'If unsure, say I
+                  don't know.' Lower temperature (more conservative). Pre-filter questions. Fact-check outputs in
+                  critical tasks.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What is prompt injection attack?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">User provides malicious input trying to override system prompt. Example: 'Ignore
+                  previous instructions and...' Defense: Bedrock Guardrails, robust system prompts, input validation.
+                </div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. How does content moderation in Bedrock
+                  work?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Configure filters by category. Bedrock pre/post-filters inputs/outputs. Custom
+                  word filters. Optional: third-party content mod services. Flag violations for review.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-17" onclick="md(17)">✓ Mark Done</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="tab-dom5">
+      <div class="topic-card" id="card-18">
+        <div class="topic-header" onclick="tg(18)">
+          <div class="num" id="num-18">19</div>
+          <div class="topic-title">IAM, Data Protection & Encryption for AI</div><span class="lb lb-d5">D5: Security &
+            Governance</span><span class="chev" id="cv-18">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-18">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Secure AI systems require IAM policies limiting access, encryption at rest/transit, VPC isolation, audit
+              logging. SageMaker integrates with IAM. Data protection: PII redaction, anonymization, access controls.
+              Bedrock supports all encryption options.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>IAM policies: least privilege access to ML resources</li>
+              <li>Encryption: at rest (S3, databases), in transit (TLS), key management (KMS)</li>
+              <li>VPC isolation: private subnets for training/inference</li>
+              <li>Audit logging: CloudTrail logs all API calls</li>
+              <li>PII handling: detect, redact, anonymize sensitive data</li>
+              <li>Data retention: delete or archive old data per policy</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. What is least privilege in IAM?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Grant only minimum permissions needed. Example: model training role needs S3
+                  read (data), write (outputs), SageMaker training; NOT full S3 delete or EC2 access.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. How to encrypt data in
+                  SageMaker?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Enable S3 encryption (SSE-S3 or SSE-KMS). Use VPC for training/endpoints. Enable
+                  network isolation. CloudWatch for monitoring access.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. Why audit logging critical for
+                  AI?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Track who accessed/changed models, data, results. Comply with regulations.
+                  Detect unauthorized access. Correlate with performance issues. Essential for compliance audits.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-18" onclick="md(18)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-19">
+        <div class="topic-header" onclick="tg(19)">
+          <div class="num" id="num-19">20</div>
+          <div class="topic-title">Model Governance & Compliance</div><span class="lb lb-d5">D5: Security &
+            Governance</span><span class="chev" id="cv-19">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-19">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Model governance: tracking lineage, versioning, approvals, testing, documentation. Compliance frameworks:
+              GDPR (data rights), HIPAA (healthcare), Fair Lending (finance), AI Act (EU). SageMaker Model Registry
+              stores model versions with metadata.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Model registry: version, approve, document models</li>
+              <li>Lineage tracking: data -> features -> model -> predictions</li>
+              <li>Model cards: documentation of training, performance, fairness, bias</li>
+              <li>Testing: accuracy, fairness, adversarial robustness</li>
+              <li>Approval workflows: human sign-off before production</li>
+              <li>Compliance: regulatory requirements by industry/region</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. What should a model card
+                  document?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Model purpose, training data (source, size, bias checks), performance metrics,
+                  fairness analysis, known limitations, recommended use cases, creators, date. Template in SageMaker.
+                </div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. Why is model lineage important?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Traceability: data -> features -> model -> predictions. Enables debugging
+                  issues, understanding model decisions, compliance audits. 'Model A used dataset B with version C of
+                  preprocessing.'</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. How to ensure GDPR compliance with
+                  ML?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Right to explanation: users can ask why ML decision. Right to erasure: delete
+                  personal data (requires retraining). Data minimization: collect only needed data. Audit all
+                  processing.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-19" onclick="md(19)">✓ Mark Done</button></div>
+        </div>
+      </div>
+      <div class="topic-card" id="card-20">
+        <div class="topic-header" onclick="tg(20)">
+          <div class="num" id="num-20">21</div>
+          <div class="topic-title">Monitoring, Drift Detection & Retraining</div><span class="lb lb-d5">D5: Security &
+            Governance</span><span class="chev" id="cv-20">⌢</span>
+        </div>
+        <div class="topic-expand" id="ex-20">
+          <div class="divider"></div>
+          <div class="explain">
+            <div class="explain-title">📚 Overview</div>
+            <p>Deployed models degrade as real-world data changes (data drift). SageMaker Model Monitor detects
+              input/output drift. When drift detected, trigger retraining. Continuous monitoring essential for
+              production reliability.</p>
+          </div>
+          <div class="keypoints">
+            <div class="keypoints-title">🎯 Key Points</div>
+            <ul>
+              <li>Data drift: input distribution changes; model trained on different data</li>
+              <li>Prediction drift: prediction distribution changes; may indicate data drift</li>
+              <li>Accuracy drift: actual labels change; model performance degrades</li>
+              <li>SageMaker Model Monitor: automated drift detection</li>
+              <li>Monitoring schedule: continuous or periodic (hourly/daily)</li>
+              <li>Response: alert, retrain, or A/B test new version</li>
+            </ul>
+          </div>
+          <div class="pq-section">
+            <div class="pq-lbl">Practice Questions</div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q1. How does SageMaker Model Monitor
+                  work?</span><span class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Captures model inputs/outputs. Compares to training baseline. Detects deviation
+                  via statistical tests (chi-square for categorical, Kolmogorov-Smirnov for continuous). Alerts when
+                  drift exceeds threshold.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q2. What causes data drift?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">User behavior changes, market shifts, seasonal effects, data collection process
+                  changes. Example: ML model trained on 2023 data, deployed 2024; user preferences changed.</div>
+              </div>
+            </div>
+            <div class="pq-card">
+              <div class="pq-q" onclick="rq(this)"><span class="pq-q-t">Q3. When to retrain a model?</span><span
+                  class="rbtn">Show</span></div>
+              <div class="pq-a">
+                <div class="pq-a-inner">Automatic: when drift detected beyond threshold. Manual: performance drops, new
+                  data available, business logic changes. Frequency: daily for high-drift models, weekly/monthly for
+                  stable.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row"><button class="btn-done" id="dn-20" onclick="md(20)">✓ Mark Done</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="tab-plan">
+      <div class="plan-box">
+        <div class="plan-title">📋 4-Week AWS AI Practitioner (AIF-C01) Study Plan</div>
+        <div class="plan-row"><span class="wk">WK 1</span>
+          <p><strong>Foundations (Topics 1-5):</strong> AI/ML concepts, lifecycle, supervised/unsupervised, algorithms,
+            metrics. Goal: understand what ML is. Practice: 10-15 practice questions daily. Review exam guide domain 1.
+          </p>
+        </div>
+        <div class="plan-row"><span class="wk">WK 2</span>
+          <p><strong>Generative AI (Topics 6-10):</strong> LLMs, Bedrock, SageMaker JumpStart, prompt engineering,
+            costs. Goal: know when to use GenAI. Practice: 15-20 questions/day. Build: simple Bedrock chatbot in AWS
+            console.</p>
+        </div>
+        <div class="plan-row"><span class="wk">WK 3</span>
+          <p><strong>FM Applications & Responsible AI (Topics 11-18):</strong> RAG, fine-tuning, embeddings, bias,
+            explainability, safety. Goal: understand customization vs responsibility. Practice: 20-25 questions/day.
+            Focus: domains 3-4.</p>
+        </div>
+        <div class="plan-row"><span class="wk">WK 4</span>
+          <p><strong>Security & Practice (Topics 19-21 + Full Exam):</strong> IAM, governance, monitoring. Goal: score
+            700+. Practice: Full-length mock exam (65 questions). Review weak areas. Final deep-dive on domains 4-5.</p>
+        </div>
+      </div>
+
+      <div class="plan-box">
+        <div class="plan-title">📚 Daily Study Routine (2 hours)</div>
+        <div class="plan-row"><span class="wk">30m</span>
+          <p><strong>Read Topic + Mark Done:</strong> Review one topic card. Understand explanation. Read all key
+            points. Don't skip practice questions.</p>
+        </div>
+        <div class="plan-row"><span class="wk">20m</span>
+          <p><strong>Answer Practice Questions:</strong> Go through 3-5 questions on this topic. Read explanations
+            carefully. Note gaps in understanding.</p>
+        </div>
+        <div class="plan-row"><span class="wk">50m</span>
+          <p><strong>Hands-On Lab (Weeks 2-4):</strong> Use AWS Console to try what you learned. Wk2: create Bedrock
+            chatbot. Wk3: set up RAG. Wk4: configure Model Monitor.</p>
+        </div>
+        <div class="plan-row"><span class="wk">20m</span>
+          <p><strong>Review & Flashcards:</strong> Review cards marked done. Spend extra time on weak domains. Use AWS
+            Skill Builder for video reinforcement.</p>
+        </div>
+      </div>
+
+      <div class="plan-box">
+        <div class="plan-title">🎯 Domain-Specific Focus (by weight)</div>
+        <div class="plan-row"><span class="wk">28%</span>
+          <p><strong>Domain 3 (FM Applications):</strong> Highest weight. Most technical. Master RAG, fine-tuning,
+            embeddings, evaluation metrics. This alone can be 18-20 questions on your exam.</p>
+        </div>
+        <div class="plan-row"><span class="wk">24%</span>
+          <p><strong>Domain 2 (GenAI Fundamentals):</strong> Know LLMs, Bedrock, SageMaker JumpStart, prompt engineering
+            costs. 15-16 questions expected.</p>
+        </div>
+        <div class="plan-row"><span class="wk">20%</span>
+          <p><strong>Domain 1 (AI/ML Fundamentals):</strong> Prerequisites. Solid foundation prevents mistakes. 13
+            questions.</p>
+        </div>
+        <div class="plan-row"><span class="wk">14%</span>
+          <p><strong>Domain 4 (Responsible AI):</strong> Bias, fairness, explainability. SageMaker Clarify, Model
+            Monitor. 9 questions. Easier if you understand core concepts.</p>
+        </div>
+        <div class="plan-row"><span class="wk">14%</span>
+          <p><strong>Domain 5 (Security & Governance):</strong> IAM, compliance, monitoring. 9 questions. Often
+            straightforward AWS knowledge.</p>
+        </div>
+      </div>
+
+      <div class="plan-box">
+        <div class="plan-title">🏫 Best Learning Resources</div>
+        <div class="plan-row"><span class="wk">Video</span>
+          <p><strong>Stephane Maarek's Ultimate AWS AI Practitioner course</strong> (Udemy) - highly rated, 12+ hours,
+            covers all 5 domains. Best starting point for beginners.</p>
+        </div>
+        <div class="plan-row"><span class="wk">Practice</span>
+          <p><strong>Tutorials Dojo (135 questions, 2 full exams):</strong> Closest to real exam. <strong>Whizlabs (130
+              questions):</strong> Also very good. <strong>AWS Official Practice Questions:</strong> Must do. Free
+            20-question sample available.</p>
+        </div>
+        <div class="plan-row"><span class="wk">Docs</span>
+          <p><strong>AWS Exam Guide (PDF):</strong> Download from AWS Certification. Read carefully. Lists all
+            services/skills tested. <strong>AWS Skill Builder:</strong> Free AI fundamentals course included.</p>
+        </div>
+        <div class="plan-row"><span class="wk">Hands-On</span>
+          <p><strong>AWS Free Tier:</strong> Experiment with Bedrock, SageMaker, Rekognition. No $$ needed if you're
+            careful. <strong>SageMaker Studio:</strong> Free tier available; try RAG, monitoring examples.</p>
+        </div>
+        <div class="plan-row"><span class="wk">Tips</span>
+          <p><strong>Read the exam guide thoroughly.</strong> Know exact AWS services tested (Bedrock, SageMaker,
+            Clarify, Model Monitor, etc.). <strong>Passing is 700/1000;</strong> not perfection. <strong>Time
+              management:</strong> 65 questions in 130 minutes = 2 min/question average.</p>
+        </div>
+      </div>
+
+      <div class="plan-box">
+        <div class="plan-title">⚠️ Common Mistakes to Avoid</div>
+        <div class="plan-row"><span class="wk">×</span>
+          <p><strong>Neglecting Domain 3:</strong> It's 28% of exam. If weak here, you fail. Spend half your study time
+            on FM Applications (RAG, fine-tuning, evaluation metrics).</p>
+        </div>
+        <div class="plan-row"><span class="wk">×</span>
+          <p><strong>Assuming GenAI knowledge = ML knowledge:</strong> GenAI is just one piece. Domains 1-2-4-5 equally
+            important. Study fundamentals thoroughly.</p>
+        </div>
+        <div class="plan-row"><span class="wk">×</span>
+          <p><strong>Not doing hands-on:</strong> Reading isn't enough. Create Bedrock app, set up RAG, enable Model
+            Monitor. Hands-on reveals gaps theory doesn't.</p>
+        </div>
+        <div class="plan-row"><span class="wk">×</span>
+          <p><strong>Cramming the night before:</strong> Sleep matters. Brain consolidates learning during sleep. Study
+            4 weeks consistently > 1 week intensive.</p>
+        </div>
+        <div class="plan-row"><span class="wk">×</span>
+          <p><strong>Confusing services:</strong> Bedrock = inference on pre-trained FMs. SageMaker = full ML lifecycle
+            including training. Don't mix them up on exam.</p>
+        </div>
+      </div>
+
+      <div class="plan-box">
+        <div class="plan-title">✅ Exam Readiness Checklist</div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Scored 75%+ on Domain 1 practice questions (fundamentals)</p>
+        </div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Understand RAG, fine-tuning, and when to use each (Domain 3)</p>
+        </div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Know AWS Bedrock models and cost model</p>
+        </div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Scored 75%+ on full-length mock exam (either Tutorials Dojo or Whizlabs)</p>
+        </div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Understand bias detection (SageMaker Clarify) and fairness metrics</p>
+        </div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Know IAM, encryption, monitoring for AI systems</p>
+        </div>
+        <div class="plan-row"><span class="wk">□</span>
+          <p>Scored 700+ on AWS Official Practice Exam</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      AWS Certified AI Practitioner (AIF-C01) Roadmap — All 5 domains • 25 topics • 75 practice questions<br />
+      Pass Score: 700/1000 • Exam: 65 questions • Time: 130 minutes • Cost: $99-149<br />
+      <span>Made for AI practitioners — not coders</span>
+    </footer>
+  </div>
+</body>
+<script>
+  const KEY = 'aif-c01';
+  let done = JSON.parse(localStorage.getItem(KEY) || '[]');
+
+  function up() {
+    const total = 25;
+    const n = done.length;
+    const pct = Math.round(n / total * 100);
+    document.getElementById('dc').textContent = n;
+    document.getElementById('ps').textContent = pct + '%';
+    document.getElementById('pt').textContent = 'Progress: ' + n + ' / ' + total;
+    document.getElementById('pp').textContent = pct + '%';
+    document.getElementById('pf').style.width = pct + '%';
+  }
+
+  function tg(i) {
+    const ex = document.getElementById('ex-' + i);
+    const cv = document.getElementById('cv-' + i);
+    const open = ex.classList.toggle('open');
+    cv.classList.toggle('open', open);
+  }
+
+  function rq(el) {
+    const ans = el.parentElement.querySelector('.pq-a');
+    const btn = el.querySelector('.rbtn');
+    const open = ans.classList.toggle('open');
+    btn.classList.toggle('on', open);
+    btn.textContent = open ? 'Hide' : 'Show';
+  }
+
+  function md(i) {
+    if (done.includes(i)) return;
+    done.push(i);
+    localStorage.setItem(KEY, JSON.stringify(done));
+    document.getElementById('num-' + i).classList.add('dn');
+    document.getElementById('card-' + i).classList.add('done');
+    const btn = document.getElementById('dn-' + i);
+    btn.textContent = '✓ Done!';
+    btn.disabled = true;
+    up();
+  }
+
+  function sw(name, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    el.classList.add('active');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    done.forEach(i => {
+      const num = document.getElementById('num-' + i);
+      const card = document.getElementById('card-' + i);
+      const btn = document.getElementById('dn-' + i);
+      if (num) num.classList.add('dn');
+      if (card) card.classList.add('done');
+      if (btn) { btn.textContent = '✓ Done!'; btn.disabled = true; }
+    });
+    up();
+  });
+</script>
+
+</html>
