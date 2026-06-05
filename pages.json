@@ -1,5 +1,20 @@
 [
   {
+    "file": "aws-ai-practitioner-aif-c01.html",
+    "title": "AWS AI Practitioner AIF-C01",
+    "category": "Certification",
+    "desc": "Master all 5 domains: fundamentals, generative AI, foundation models, responsible AI, and security — with 25+ topics and 75 practice questions",
+    "tags": [
+      "D1:AI/ML Fundamentals",
+      "D2: GENAI Fundamentals",
+      "D3: FM Applications",
+      "D4: Responsible AI",
+      "D5: Security & Governance",
+      "Study Plan"
+    ],
+    "date": "2026-06-05"
+  },
+  {
     "file": "git-cheatsheet.html",
     "title": "Git Cheatsheet",
     "category": "Dev Tools",
