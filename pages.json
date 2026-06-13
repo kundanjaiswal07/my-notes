@@ -10,10 +10,17 @@
   {
     "file": "AWS_AIF-C01_Extended_Questions.html",
     "title": "AWS AIF-C01 Extended Practice Questions",
-    "category": "Uncategorized",
-    "desc": "",
-    "tags": [],
-    "date": ""
+    "category": "Certification",
+    "desc": "100+ Practice Questions with Detailed Explanations",
+    "tags": [
+      "Domain 1: Fundamentals of AI and ML\n20 Questions | 20% of Exam",
+      "Domain 2: Fundamentals of Generative AI\n20 Questions | 24% of Exam",
+      "⭐ Domain 3: Applications of Foundation Models\n30 Questions | 28% of Exam (HIGHEST PRIORITY)",
+      "Domain 4: Guidelines for Responsible AI\n15 Questions | 14% of Exam",
+      "Domain 5: Security",
+      "Compliance & Governance\n15 Questions | 14% of Exam"
+    ],
+    "date": "2026-06-13"
   },
   {
     "file": "AWS_AIF-C01_Study_Guide.html",
