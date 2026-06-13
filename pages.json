@@ -89,11 +89,15 @@
   },
   {
     "file": "power-bi-master-guide-combined.html",
-    "title": "Power BI Master Guide - Roadmap + Detailed Examples",
-    "category": "Uncategorized",
-    "desc": "",
-    "tags": [],
-    "date": ""
+    "title": "Power BI Master Guide RoadMap",
+    "category": "Dev Tools",
+    "desc": "Roadmap + Detailed Examples + Step-by-Step Code for All 30 Topics | Beginner to Expert",
+    "tags": [
+      "Beginner",
+      "Intermediate",
+      "Advanced"
+    ],
+    "date": "2026-05-30"
   },
   {
     "file": "python-mastery.html",
