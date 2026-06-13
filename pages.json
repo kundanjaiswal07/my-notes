@@ -1,11 +1,18 @@
 [
   {
     "file": "AWS_AIF-C01_ALL_QUESTIONS.html",
-    "title": "AWS AIF-C01 Complete Practice Questions - 100+ Q&A",
-    "category": "Uncategorized",
-    "desc": "",
-    "tags": [],
-    "date": ""
+    "title": "AWS AIF-C01 Complete Practice Questions",
+    "category": "Certification",
+    "desc": "100+ Questions with Detailed Explanations | All Domains",
+    "tags": [
+      "Domain 1: Fundamentals of AI and ML | 20 Questions |20% Exam Weight",
+      "Domain 2: Fundamentals of Generative AI |20 Questions | 24% Exam Weight",
+      "⭐ DOMAIN 3 IS MOST IMPORTANT - 28% OF EXAM \n      ⭐ Domain 3: Applications of Foundation Models |30 Questions | 28% Exam Weight",
+      "Domain 4: Guidelines for Responsible AI |15 Questions | 14% Exam Weight",
+      "Domain 5: Security",
+      "Compliance & Governance |15 Questions | 14% Exam Weight"
+    ],
+    "date": "2026-06-13"
   },
   {
     "file": "AWS_AIF-C01_Extended_Questions.html",
