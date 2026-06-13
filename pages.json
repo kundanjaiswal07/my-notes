@@ -18,10 +18,17 @@
   {
     "file": "AWS_AIF-C01_Study_Guide.html",
     "title": "AWS AIF-C01 Complete Study Guide",
-    "category": "Uncategorized",
-    "desc": "",
-    "tags": [],
-    "date": ""
+    "category": "Certification",
+    "desc": "Complete Study Guide & Practice Questions 2026",
+    "tags": [
+      "D1:AI/ML Fundamentals",
+      "D2: GENAI Fundamentals",
+      "D3: FM Applications",
+      "D4: Responsible AI",
+      "D5: Security & Governance",
+      "Study Plan"
+    ],
+    "date": "2026-06-13"
   },
   {
     "file": "aws-ai-practitioner-aif-c01.html",
