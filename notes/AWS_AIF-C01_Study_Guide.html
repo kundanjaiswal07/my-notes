@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS AIF-C01 Complete Study Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FF9900;
+            --aws-blue: #232F3E;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333;
+            --border-color: #ddd;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--aws-blue) 0%, #FF9900 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: var(--light-gray);
+            border-bottom: 2px solid var(--border-color);
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+
+        .nav-tabs button {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: var(--dark-gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            min-width: 150px;
+        }
+
+        .nav-tabs button:hover {
+            background: rgba(255, 153, 0, 0.1);
+        }
+
+        .nav-tabs button.active {
+            background: white;
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .domain-header {
+            background: linear-gradient(135deg, #FF9900 0%, #FFB84D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .domain-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .domain-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .question-header {
+            background: var(--light-gray);
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .question-header:hover {
+            background: #efefef;
+        }
+
+        .question-toggle {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            transition: transform 0.3s;
+        }
+
+        .question-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .question-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .question-content.show {
+            display: block;
+        }
+
+        .option {
+            padding: 10px;
+            margin: 8px 0;
+            border-left: 3px solid #ddd;
+            padding-left: 15px;
+            background: #fafafa;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background: #f0f0f0;
+        }
+
+        .option.correct {
+            border-left-color: var(--success-color);
+            background: rgba(40, 167, 69, 0.05);
+        }
+
+        .answer-label {
+            display: inline-block;
+            background: var(--success-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .explanation {
+            background: rgba(23, 162, 184, 0.05);
+            border-left: 3px solid var(--info-color);
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        .explanation strong {
+            color: var(--info-color);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: rgba(23, 162, 184, 0.1);
+            border-left-color: var(--info-color);
+            color: var(--info-color);
+        }
+
+        .alert-success {
+            background: rgba(40, 167, 69, 0.1);
+            border-left-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        .alert-warning {
+            background: rgba(255, 193, 7, 0.1);
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.1);
+            border-left-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .key-points {
+            background: #fffbf0;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .key-points h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-points li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .key-points li:before {
+            content: "⭐";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card h4 {
+            color: var(--aws-blue);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .frequency-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 0 3px;
+        }
+
+        .freq-very-high {
+            background: #ffebee;
+            color: var(--danger-color);
+        }
+
+        .freq-high {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .freq-moderate {
+            background: #e3f2fd;
+            color: var(--info-color);
+        }
+
+        .freq-rare {
+            background: #f3e5f5;
+            color: #9c27b0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: var(--light-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #FFB84D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: width 0.3s;
+        }
+
+        .footer {
+            background: var(--aws-blue);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .quick-ref-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .quick-ref-item strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .quick-ref-item p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-tabs button {
+                font-size: 0.85em;
+                padding: 12px 10px;
+                min-width: 120px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .table {
+                font-size: 0.9em;
+            }
+
+            .table th, .table td {
+                padding: 8px;
+            }
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: var(--light-gray);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .checklist li:hover {
+            background: #efefef;
+        }
+
+        .section {
+            margin: 30px 0;
+        }
+
+        .section h3 {
+            color: var(--aws-blue);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 AWS Certified AI Practitioner (AIF-C01)</h1>
+            <p>Complete Study Guide & Practice Questions 2026</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="switchTab('domain1')">Domain 1</button>
+            <button class="tab-btn" onclick="switchTab('domain2')">Domain 2</button>
+            <button class="tab-btn" onclick="switchTab('domain3')">Domain 3</button>
+            <button class="tab-btn" onclick="switchTab('domain4')">Domain 4</button>
+            <button class="tab-btn" onclick="switchTab('domain5')">Domain 5</button>
+            <button class="tab-btn" onclick="switchTab('resources')">Resources</button>
+        </div>
+
+        <div class="content">
+            <!-- OVERVIEW TAB -->
+            <div id="overview" class="tab-content active">
+                <h2>📊 Exam Overview</h2>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📋 Format</h4>
+                        <p><strong>65 Questions</strong><br>50 Scored + 15 Unscored<br><strong>90 Minutes</strong> (~1.3 min/Q)</p>
+                    </div>
+                    <div class="card">
+                        <h4>✅ Passing Score</h4>
+                        <p><strong>700/1000</strong> (Scaled)<br>Compensatory Model<br>(No section minimums)</p>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Cost</h4>
+                        <p><strong>$100 USD</strong><br>Pearson VUE Testing<br>Online or In-Person</p>
+                    </div>
+                    <div class="card">
+                        <h4>⏰ Valid For</h4>
+                        <p><strong>3 Years</strong><br>From Certification Date<br>Foundational Level</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Domain Distribution & Question Count</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Percentage</th>
+                                <th>Approx. Questions</th>
+                                <th>Difficulty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Domain 1: Fundamentals of AI and ML</strong></td>
+                                <td>20%</td>
+                                <td>10 questions</td>
+                                <td>Medium</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Domain 2: Fundamentals of Generative AI</strong></td>
+                                <td>24%</td>
+                                <td>12 questions</td>
+                                <td>Medium-High</td>
+                            </tr>
+                            <tr style="background: #fff3e0;">
+                                <td><strong>Domain 3: Applications of Foundation Models</strong></td>
+                                <td><strong>28%</strong></td>
+                                <td><strong>14 questions</strong></td>
+                                <td><strong>⭐ HIGHEST</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Domain 4: Guidelines for Responsible AI</strong></td>
+                                <td>14%</td>
+                                <td>7 questions</td>
+                                <td>Easy-Medium</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Domain 5: Security, Compliance & Governance</strong></td>
+                                <td>14%</td>
+                                <td>7 questions</td>
+                                <td>Medium</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ Key Insight:</strong> Domains 2 & 3 account for 52% of the exam. Focus 50% of study time on Domain 3 (Applications of Foundation Models).
+                </div>
+
+                <div class="section">
+                    <h3>Question Types</h3>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>Multiple Choice</h4>
+                            <p>1 correct answer + 3 distractors. Most common type.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Multiple Response</h4>
+                            <p>2+ correct answers. Must select ALL to get credit.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Ordering</h4>
+                            <p>3-5 responses in correct sequence. One wrong = no credit.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Matching</h4>
+                            <p>Match 3-7 prompts with responses. All pairs must be correct.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <h4>🎯 Key Study Points</h4>
+                    <ul>
+                        <li>No coding required—focus on concepts and AWS services</li>
+                        <li>Prepare for 2-4 weeks depending on background</li>
+                        <li>Official AWS Skill Builder courses are essential</li>
+                        <li>Practice with scenario-based questions</li>
+                        <li>Flag uncertain questions and return to them</li>
+                        <li>Use ~1.3 minutes per question as pacing guide</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DOMAIN 1 TAB -->
+            <div id="domain1" class="tab-content">
+                <div class="domain-header">
+                    <h2>Domain 1: Fundamentals of AI and ML</h2>
+                    <div class="domain-stats">
+                        <div class="stat">
+                            <div class="stat-value">20%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~10</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Medium</div>
+                            <div class="stat-label">Difficulty</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Main Topics & Frequency</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Frequency</th>
+                                <th>Approx Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>AI/ML Terminology & Concepts</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Supervised vs Unsupervised Learning</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Use Cases for ML</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>ML Development Lifecycle</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Model Performance Metrics</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Inferencing Types</td>
+                                <td><span class="frequency-badge freq-rare">Rare</span></td>
+                                <td>0-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>Sample Questions</h3>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q1: Which learning approach is best suited for predicting continuous values like house prices?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Classification</p>
+                                <p><strong>B)</strong> Regression</p>
+                                <p><strong>C)</strong> Clustering</p>
+                                <p><strong>D)</strong> Anomaly Detection</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Regression predicts continuous numerical values. Classification predicts categories; clustering groups items; anomaly detection finds outliers.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q2: A retail company wants to segment customers into groups based on purchasing behavior without predefined labels. What type of learning is this?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Supervised Learning</p>
+                                <p><strong>B)</strong> Unsupervised Learning</p>
+                                <p><strong>C)</strong> Reinforcement Learning</p>
+                                <p><strong>D)</strong> Semi-supervised Learning</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Unsupervised learning discovers patterns in unlabeled data. Clustering (grouping) is a common unsupervised task.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q3: Arrange these ML pipeline stages in correct order: A) Model Training, B) Data Collection, C) Evaluation, D) Data Preprocessing</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> B → D → A → C</p>
+                                <p><strong>B)</strong> A → B → C → D</p>
+                                <p><strong>C)</strong> C → A → B → D</p>
+                                <p><strong>D)</strong> B → A → D → C</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: A</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Correct order: Data Collection → Data Preprocessing → Model Training → Evaluation. This is the standard ML workflow.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 2 TAB -->
+            <div id="domain2" class="tab-content">
+                <div class="domain-header">
+                    <h2>Domain 2: Fundamentals of Generative AI</h2>
+                    <div class="domain-stats">
+                        <div class="stat">
+                            <div class="stat-value">24%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~12</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Medium-High</div>
+                            <div class="stat-label">Difficulty</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Main Topics & Frequency</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Frequency</th>
+                                <th>Approx Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Foundation Models & LLMs</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Tokens, Embeddings, Vectors</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Prompt Engineering Basics</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Generative AI Use Cases</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Advantages & Limitations of GenAI</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>AWS GenAI Services (Bedrock, SageMaker)</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="key-points">
+                    <h4>🔑 Key Concepts to Master</h4>
+                    <ul>
+                        <li><strong>Tokens:</strong> Units of text the model processes (words, subwords, characters)</li>
+                        <li><strong>Embeddings:</strong> Numerical vectors capturing semantic meaning</li>
+                        <li><strong>Foundation Models:</strong> Large pre-trained models adaptable to many tasks</li>
+                        <li><strong>Prompt Engineering:</strong> Crafting effective instructions for LLMs</li>
+                        <li><strong>Temperature:</strong> Controls randomness (0=deterministic, high=creative)</li>
+                        <li><strong>Hallucinations:</strong> LLMs can generate plausible but false information</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Sample Questions</h3>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q1: What is a token in the context of large language models?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> A security credential for authentication</p>
+                                <p><strong>B)</strong> A unit of text (word, subword, or character) that the model processes</p>
+                                <p><strong>C)</strong> A cryptocurrency used in blockchain</p>
+                                <p><strong>D)</strong> A temporary access key</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Tokens are the smallest units of text that LLMs process. Different models tokenize differently; "hello" might be 1 token, while longer words might be 2-3 tokens.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q2: What is the primary advantage of using embeddings in generative AI?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> They reduce model size by 90%</p>
+                                <p><strong>B)</strong> They convert text/images into numerical vectors that capture semantic meaning</p>
+                                <p><strong>C)</strong> They eliminate the need for training data</p>
+                                <p><strong>D)</strong> They guarantee 100% accuracy</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Embeddings represent text or images as dense vectors in a lower-dimensional space, capturing semantic relationships. Similar concepts have similar embeddings.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 3 TAB -->
+            <div id="domain3" class="tab-content">
+                <div class="domain-header">
+                    <h2>⭐ Domain 3: Applications of Foundation Models</h2>
+                    <p style="margin-top: 10px; font-size: 1.1em;">THE MOST IMPORTANT DOMAIN - 28% of Exam!</p>
+                    <div class="domain-stats">
+                        <div class="stat">
+                            <div class="stat-value">28%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~14</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">⭐ HIGHEST</div>
+                            <div class="stat-label">Difficulty</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <strong>🔥 CRITICAL:</strong> Spend 50% of your study time on this domain. Master RAG, vector databases, fine-tuning, and evaluation metrics.
+                </div>
+
+                <div class="section">
+                    <h3>Main Topics & Frequency</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Frequency</th>
+                                <th>Approx Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #ffebee;">
+                                <td><strong>RAG (Retrieval Augmented Generation)</strong></td>
+                                <td><span class="frequency-badge freq-very-high">VERY FREQUENT</span></td>
+                                <td><strong>3-4</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Vector Databases & Embeddings Storage</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Prompt Engineering Techniques</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>2-3</td>
+                            </tr>
+                            <tr>
+                                <td>Fine-tuning vs RAG vs In-Context Learning</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Model Evaluation Metrics (ROUGE, BLEU)</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Model Selection Criteria</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="key-points">
+                    <h4>🎯 Domain 3 Critical Rules</h4>
+                    <ul>
+                        <li><strong>RAG vs Fine-tuning:</strong> Changing facts = RAG; Stable style/behavior = fine-tuning</li>
+                        <li><strong>RAG is best for:</strong> Current/dynamic knowledge that changes frequently</li>
+                        <li><strong>Fine-tuning is best for:</strong> Permanent behaviors, terminology, writing style</li>
+                        <li><strong>Temperature direction:</strong> Higher = more random/creative; Lower = deterministic</li>
+                        <li><strong>ROUGE metric:</strong> Used for summarization evaluation</li>
+                        <li><strong>BLEU metric:</strong> Used for translation evaluation</li>
+                        <li><strong>Vector databases on AWS:</strong> OpenSearch Service or Neptune</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Sample Questions</h3>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q1: A company wants its chatbot to answer questions about internal company policies that change weekly. The company doesn't want to retrain the model. What approach should they use?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Fine-tune the model on policy documents</p>
+                                <p><strong>B)</strong> Use Retrieval Augmented Generation (RAG) with a knowledge base</p>
+                                <p><strong>C)</strong> Increase the temperature parameter</p>
+                                <p><strong>D)</strong> Use only zero-shot prompting</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> RAG retrieves current policy documents from a knowledge base at inference time, allowing real-time updates without retraining. Fine-tuning is expensive and slow for frequently changing data. This is the most common scenario on the exam.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q2: Where should a company store embeddings for a vector similarity search in AWS?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Amazon S3 only</p>
+                                <p><strong>B)</strong> Amazon OpenSearch Service (with vector database capability) or Amazon Neptune</p>
+                                <p><strong>C)</strong> Amazon RDS (only text)</p>
+                                <p><strong>D)</strong> AWS Lambda</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Amazon OpenSearch Service and Amazon Neptune support vector storage and k-nearest neighbor (k-NN) search for semantic similarity searches required in RAG systems.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q3: Which metric should you use to evaluate a summarization model?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Accuracy</p>
+                                <p><strong>B)</strong> ROUGE (Recall-Oriented Understudy for Gisting Evaluation)</p>
+                                <p><strong>C)</strong> Silhouette Score</p>
+                                <p><strong>D)</strong> MSE</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> ROUGE compares generated summaries to reference summaries, measuring overlap and quality. Accuracy is for classification; Silhouette Score for clustering; MSE for regression.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 4 TAB -->
+            <div id="domain4" class="tab-content">
+                <div class="domain-header">
+                    <h2>Domain 4: Guidelines for Responsible AI</h2>
+                    <div class="domain-stats">
+                        <div class="stat">
+                            <div class="stat-value">14%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~7</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Easy-Medium</div>
+                            <div class="stat-label">Difficulty</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Main Topics & Frequency</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Frequency</th>
+                                <th>Approx Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bias & Fairness</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Bias Detection Tools (SageMaker Clarify)</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Responsible AI Principles</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Content Filtering (Bedrock Guardrails)</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Human-in-the-Loop (A2I)</td>
+                                <td><span class="frequency-badge freq-moderate">Moderate</span></td>
+                                <td>0-1</td>
+                            </tr>
+                            <tr>
+                                <td>Model Transparency & Explainability</td>
+                                <td><span class="frequency-badge freq-moderate">Moderate</span></td>
+                                <td>0-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="key-points">
+                    <h4>🎯 Six AWS Responsible AI Principles</h4>
+                    <ul>
+                        <li><strong>Fairness:</strong> Equitable outcomes without systematic bias</li>
+                        <li><strong>Explainability:</strong> Understandable decisions and reasoning</li>
+                        <li><strong>Privacy:</strong> Data protection and user privacy</li>
+                        <li><strong>Robustness:</strong> Reliable and resilient systems</li>
+                        <li><strong>Governance:</strong> Documented policies and oversight</li>
+                        <li><strong>Transparency:</strong> Clear documentation and disclosure</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Key Tools & Services</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Purpose</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SageMaker Clarify</strong></td>
+                                <td>Bias detection & measurement</td>
+                                <td>Detect bias before/after deployment</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bedrock Guardrails</strong></td>
+                                <td>Content filtering & PII redaction</td>
+                                <td>Filter harmful content and sensitive data</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amazon A2I</strong></td>
+                                <td>Human-in-the-loop workflows</td>
+                                <td>Human review of model predictions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SageMaker Model Cards</strong></td>
+                                <td>Model documentation</td>
+                                <td>Document model purpose, performance, limitations</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>Sample Questions</h3>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q1: A model trained on historical hiring data tends to reject women's applications. Why?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> The model is always right</p>
+                                <p><strong>B)</strong> Historical bias in training data (fewer women hired historically) → model learns biased patterns</p>
+                                <p><strong>C)</strong> Models can't be biased</p>
+                                <p><strong>D)</strong> Not a concern</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Machine learning systems inherit and amplify biases in training data. This is a critical concept in responsible AI.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q2: Which AWS service can detect and measure bias in ML models?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Amazon Lex</p>
+                                <p><strong>B)</strong> Amazon SageMaker Clarify</p>
+                                <p><strong>C)</strong> Amazon Personalize</p>
+                                <p><strong>D)</strong> Amazon Textract</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> SageMaker Clarify provides tools to detect, measure, and mitigate bias before and after model deployment. This is almost always the answer to "bias detection" questions.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 5 TAB -->
+            <div id="domain5" class="tab-content">
+                <div class="domain-header">
+                    <h2>Domain 5: Security, Compliance & Governance</h2>
+                    <div class="domain-stats">
+                        <div class="stat">
+                            <div class="stat-value">14%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~7</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Medium</div>
+                            <div class="stat-label">Difficulty</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Main Topics & Frequency</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Frequency</th>
+                                <th>Approx Questions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>IAM Policies for AI Services</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Encryption (KMS)</td>
+                                <td><span class="frequency-badge freq-very-high">Very Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Data Governance & Lineage</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Compliance Frameworks (ISO, SOC 2)</td>
+                                <td><span class="frequency-badge freq-moderate">Moderate</span></td>
+                                <td>0-1</td>
+                            </tr>
+                            <tr>
+                                <td>Security Best Practices</td>
+                                <td><span class="frequency-badge freq-high">Frequent</span></td>
+                                <td>1-2</td>
+                            </tr>
+                            <tr>
+                                <td>Prompt Injection & Jailbreaking Risks</td>
+                                <td><span class="frequency-badge freq-moderate">Moderate</span></td>
+                                <td>0-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>⚡ Golden Rule:</strong> For security questions, think: <strong>IAM + KMS + CloudTrail + VPC Endpoints</strong>. This combination covers most scenarios.
+                </div>
+
+                <div class="section">
+                    <h3>Security Best Practices Pattern</h3>
+                    <div class="quick-ref">
+                        <div class="quick-ref-item">
+                            <strong>Access Control</strong>
+                            <p>AWS IAM roles, policies, permissions</p>
+                        </div>
+                        <div class="quick-ref-item">
+                            <strong>Data Protection</strong>
+                            <p>AWS KMS encryption at rest & in transit</p>
+                        </div>
+                        <div class="quick-ref-item">
+                            <strong>Audit Logging</strong>
+                            <p>AWS CloudTrail for all API calls</p>
+                        </div>
+                        <div class="quick-ref-item">
+                            <strong>Network Security</strong>
+                            <p>VPC endpoints for private access</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Sample Questions</h3>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q1: How does AWS IAM control access to Amazon Bedrock?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> IAM doesn't apply to Bedrock</p>
+                                <p><strong>B)</strong> IAM roles and policies specify who can call Bedrock APIs and which models they can access</p>
+                                <p><strong>C)</strong> No access control needed</p>
+                                <p><strong>D)</strong> Only AWS staff can access</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> IAM is the standard AWS access control mechanism, including for Bedrock API calls and model selections. This is fundamental to AWS security.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header" onclick="toggleQuestion(this)">
+                            <span>Q2: What is a "prompt injection" attack?</span>
+                            <span class="question-toggle">▼</span>
+                        </div>
+                        <div class="question-content">
+                            <div style="margin-bottom: 15px;">
+                                <p><strong>A)</strong> Injecting money into prompts</p>
+                                <p><strong>B)</strong> Malicious inputs designed to override model instructions or extract sensitive information</p>
+                                <p><strong>C)</strong> Injecting training data</p>
+                                <p><strong>D)</strong> Not a real threat</p>
+                            </div>
+                            <div class="answer-label">✓ Answer: B</div>
+                            <div class="explanation">
+                                <strong>Explanation:</strong> Prompt injection is a social engineering attack on LLMs where users embed malicious instructions in prompts to override model behavior or extract sensitive data.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESOURCES TAB -->
+            <div id="resources" class="tab-content">
+                <h2>📚 Study Resources & Strategy</h2>
+
+                <div class="section">
+                    <h3>🎯 3-Week Study Plan</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Week</th>
+                                <th>Focus</th>
+                                <th>Topics</th>
+                                <th>Study Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Week 1</strong></td>
+                                <td>Foundations</td>
+                                <td>Domain 1 & 2 (Basics, GenAI, LLMs, Prompting)</td>
+                                <td>40%</td>
+                            </tr>
+                            <tr style="background: #fff3e0;">
+                                <td><strong>Week 2</strong></td>
+                                <td><strong>Deep Dive</strong></td>
+                                <td><strong>Domain 3 (RAG, Fine-tuning, Evaluation, Vector DBs)</strong></td>
+                                <td><strong>50%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 3</strong></td>
+                                <td>Governance & Practice</td>
+                                <td>Domains 4 & 5 + Full-length practice exams</td>
+                                <td>30%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>🔗 Recommended AWS Services to Master</h3>
+                    <div class="quick-ref">
+                        <div class="quick-ref-item">
+                            <strong>Critical</strong>
+                            <p>Amazon Bedrock, SageMaker, IAM, OpenSearch, KMS</p>
+                        </div>
+                        <div class="quick-ref-item">
+                            <strong>Important</strong>
+                            <p>S3, Comprehend, Rekognition, CloudTrail, A2I</p>
+                        </div>
+                        <div class="quick-ref-item">
+                            <strong>Good to Know</strong>
+                            <p>Lex, Personalize, Textract, Transcribe, Translate</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>⚠️ Common Exam Traps to Avoid</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Trap</th>
+                                <th>Why It's Wrong</th>
+                                <th>Correct Approach</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Choosing most complex service</td>
+                                <td>AWS favors simpler, managed solutions</td>
+                                <td>Choose managed services (Bedrock > custom SageMaker)</td>
+                            </tr>
+                            <tr>
+                                <td>Higher temperature = more accurate</td>
+                                <td>Opposite is true</td>
+                                <td>Low temperature = deterministic; High = creative</td>
+                            </tr>
+                            <tr>
+                                <td>Fine-tuning for every scenario</td>
+                                <td>RAG is often better for current knowledge</td>
+                                <td>Facts change = RAG; Style/behavior = fine-tuning</td>
+                            </tr>
+                            <tr>
+                                <td>Skipping Domain 5 questions</td>
+                                <td>They're straightforward if studied</td>
+                                <td>Study security, compliance, governance patterns</td>
+                            </tr>
+                            <tr>
+                                <td>Missing multiple-response requirements</td>
+                                <td>Need ALL correct answers for credit</td>
+                                <td>Carefully select every correct option</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>✅ Pre-Exam Checklist</h3>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Took 3-5 full-length practice exams (scored 80%+)</li>
+                        <li><input type="checkbox"> Reviewed all wrong answers and understood reasoning</li>
+                        <li><input type="checkbox"> Memorized Domain 3 topics (28% of exam)</li>
+                        <li><input type="checkbox"> Can explain RAG, fine-tuning, and prompt engineering differences</li>
+                        <li><input type="checkbox"> Know the 6 AWS Responsible AI principles</li>
+                        <li><input type="checkbox"> Understand IAM + KMS + CloudTrail security combination</li>
+                        <li><input type="checkbox"> Familiar with all in-scope AWS services</li>
+                        <li><input type="checkbox"> Know evaluation metrics for each task type</li>
+                        <li><input type="checkbox"> Understand supervised vs unsupervised learning</li>
+                        <li><input type="checkbox"> Can distinguish between AWS AI services</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>🎓 Official AWS Resources</h3>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>AWS Skill Builder</h4>
+                            <p>Free digital courses designed for AIF-C01. Essential starting point.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Official Exam Guide</h4>
+                            <p>Complete task statements and objectives for all 5 domains.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Whitepapers</h4>
+                            <p>AWS AI/ML best practices, responsible AI, security guidelines.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Practice Exams</h4>
+                            <p>Official practice tests to gauge readiness and identify weak areas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <h4>🏆 Success Tips</h4>
+                    <ul>
+                        <li><strong>Focus on Domain 3 heavily.</strong> It's 28% of the exam and the most technical.</li>
+                        <li><strong>Master the patterns:</strong> RAG vs fine-tuning, service selection, metric choices</li>
+                        <li><strong>Flag and return:</strong> You have 1.3 minutes per question. Use time wisely.</li>
+                        <li><strong>Read carefully:</strong> Multiple-response questions require ALL correct answers.</li>
+                        <li><strong>Use AWS documentation:</strong> When uncertain, official docs support most answers.</li>
+                        <li><strong>Aim for 80%+ on practice exams</strong> before taking the real exam.</li>
+                        <li><strong>Study concepts, not memorization.</strong> The exam tests understanding and application.</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>💡 Final Tip:</strong> The AIF-C01 is not a difficult exam if you study with intention. It rewards breadth over depth. Focus on real-world scenarios and AWS service mappings. Good luck! 🍀
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>AWS Certified AI Practitioner (AIF-C01) Complete Study Guide | 2026</p>
+            <p>Last Updated: June 2026 | All content based on official AWS exam guides</p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function toggleQuestion(element) {
+            const content = element.nextElementSibling;
+            const toggle = element.querySelector('.question-toggle');
+
+            content.classList.toggle('show');
+            toggle.classList.toggle('open');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({behavior: 'smooth'});
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

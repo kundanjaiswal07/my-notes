@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS AIF-C01 Complete Practice Questions - 100+ Q&A</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FF9900;
+            --aws-blue: #232F3E;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333;
+            --border-color: #ddd;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--aws-blue) 0%, #FF9900 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background: var(--light-gray);
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .domain-container {
+            margin-bottom: 40px;
+        }
+
+        .domain-header {
+            background: linear-gradient(135deg, #FF9900 0%, #FFB84D 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .domain-header h2 {
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        .domain-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .question-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .q-header {
+            background: var(--light-gray);
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .q-header:hover {
+            background: #efefef;
+        }
+
+        .q-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            min-width: 30px;
+            text-align: center;
+            margin-right: 10px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .q-text {
+            flex-grow: 1;
+        }
+
+        .q-toggle {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            transition: transform 0.3s;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .q-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .q-body {
+            display: none;
+            padding: 20px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .q-body.show {
+            display: block;
+        }
+
+        .option {
+            padding: 12px;
+            margin: 10px 0;
+            background: #fafafa;
+            border-left: 3px solid #ddd;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background: #f0f0f0;
+        }
+
+        .answer-badge {
+            display: inline-block;
+            background: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .explanation {
+            background: rgba(23, 162, 184, 0.1);
+            border-left: 4px solid var(--info-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            line-height: 1.6;
+        }
+
+        .explanation strong {
+            color: var(--info-color);
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+
+        .alert-warning {
+            background: rgba(255, 193, 7, 0.1);
+            border-left-color: var(--warning-color);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e68900;
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .footer {
+            background: var(--aws-blue);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .stat-box-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-box-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .frequency-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .freq-very-high {
+            background: #ffebee;
+            color: var(--danger-color);
+        }
+
+        .freq-high {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .freq-moderate {
+            background: #e3f2fd;
+            color: var(--info-color);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .domain-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .q-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .q-toggle {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .filter-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 AWS AIF-C01 Complete Practice Questions</h1>
+            <p>100+ Questions with Detailed Explanations | All Domains</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchBox" placeholder="Search questions..." onkeyup="searchQuestions()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterDomain('all')">All</button>
+                <button class="filter-btn" onclick="filterDomain('d1')">Domain 1</button>
+                <button class="filter-btn" onclick="filterDomain('d2')">Domain 2</button>
+                <button class="filter-btn" onclick="filterDomain('d3')">Domain 3 ⭐</button>
+                <button class="filter-btn" onclick="filterDomain('d4')">Domain 4</button>
+                <button class="filter-btn" onclick="filterDomain('d5')">Domain 5</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="button-group">
+                <button class="btn-secondary" onclick="expandAll()">📖 Expand All</button>
+                <button class="btn-secondary" onclick="collapseAll()">📕 Collapse All</button>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <div class="stat-box-value">100+</div>
+                    <div class="stat-box-label">Total Questions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">28%</div>
+                    <div class="stat-box-label">Domain 3 Focus</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">5</div>
+                    <div class="stat-box-label">All Domains</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">90 min</div>
+                    <div class="stat-box-label">Exam Time</div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 1 -->
+            <div class="domain-container d1">
+                <div class="domain-header">
+                    <h2>Domain 1: Fundamentals of AI and ML</h2>
+                    <div class="domain-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">20</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">20%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">1</span>
+                        <span class="q-text">Which learning approach predicts continuous values like house prices?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Classification</div>
+                        <div><strong>B)</strong> Regression</div>
+                        <div><strong>C)</strong> Clustering</div>
+                        <div><strong>D)</strong> Anomaly Detection</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Regression predicts continuous values. Classification predicts categories; clustering groups items; anomaly detection finds outliers.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">2</span>
+                        <span class="q-text">A company wants to segment customers by purchasing behavior without labels. What type of learning?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Supervised Learning</div>
+                        <div><strong>B)</strong> Unsupervised Learning</div>
+                        <div><strong>C)</strong> Reinforcement Learning</div>
+                        <div><strong>D)</strong> Semi-supervised Learning</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Unsupervised learning discovers patterns in unlabeled data. Clustering is a common unsupervised task.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">3</span>
+                        <span class="q-text">What's the difference between deep learning and traditional ML?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Deep learning is always more accurate</div>
+                        <div><strong>B)</strong> Deep learning uses neural networks with multiple layers; traditional ML uses simpler algorithms</div>
+                        <div><strong>C)</strong> There is no difference</div>
+                        <div><strong>D)</strong> Deep learning only works with images</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Deep learning (DNNs with many layers) automatically learns feature hierarchies. Traditional ML often requires manual feature engineering.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">4</span>
+                        <span class="q-text">Which is an example of reinforcement learning?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Predicting movie ratings</div>
+                        <div><strong>B)</strong> A computer playing chess and improving through trial and error</div>
+                        <div><strong>C)</strong> Classifying emails as spam</div>
+                        <div><strong>D)</strong> Clustering products</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Reinforcement learning involves an agent learning by taking actions, receiving rewards/penalties, and iterating.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">5</span>
+                        <span class="q-text">What does "overfitting" mean in ML?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Model accuracy is too high</div>
+                        <div><strong>B)</strong> Model learns training data too well but fails on new data</div>
+                        <div><strong>C)</strong> Model has too many features</div>
+                        <div><strong>D)</strong> Model converges too slowly</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Overfitting occurs when a model memorizes training data instead of learning generalizable patterns.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">6</span>
+                        <span class="q-text">Arrange ML pipeline stages in order: A) Training, B) Collection, C) Evaluation, D) Preprocessing</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> B → D → A → C</div>
+                        <div><strong>B)</strong> A → B → C → D</div>
+                        <div><strong>C)</strong> C → A → B → D</div>
+                        <div><strong>D)</strong> B → A → D → C</div>
+                        <div class="answer-badge">✓ Answer: A</div>
+                        <div class="explanation"><strong>Explanation:</strong> Correct order: Collection → Preprocessing → Training → Evaluation.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">7</span>
+                        <span class="q-text">Best AWS service for churn prediction on tabular data?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Amazon Rekognition</div>
+                        <div><strong>B)</strong> Amazon SageMaker Autopilot</div>
+                        <div><strong>C)</strong> Amazon Polly</div>
+                        <div><strong>D)</strong> Amazon Personalize</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> SageMaker Autopilot automatically builds, trains, and tunes classification/regression models on tabular data.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">8</span>
+                        <span class="q-text">What is transfer learning?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Moving a model between AWS regions</div>
+                        <div><strong>B)</strong> Using pre-trained model and fine-tuning for new task</div>
+                        <div><strong>C)</strong> Training on large then smaller data</div>
+                        <div><strong>D)</strong> Converting between frameworks</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Transfer learning reuses pre-trained model knowledge, accelerating training and improving performance.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">9</span>
+                        <span class="q-text">What is model monitoring in production?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Watching developers code</div>
+                        <div><strong>B)</strong> Checking performance, detecting drift, triggering retraining</div>
+                        <div><strong>C)</strong> Monitoring AWS costs only</div>
+                        <div><strong>D)</strong> Not necessary</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Model monitoring detects degradation, data drift, and triggers retraining. Essential for MLOps.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">10</span>
+                        <span class="q-text">Metric for binary classification with imbalanced classes?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Accuracy</div>
+                        <div><strong>B)</strong> F1 Score or Precision-Recall curve</div>
+                        <div><strong>C)</strong> R-squared</div>
+                        <div><strong>D)</strong> Silhouette Score</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> With imbalanced data, F1 Score balances precision/recall better than accuracy.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">11</span>
+                        <span class="q-text">Primary goal of EDA (Exploratory Data Analysis)?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Train the model</div>
+                        <div><strong>B)</strong> Understand data characteristics and relationships</div>
+                        <div><strong>C)</strong> Deploy to production</div>
+                        <div><strong>D)</strong> Calculate accuracy metrics</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> EDA identifies patterns, outliers, missing values to inform preprocessing and feature engineering.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">12</span>
+                        <span class="q-text">What is feature engineering?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Building model architecture</div>
+                        <div><strong>B)</strong> Creating, selecting, transforming input variables for better performance</div>
+                        <div><strong>C)</strong> Writing deployment code</div>
+                        <div><strong>D)</strong> Testing on production</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Feature engineering uses domain knowledge to create meaningful features helping models learn better patterns.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">13</span>
+                        <span class="q-text">Difference between batch and real-time inference?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Batch is more expensive</div>
+                        <div><strong>B)</strong> Batch processes multiple records; real-time processes individual requests immediately</div>
+                        <div><strong>C)</strong> Real-time is always more accurate</div>
+                        <div><strong>D)</strong> Batch only works with images</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Batch: scheduled jobs for large datasets. Real-time: instant predictions for individual requests.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">14</span>
+                        <span class="q-text">Which AWS service provides pre-trained ML models?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Amazon SageMaker JumpStart</div>
+                        <div><strong>B)</strong> AWS Lambda</div>
+                        <div><strong>C)</strong> Amazon EC2</div>
+                        <div><strong>D)</strong> Amazon S3</div>
+                        <div class="answer-badge">✓ Answer: A</div>
+                        <div class="explanation"><strong>Explanation:</strong> SageMaker JumpStart offers hub of pre-trained models for quick deployment and transfer learning.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">15</span>
+                        <span class="q-text">What is data drift?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Model becomes too accurate</div>
+                        <div><strong>B)</strong> New data differs from training data, reducing accuracy</div>
+                        <div><strong>C)</strong> Model doesn't need monitoring</div>
+                        <div><strong>D)</strong> AWS servers are slow</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Data drift (distribution change) reduces model accuracy. Regular monitoring and retraining address this.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">16</span>
+                        <span class="q-text">When is ML NOT appropriate? <span class="frequency-badge freq-high">FREQUENT</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Predicting customer churn</div>
+                        <div><strong>B)</strong> When specific outcome is mandated (deny all applications)</div>
+                        <div><strong>C)</strong> Detecting fraud</div>
+                        <div><strong>D)</strong> Recommending products</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> ML provides predictions, not certainties. When specific outcome is mandated, ML is inappropriate.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">17</span>
+                        <span class="q-text">Best AWS service for real-time recommendations?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Amazon Personalize</div>
+                        <div><strong>B)</strong> AWS Batch</div>
+                        <div><strong>C)</strong> Amazon QuickSight</div>
+                        <div><strong>D)</strong> AWS Lambda only</div>
+                        <div class="answer-badge">✓ Answer: A</div>
+                        <div class="explanation"><strong>Explanation:</strong> Amazon Personalize handles real-time personalized recommendations using collaborative filtering and deep learning.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">18</span>
+                        <span class="q-text">Service to extract text from scanned documents?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Amazon Comprehend</div>
+                        <div><strong>B)</strong> Amazon Textract</div>
+                        <div><strong>C)</strong> Amazon Rekognition</div>
+                        <div><strong>D)</strong> Amazon Lex</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Textract extracts text/structure from documents; Comprehend does NLP on text; Rekognition analyzes images.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">19</span>
+                        <span class="q-text">Most critical consideration for fraud detection model?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Model simplicity</div>
+                        <div><strong>B)</strong> Explainability and auditability (regulators need understanding)</div>
+                        <div><strong>C)</strong> Newest algorithms</div>
+                        <div><strong>D)</strong> Fastest inference</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Regulatory/compliance requirements demand explainability in fraud detection models.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d1">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">20</span>
+                        <span class="q-text">Which metrics are in ML pipeline? <span class="frequency-badge freq-high">SELECT 2</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Data collection</div>
+                        <div><strong>B)</strong> Customer billing</div>
+                        <div><strong>C)</strong> Model training</div>
+                        <div><strong>D)</strong> CEO approval</div>
+                        <div class="answer-badge">✓ Answer: A, C</div>
+                        <div class="explanation"><strong>Explanation:</strong> ML pipeline: Collection → EDA → Preprocessing → Feature engineering → Training → Evaluation → Deployment → Monitoring.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 2 -->
+            <div class="domain-container d2">
+                <div class="domain-header">
+                    <h2>Domain 2: Fundamentals of Generative AI</h2>
+                    <div class="domain-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">20</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">1</span>
+                        <span class="q-text">What is a token in LLMs? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Security credential</div>
+                        <div><strong>B)</strong> Unit of text (word, subword, character) model processes</div>
+                        <div><strong>C)</strong> Cryptocurrency</div>
+                        <div><strong>D)</strong> Temporary access key</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Tokens are smallest units LLMs process. Different models tokenize differently.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">2</span>
+                        <span class="q-text">Primary advantage of embeddings in GenAI? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Reduce model size 90%</div>
+                        <div><strong>B)</strong> Convert text/images to numerical vectors capturing semantic meaning</div>
+                        <div><strong>C)</strong> Eliminate training data need</div>
+                        <div><strong>D)</strong> Guarantee 100% accuracy</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Embeddings map concepts to vectors where semantic similarity is preserved.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">3</span>
+                        <span class="q-text">What is a foundation model? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Small task-specific model</div>
+                        <div><strong>B)</strong> Large pre-trained on diverse data, adaptable to many tasks</div>
+                        <div><strong>C)</strong> Model only for classification</div>
+                        <div><strong>D)</strong> Requires real-time user feedback</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Foundation models (Claude, GPT, Mistral) are large and adaptable via fine-tuning or prompting.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">4</span>
+                        <span class="q-text">What is prompt engineering? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Designing hardware for AI</div>
+                        <div><strong>B)</strong> Crafting effective instructions/examples to guide LLM outputs</div>
+                        <div><strong>C)</strong> Writing code for neural networks</div>
+                        <div><strong>D)</strong> Configuring AWS infrastructure</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Prompt engineering crafts prompts to elicit high-quality, relevant LLM responses.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">5</span>
+                        <span class="q-text">Difference: zero-shot vs few-shot prompting?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Zero-shot no examples; few-shot provides examples</div>
+                        <div><strong>B)</strong> Zero-shot always better</div>
+                        <div><strong>C)</strong> They're identical</div>
+                        <div><strong>D)</strong> Few-shot requires fine-tuning</div>
+                        <div class="answer-badge">✓ Answer: A</div>
+                        <div class="explanation"><strong>Explanation:</strong> Zero-shot: direct instruction. Few-shot: instruction + examples (usually improves accuracy).</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">6</span>
+                        <span class="q-text">What is "chain-of-thought" prompting?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Neural network layer type</div>
+                        <div><strong>B)</strong> Ask model to show reasoning steps before answering</div>
+                        <div><strong>C)</strong> Text compression method</div>
+                        <div><strong>D)</strong> Not useful for LLMs</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Chain-of-thought asks models to break down reasoning, improving accuracy on complex tasks.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">7</span>
+                        <span class="q-text">What does temperature parameter control?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Actual hardware temperature</div>
+                        <div><strong>B)</strong> Randomness/creativity (higher=random, lower=deterministic)</div>
+                        <div><strong>C)</strong> Speed of inference</div>
+                        <div><strong>D)</strong> Cost of API calls</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Temperature 0=deterministic; higher=creative/varied. This controls output diversity.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">8</span>
+                        <span class="q-text">Major limitation of current LLMs?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Too accurate</div>
+                        <div><strong>B)</strong> Hallucinations – confident-sounding but false information</div>
+                        <div><strong>C)</strong> Learn too slowly</div>
+                        <div><strong>D)</strong> Work perfectly without training data</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> LLMs can generate plausible but factually incorrect information (hallucinations).</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">9</span>
+                        <span class="q-text">Which AWS service provides foundation model API access?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> SageMaker training only</div>
+                        <div><strong>B)</strong> Amazon Bedrock</div>
+                        <div><strong>C)</strong> AWS Lambda</div>
+                        <div><strong>D)</strong> Amazon EC2</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock provides managed API access to foundation models from Anthropic, Meta, Mistral.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">10</span>
+                        <span class="q-text">What is multi-modal capability?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Speaking multiple languages</div>
+                        <div><strong>B)</strong> Processing multiple input types (text, images, documents)</div>
+                        <div><strong>C)</strong> Training multiple times</div>
+                        <div><strong>D)</strong> Supporting multiple AWS regions</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Multi-modal models (Claude 3) process text, images, documents together in single request.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">11</span>
+                        <span class="q-text">What is "in-context learning"?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Learning from user feedback after deployment</div>
+                        <div><strong>B)</strong> Providing examples in prompt without fine-tuning</div>
+                        <div><strong>C)</strong> Learning only from data in context window</div>
+                        <div><strong>D)</strong> Fine-tuning on user-specific data</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> In-context learning teaches model via prompt examples without parameter updates.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">12</span>
+                        <span class="q-text">What is chunking in GenAI?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Breaking text into smaller pieces</div>
+                        <div><strong>B)</strong> Compressing model weights</div>
+                        <div><strong>C)</strong> Dividing training into epochs</div>
+                        <div><strong>D)</strong> Splitting teams</div>
+                        <div class="answer-badge">✓ Answer: A</div>
+                        <div class="explanation"><strong>Explanation:</strong> Chunking divides long documents into smaller pieces for LLM processing.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">13</span>
+                        <span class="q-text">Difference: pre-training vs fine-tuning?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No difference</div>
+                        <div><strong>B)</strong> Pre-training learns general knowledge; fine-tuning specializes</div>
+                        <div><strong>C)</strong> Fine-tuning only for images</div>
+                        <div><strong>D)</strong> Pre-training more expensive</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Pre-training: broad patterns. Fine-tuning: task/domain specific adaptation.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">14</span>
+                        <span class="q-text">Generative AI advantage over traditional ML?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Always requires less data</div>
+                        <div><strong>B)</strong> Adapts to new tasks via prompting without retraining</div>
+                        <div><strong>C)</strong> Always cheaper</div>
+                        <div><strong>D)</strong> Never makes mistakes</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> GenAI's strength is adaptability – same model solves many tasks via prompting.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">15</span>
+                        <span class="q-text">Service for building chatbot without infrastructure?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Amazon EC2</div>
+                        <div><strong>B)</strong> Amazon Lex</div>
+                        <div><strong>C)</strong> Amazon Bedrock (via API with FMs)</div>
+                        <div><strong>D)</strong> AWS Lambda only</div>
+                        <div class="answer-badge">✓ Answer: C</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock provides managed foundation model access without infrastructure management.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">16</span>
+                        <span class="q-text">Best approach for product descriptions?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Supervised learning with labels</div>
+                        <div><strong>B)</strong> Use FM via prompting (Bedrock)</div>
+                        <div><strong>C)</strong> Train custom deep learning</div>
+                        <div><strong>D)</strong> Manual writing only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Foundation models via Bedrock ideal for text generation without custom training.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">17</span>
+                        <span class="q-text">Bedrock advantages? <span class="frequency-badge freq-high">SELECT 2</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No security/compliance</div>
+                        <div><strong>B)</strong> Managed service + multiple models</div>
+                        <div><strong>C)</strong> Always free</div>
+                        <div><strong>D)</strong> Built-in responsibility features</div>
+                        <div class="answer-badge">✓ Answer: B, D</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock: managed infrastructure, multiple FM options, compliance, and responsible AI features.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">18</span>
+                        <span class="q-text">Service for image generation from text?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Bedrock (with image generation models)</div>
+                        <div><strong>B)</strong> Amazon Textract</div>
+                        <div><strong>C)</strong> Amazon Rekognition</div>
+                        <div><strong>D)</strong> Amazon Transcribe</div>
+                        <div class="answer-badge">✓ Answer: A</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock supports image generation models creating images from text prompts.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">19</span>
+                        <span class="q-text">Best temperature for consistent chatbot?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> High (0.7-1.0)</div>
+                        <div><strong>B)</strong> Low (0.0-0.3)</div>
+                        <div><strong>C)</strong> Random</div>
+                        <div><strong>D)</strong> Doesn't matter</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Lower temperature produces consistent, predictable outputs.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d2">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">20</span>
+                        <span class="q-text">What is "instruction tuning"?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Tuning hardware</div>
+                        <div><strong>B)</strong> Fine-tuning on instruction-response pairs</div>
+                        <div><strong>C)</strong> Writing code</div>
+                        <div><strong>D)</strong> Not important</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Instruction tuning fine-tunes models on instruction-response pairs for better instruction-following.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 3 - MOST IMPORTANT -->
+            <div class="domain-container d3">
+                <div class="alert alert-warning">
+                    <strong>⭐ DOMAIN 3 IS MOST IMPORTANT - 28% OF EXAM</strong>
+                </div>
+
+                <div class="domain-header">
+                    <h2>⭐ Domain 3: Applications of Foundation Models</h2>
+                    <div class="domain-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">30</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">28%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">1</span>
+                        <span class="q-text">Knowledge base updates daily, need current info without retraining? <span class="frequency-badge freq-very-high">MOST COMMON</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Fine-tune daily</div>
+                        <div><strong>B)</strong> Use RAG with knowledge base</div>
+                        <div><strong>C)</strong> Increase temperature</div>
+                        <div><strong>D)</strong> Zero-shot only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> RAG retrieves current documents at inference time. Fine-tuning daily is expensive. MOST TESTED SCENARIO ON EXAM.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">2</span>
+                        <span class="q-text">Where to store embeddings for vector search? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> S3 only</div>
+                        <div><strong>B)</strong> OpenSearch Service or Neptune</div>
+                        <div><strong>C)</strong> RDS</div>
+                        <div><strong>D)</strong> Lambda</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> OpenSearch and Neptune support vector storage and k-NN search for RAG retrieval.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">3</span>
+                        <span class="q-text">When is fine-tuning better than RAG? <span class="frequency-badge freq-high">CRITICAL PATTERN</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Always</div>
+                        <div><strong>B)</strong> For stable behaviors/styles (tone, terminology)</div>
+                        <div><strong>C)</strong> Never</div>
+                        <div><strong>D)</strong> Only images</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> CRITICAL: Changing facts=RAG; Stable behaviors=Fine-tuning. This is asked repeatedly.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">4</span>
+                        <span class="q-text">RAG vs In-context Learning difference?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No difference</div>
+                        <div><strong>B)</strong> In-context temporary (per-request); RAG permanent knowledge base</div>
+                        <div><strong>C)</strong> RAG is temporary</div>
+                        <div><strong>D)</strong> Neither useful</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> In-context: prompt examples per-request. RAG: retrieves from persistent knowledge base.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">5</span>
+                        <span class="q-text">Metric for evaluating summarization? <span class="frequency-badge freq-high">FREQUENT</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Accuracy</div>
+                        <div><strong>B)</strong> ROUGE</div>
+                        <div><strong>C)</strong> Silhouette</div>
+                        <div><strong>D)</strong> MSE</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> ROUGE compares generated to reference summaries. Learn this metric pairing!</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">6</span>
+                        <span class="q-text">What does BLEU measure?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Color</div>
+                        <div><strong>B)</strong> Translation quality</div>
+                        <div><strong>C)</strong> Classification</div>
+                        <div><strong>D)</strong> Latency</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> BLEU: machine translation metric. ROUGE: summarization. Learn these!</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">7</span>
+                        <span class="q-text">What is BERTScore used for?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Server performance</div>
+                        <div><strong>B)</strong> Semantic similarity evaluation</div>
+                        <div><strong>C)</strong> Only BERT models</div>
+                        <div><strong>D)</strong> Not useful</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> BERTScore uses contextual embeddings for semantic similarity, better than surface-level metrics.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">8</span>
+                        <span class="q-text">What is "chunking" in RAG?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Size reduction</div>
+                        <div><strong>B)</strong> Dividing documents into semantic units for embedding</div>
+                        <div><strong>C)</strong> Compression</div>
+                        <div><strong>D)</strong> Team splitting</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Chunking enables efficient retrieval within context window limits.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">9</span>
+                        <span class="q-text">RAG core components? <span class="frequency-badge freq-very-high">SELECT ALL</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Embedding model</div>
+                        <div><strong>B)</strong> Vector database</div>
+                        <div><strong>C)</strong> Foundation model</div>
+                        <div><strong>D)</strong> AWS Lambda for processing</div>
+                        <div class="answer-badge">✓ Answer: A, B, C</div>
+                        <div class="explanation"><strong>Explanation:</strong> RAG needs: embeddings, vector DB, FM. Lambda may be used but isn't required.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">10</span>
+                        <span class="q-text">Bedrock Knowledge Bases implement RAG by?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Manual vector management</div>
+                        <div><strong>B)</strong> Auto-managing ingestion, embedding, storage, retrieval</div>
+                        <div><strong>C)</strong> Without vector DB</div>
+                        <div><strong>D)</strong> SQL only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock Knowledge Bases fully manage RAG pipeline – ingestion, chunking, embedding, storage, retrieval.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">11</span>
+                        <span class="q-text">Media company, natural language image search?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Comprehend</div>
+                        <div><strong>B)</strong> Personalize</div>
+                        <div><strong>C)</strong> OpenSearch with vector embeddings</div>
+                        <div><strong>D)</strong> Polly</div>
+                        <div class="answer-badge">✓ Answer: C</div>
+                        <div class="explanation"><strong>Explanation:</strong> OpenSearch k-NN search enables semantic image search via embeddings.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">12</span>
+                        <span class="q-text">How to select foundation model? <span class="frequency-badge freq-high">SELECT 2</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Task requirements (language, modality)</div>
+                        <div><strong>B)</strong> Latency/throughput needs</div>
+                        <div><strong>C)</strong> Lowest cost only</div>
+                        <div><strong>D)</strong> Newest regardless</div>
+                        <div class="answer-badge">✓ Answer: A, B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Model selection requires analyzing capability fit, latency, cost, compliance needs.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">13</span>
+                        <span class="q-text">What is model distillation?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Makes models larger</div>
+                        <div><strong>B)</strong> Compresses large model into smaller (faster, cheaper)</div>
+                        <div><strong>C)</strong> Distills features from images</div>
+                        <div><strong>D)</strong> Not useful</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Distillation creates student models mimicking teacher models with fewer parameters for faster inference.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">14</span>
+                        <span class="q-text">What is quantization?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Measuring quality</div>
+                        <div><strong>B)</strong> Converting weights to lower precision (int8), reducing size/latency</div>
+                        <div><strong>C)</strong> Quantifying data</div>
+                        <div><strong>D)</strong> Not related</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Quantization dramatically decreases model size/latency with minimal accuracy loss.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">15</span>
+                        <span class="q-text">Measuring if FM meets business goals?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Only technical metrics</div>
+                        <div><strong>B)</strong> Combine technical (accuracy, latency) with business (engagement, cost)</div>
+                        <div><strong>C)</strong> Business metrics don't matter</div>
+                        <div><strong>D)</strong> Guessing</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Success requires both technical performance AND business impact measurement (ROI, satisfaction).</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">16</span>
+                        <span class="q-text">Startup building chatbot with changing policies?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Train custom</div>
+                        <div><strong>B)</strong> Bedrock + RAG (lower cost, faster)</div>
+                        <div><strong>C)</strong> Build infrastructure</div>
+                        <div><strong>D)</strong> No AI</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock + RAG minimizes cost and time-to-market for changing knowledge.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">17</span>
+                        <span class="q-text">Production prompt management approach?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Random prompt, never change</div>
+                        <div><strong>B)</strong> A/B test, measure quality, iterate</div>
+                        <div><strong>C)</strong> Most complex only</div>
+                        <div><strong>D)</strong> No testing</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Production requires experimentation, versioning, quality metrics, continuous iteration.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">18</span>
+                        <span class="q-text">Model degradation after 2 weeks?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Assume fine</div>
+                        <div><strong>B)</strong> Investigate drift, evaluate, retrain if needed</div>
+                        <div><strong>C)</strong> Ignore</div>
+                        <div><strong>D)</strong> Shutdown</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Continuous monitoring detects issues; retraining addresses drift. Essential MLOps practice.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">19</span>
+                        <span class="q-text">Data preparation for fine-tuning? <span class="frequency-badge freq-high">SELECT 2</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Any random data</div>
+                        <div><strong>B)</strong> Representative, high-quality, properly labeled</div>
+                        <div><strong>C)</strong> No labels, unsupervised</div>
+                        <div><strong>D)</strong> As much as possible regardless quality</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Fine-tuning quality depends on training data. Quality > quantity. Bias and errors propagate.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">20</span>
+                        <span class="q-text">What is an "agent" in Bedrock?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Person selling AWS</div>
+                        <div><strong>B)</strong> Autonomous system using tools for multi-step tasks</div>
+                        <div><strong>C)</strong> Security role</div>
+                        <div><strong>D)</strong> Monitoring service</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock Agents are autonomous systems that break down tasks, call APIs, and reason to complete workflows.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">21</span>
+                        <span class="q-text">Multilingual chatbot model selection?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Lowest cost</div>
+                        <div><strong>B)</strong> Multi-language support + appropriate complexity</div>
+                        <div><strong>C)</strong> Largest model</div>
+                        <div><strong>D)</strong> Newest release</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Multi-language support is essential. Balance capability, latency, cost, compliance.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">22</span>
+                        <span class="q-text">Fast inference for chatbot?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Always largest model</div>
+                        <div><strong>B)</strong> Model distillation, pruning, smaller models</div>
+                        <div><strong>C)</strong> Disable safety</div>
+                        <div><strong>D)</strong> Accept slow</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Fast inference requires optimized models (distilled, quantized, pruned, smaller).</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">23</span>
+                        <span class="q-text">Effect of inference parameters?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Don't matter</div>
+                        <div><strong>B)</strong> max_tokens limits length; temperature controls randomness</div>
+                        <div><strong>C)</strong> Both affect accuracy only</div>
+                        <div><strong>D)</strong> max_tokens = temperature</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> max_tokens: response length limit. Temperature: output randomness/diversity.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">24</span>
+                        <span class="q-text">What is instruction tuning?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Writing hardware specs</div>
+                        <div><strong>B)</strong> Fine-tuning on instruction-response pairs</div>
+                        <div><strong>C)</strong> Writing code</div>
+                        <div><strong>D)</strong> Not important</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Instruction tuning fine-tunes on instruction-response examples for better instruction-following.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">25</span>
+                        <span class="q-text">Trade-off: specialization vs generalization?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No trade-off</div>
+                        <div><strong>B)</strong> Over-specialization hurts generalization</div>
+                        <div><strong>C)</strong> Specialization always helps</div>
+                        <div><strong>D)</strong> No specialization</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Over-fitting on narrow data risks losing generalization. Balance is key.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">26</span>
+                        <span class="q-text">Financial services, compliance questions changing?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Fine-tune daily</div>
+                        <div><strong>B)</strong> Bedrock + Knowledge Bases (RAG)</div>
+                        <div><strong>C)</strong> Manual only</div>
+                        <div><strong>D)</strong> No AI</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock KB enables RAG over current compliance docs without retraining.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">27</span>
+                        <span class="q-text">Cost approach for startup chatbot?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Train custom</div>
+                        <div><strong>B)</strong> Bedrock + RAG (lower cost, faster)</div>
+                        <div><strong>C)</strong> Build infrastructure</div>
+                        <div><strong>D)</strong> No option</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock + RAG minimizes cost and reduces time-to-market for startups.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">28</span>
+                        <span class="q-text">What determines retrieval quality in RAG?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Size of knowledge base</div>
+                        <div><strong>B)</strong> Embedding quality, chunking strategy, vector DB quality</div>
+                        <div><strong>C)</strong> Only foundation model</div>
+                        <div><strong>D)</strong> Not important</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> RAG quality depends on embeddings, chunking, and vector DB capabilities.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">29</span>
+                        <span class="q-text">Domain-specific terminology handling?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Zero-shot only</div>
+                        <div><strong>B)</strong> Fine-tune OR RAG with domain docs</div>
+                        <div><strong>C)</strong> Train from scratch</div>
+                        <div><strong>D)</strong> Generic LLM</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Fine-tuning teaches terminology; RAG grounds in domain docs. Both work; fine-tuning permanent.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d3">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">30</span>
+                        <span class="q-text">Dynamic vs static knowledge bases?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No difference</div>
+                        <div><strong>B)</strong> Static: fixed docs; Dynamic: real-time updates (RAG excels)</div>
+                        <div><strong>C)</strong> Dynamic always cheaper</div>
+                        <div><strong>D)</strong> Static always better</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> RAG's strength is dynamic knowledge – immediate updates without retraining.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 4 -->
+            <div class="domain-container d4">
+                <div class="domain-header">
+                    <h2>Domain 4: Guidelines for Responsible AI</h2>
+                    <div class="domain-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">14%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">1</span>
+                        <span class="q-text">What is algorithmic bias? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Bias in humans</div>
+                        <div><strong>B)</strong> Models producing unfair outcomes for demographic groups</div>
+                        <div><strong>C)</strong> Too many parameters</div>
+                        <div><strong>D)</strong> Not relevant</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Algorithmic bias: systematic unfairness in model outputs across groups.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">2</span>
+                        <span class="q-text">Detect bias in models? <span class="frequency-badge freq-very-high">ALMOST ALWAYS</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Lex</div>
+                        <div><strong>B)</strong> SageMaker Clarify</div>
+                        <div><strong>C)</strong> Personalize</div>
+                        <div><strong>D)</strong> Textract</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> SageMaker Clarify is ALWAYS the answer to "bias detection" questions on this exam.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">3</span>
+                        <span class="q-text">AWS Responsible AI principle?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Maximize profit</div>
+                        <div><strong>B)</strong> Fairness – equitable outcomes</div>
+                        <div><strong>C)</strong> Largest model</div>
+                        <div><strong>D)</strong> Never monitor</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> 6 principles: Fairness, Explainability, Privacy, Robustness, Governance, Transparency.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">4</span>
+                        <span class="q-text">Filter harmful content and PII? <span class="frequency-badge freq-high">FREQUENT</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Macie</div>
+                        <div><strong>B)</strong> Bedrock Guardrails</div>
+                        <div><strong>C)</strong> Lambda</div>
+                        <div><strong>D)</strong> CloudWatch</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Bedrock Guardrails is ALWAYS the answer to "content filtering" questions.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">5</span>
+                        <span class="q-text">Historical bias in training data?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Models always right</div>
+                        <div><strong>B)</strong> Models inherit and amplify biases</div>
+                        <div><strong>C)</strong> Models can't be biased</div>
+                        <div><strong>D)</strong> Not concern</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> ML systems inherit and amplify biases from training data – garbage in, garbage out.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">6</span>
+                        <span class="q-text">What is "fairness" in responsible AI?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Same prediction everyone</div>
+                        <div><strong>B)</strong> Equitable outcomes without systematic group bias</div>
+                        <div><strong>C)</strong> No fairness needed</div>
+                        <div><strong>D)</strong> Only for humans</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Fairness: equitable treatment, no systematic unfairness based on protected attributes.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">7</span>
+                        <span class="q-text">Legal risk with GenAI?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No risk</div>
+                        <div><strong>B)</strong> Copyright infringement, IP claims</div>
+                        <div><strong>C)</strong> Too regulated</div>
+                        <div><strong>D)</strong> Regulations don't apply</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> GenAI can reproduce training data or copyrighted content, creating legal liability.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">8</span>
+                        <span class="q-text">Why explainability important?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Not important</div>
+                        <div><strong>B)</strong> Users/regulators understand decisions, build trust</div>
+                        <div><strong>C)</strong> Black-box better</div>
+                        <div><strong>D)</strong> Slows everything</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Explainability builds trust, enables audits, supports regulatory compliance, identifies issues.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">9</span>
+                        <span class="q-text">What is "human-in-the-loop"?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Only automated</div>
+                        <div><strong>B)</strong> Humans review/validate outputs for high-stakes decisions</div>
+                        <div><strong>C)</strong> No humans</div>
+                        <div><strong>D)</strong> Slow</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Human-in-the-loop adds trustworthiness via human validation, especially for sensitive domains.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">10</span>
+                        <span class="q-text">Bias types to monitor? <span class="frequency-badge freq-high">SELECT ALL</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Training data bias</div>
+                        <div><strong>B)</strong> Selection bias</div>
+                        <div><strong>C)</strong> Measurement bias</div>
+                        <div><strong>D)</strong> No monitoring needed</div>
+                        <div class="answer-badge">✓ Answer: A, B, C</div>
+                        <div class="explanation"><strong>Explanation:</strong> Multiple bias sources: training data, selection (how data chosen), measurement (label accuracy).</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">11</span>
+                        <span class="q-text">Mitigation strategies? <span class="frequency-badge freq-high">SELECT 2</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Ignore bias</div>
+                        <div><strong>B)</strong> Balance training data</div>
+                        <div><strong>C)</strong> Collect diverse data</div>
+                        <div><strong>D)</strong> Use biased data</div>
+                        <div class="answer-badge">✓ Answer: B, C</div>
+                        <div class="explanation"><strong>Explanation:</strong> Mitigation: balance data, collect diversity, fairness-aware algorithms, post-processing.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">12</span>
+                        <span class="q-text">Transparent model approach?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Hide all info</div>
+                        <div><strong>B)</strong> SageMaker Model Cards, documentation, data lineage</div>
+                        <div><strong>C)</strong> No transparency</div>
+                        <div><strong>D)</strong> Transparency reduces accuracy</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Transparency requires structured documentation (Model Cards), data lineage, clear limitations.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">13</span>
+                        <span class="q-text">Six AWS Responsible AI principles (name 3)?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div class="explanation"><strong>Answer:</strong> Any 3 of: Fairness, Explainability, Privacy, Robustness, Governance, Transparency<br>
+                        <strong>Explanation:</strong> AWS framework for equitable, interpretable, private, robust, well-governed, transparent AI.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">14</span>
+                        <span class="q-text">Black-box vs transparent models?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Black-box perfect</div>
+                        <div><strong>B)</strong> Black-box powerful but hard to interpret; transparent easier to understand</div>
+                        <div><strong>C)</strong> Transparent only</div>
+                        <div><strong>D)</strong> No difference</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Black-box (DNNs): powerful but opaque. Transparent (trees): interpretable. Trade-off exists.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d4">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">15</span>
+                        <span class="q-text">Healthcare prediction important consideration?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Speed only</div>
+                        <div><strong>B)</strong> Explainability, interpretability, compliance</div>
+                        <div><strong>C)</strong> No governance</div>
+                        <div><strong>D)</strong> Black-box okay</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Healthcare requires explainability (doctors need understanding), compliance (regulations), careful trade-offs.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMAIN 5 -->
+            <div class="domain-container d5">
+                <div class="domain-header">
+                    <h2>Domain 5: Security, Compliance & Governance</h2>
+                    <div class="domain-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Questions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">14%</div>
+                            <div class="stat-label">Exam Weight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">1</span>
+                        <span class="q-text">IAM control Bedrock access? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Doesn't apply</div>
+                        <div><strong>B)</strong> IAM roles/policies specify who accesses, which models</div>
+                        <div><strong>C)</strong> No control</div>
+                        <div><strong>D)</strong> AWS staff only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> IAM is standard AWS access control including Bedrock API and model selection.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">2</span>
+                        <span class="q-text">Encrypt data for AI? <span class="frequency-badge freq-very-high">VERY FREQ</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Nothing needs</div>
+                        <div><strong>B)</strong> In transit (TLS), at rest (KMS), configurations</div>
+                        <div><strong>C)</strong> Only in transit</div>
+                        <div><strong>D)</strong> Optional</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Comprehensive security encrypts data everywhere – transit, rest, configurations.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">3</span>
+                        <span class="q-text">Encryption keys management?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> S3 only</div>
+                        <div><strong>B)</strong> AWS KMS</div>
+                        <div><strong>C)</strong> VPC</div>
+                        <div><strong>D)</strong> Lambda</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> KMS manages encryption keys protecting data across AWS services.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">4</span>
+                        <span class="q-text">What is "prompt injection"?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Money injection</div>
+                        <div><strong>B)</strong> Malicious inputs overriding instructions or extracting info</div>
+                        <div><strong>C)</strong> Training data injection</div>
+                        <div><strong>D)</strong> Not threat</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Prompt injection: social engineering attack embedding malicious instructions in prompts.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">5</span>
+                        <span class="q-text">Mitigate prompt injection?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No mitigation</div>
+                        <div><strong>B)</strong> Strong prompts, filtering, guardrails, RAG controls, monitoring</div>
+                        <div><strong>C)</strong> Disable safety</div>
+                        <div><strong>D)</strong> Accept risks</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Defense-in-depth: robust prompts, content filtering, guardrails, monitoring.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">6</span>
+                        <span class="q-text">CloudTrail purpose?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Doesn't apply</div>
+                        <div><strong>B)</strong> Logs all API calls for compliance/audits</div>
+                        <div><strong>C)</strong> Optional</div>
+                        <div><strong>D)</strong> Storage only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> CloudTrail: immutable audit logs of API activity, essential for compliance.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">7</span>
+                        <span class="q-text">Security golden rule?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> IAM alone</div>
+                        <div><strong>B)</strong> IAM + KMS + CloudTrail + VPC Endpoints</div>
+                        <div><strong>C)</strong> No security</div>
+                        <div><strong>D)</strong> Lambda only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> For security: IAM (who) + KMS (protect) + CloudTrail (audit) + VPC (network) = defense-in-depth.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">8</span>
+                        <span class="q-text">Data lineage importance?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Physical location</div>
+                        <div><strong>B)</strong> Tracking data flow from source through pipeline</div>
+                        <div><strong>C)</strong> Just storage</div>
+                        <div><strong>D)</strong> Not important</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Data lineage: track origins, transformations, usage for compliance, reproducibility, audits.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">9</span>
+                        <span class="q-text">Compliance standards for AI?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> None</div>
+                        <div><strong>B)</strong> ISO, SOC 2, GDPR, domain-specific</div>
+                        <div><strong>C)</strong> Financial only</div>
+                        <div><strong>D)</strong> Optional</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> AI falls under general (ISO, SOC, GDPR) and emerging AI-specific regulations.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">10</span>
+                        <span class="q-text">Data governance importance? <span class="frequency-badge freq-high">SELECT 2</span></span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Not important</div>
+                        <div><strong>B)</strong> Ensures quality, regulatory compliance</div>
+                        <div><strong>C)</strong> Supports audits, responsible practices</div>
+                        <div><strong>D)</strong> Optional</div>
+                        <div class="answer-badge">✓ Answer: B, C</div>
+                        <div class="explanation"><strong>Explanation:</strong> Governance ensures quality, compliance, auditability, reproducibility.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">11</span>
+                        <span class="q-text">What is VPC endpoint?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Network port</div>
+                        <div><strong>B)</strong> Private network connection avoiding public internet</div>
+                        <div><strong>C)</strong> Not useful</div>
+                        <div><strong>D)</strong> Public access</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> VPC endpoints: private, secure access to services without public internet traversal.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">12</span>
+                        <span class="q-text">Secure Bedrock access?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> No security</div>
+                        <div><strong>B)</strong> IAM + VPC endpoints + KMS + CloudTrail</div>
+                        <div><strong>C)</strong> Passwords only</div>
+                        <div><strong>D)</strong> Optional</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Comprehensive: IAM (who), VPC (how), KMS (protect), CloudTrail (audit).</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">13</span>
+                        <span class="q-text">AWS Generative AI Security Scoping Matrix?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Building GenAI apps</div>
+                        <div><strong>B)</strong> Framework identifying shared responsibilities</div>
+                        <div><strong>C)</strong> Not important</div>
+                        <div><strong>D)</strong> Industries only</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Scoping matrix helps identify security ownership between AWS and customers.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">14</span>
+                        <span class="q-text">Document for governance?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> Nothing</div>
+                        <div><strong>B)</strong> Purpose, limitations, data, security, policies, review, training</div>
+                        <div><strong>C)</strong> Success only</div>
+                        <div><strong>D)</strong> Optional</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Comprehensive governance requires documented policies, regular reviews, team training, monitoring.</div>
+                    </div>
+                </div>
+
+                <div class="question-card d5">
+                    <div class="q-header" onclick="toggleQuestion(this)">
+                        <span class="q-number">15</span>
+                        <span class="q-text">Bedrock shared responsibility?</span>
+                        <span class="q-toggle">▼</span>
+                    </div>
+                    <div class="q-body">
+                        <div><strong>A)</strong> AWS handles everything</div>
+                        <div><strong>B)</strong> AWS: infrastructure; Customers: data encryption, IAM, policies</div>
+                        <div><strong>C)</strong> Customers handle all</div>
+                        <div><strong>D)</strong> No responsibility</div>
+                        <div class="answer-badge">✓ Answer: B</div>
+                        <div class="explanation"><strong>Explanation:</strong> Shared model: AWS infrastructure security; Customers: data protection, access control, policies.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>🎓 AWS Certified AI Practitioner (AIF-C01) - Complete Practice Questions Repository</p>
+            <p><strong>100+ Questions Across All 5 Domains | Detailed Explanations | Latest 2026 Updates</strong></p>
+            <p>Last Updated: June 2026 | Based on Official AWS Exam Guidelines v1.4</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleQuestion(element) {
+            const body = element.nextElementSibling;
+            const toggle = element.querySelector('.q-toggle');
+            body.classList.toggle('show');
+            toggle.classList.toggle('open');
+        }
+
+        function filterDomain(domain) {
+            document.querySelectorAll('.domain-container').forEach(d => {
+                d.style.display = 'none';
+            });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (domain === 'all') {
+                document.querySelectorAll('.domain-container').forEach(d => {
+                    d.style.display = 'block';
+                });
+                event.target.classList.add('active');
+            } else {
+                document.querySelectorAll('.' + domain).forEach(d => {
+                    d.style.display = 'block';
+                });
+                event.target.classList.add('active');
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.q-body').forEach(b => b.classList.add('show'));
+            document.querySelectorAll('.q-toggle').forEach(t => t.classList.add('open'));
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.q-body').forEach(b => b.classList.remove('show'));
+            document.querySelectorAll('.q-toggle').forEach(t => t.classList.remove('open'));
+        }
+
+        function searchQuestions() {
+            const term = document.getElementById('searchBox').value.toLowerCase();
+            document.querySelectorAll('.question-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
