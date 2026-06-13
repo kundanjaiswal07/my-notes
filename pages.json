@@ -21,12 +21,14 @@
     "category": "Certification",
     "desc": "Complete Study Guide & Practice Questions 2026",
     "tags": [
-      "D1:AI/ML Fundamentals",
-      "D2: GENAI Fundamentals",
-      "D3: FM Applications",
-      "D4: Responsible AI",
-      "D5: Security & Governance",
-      "Study Plan"
+      "Exam Overview",
+      "Domain 1: Fundamentals of AI and ML",
+      "Domain 2: Fundamentals of Generative AI",
+      "⭐ Domain 3: Applications of Foundation Models\nTHE MOST IMPORTANT DOMAIN - 28% of Exam!",
+      "Domain 4: Guidelines for Responsible AI",
+      "Domain 5: Security",
+      "Compliance & Governance",
+      "Study Resources & Strategy"
     ],
     "date": "2026-06-13"
   },
