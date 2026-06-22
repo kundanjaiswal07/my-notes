@@ -4438,39 +4438,75 @@ Roadmap" />
     </div>
 </body>
 <script>
-    const KEY = 'pyv1';
-    let done = JSON.parse(localStorage.getItem(KEY) || '[]');
+// Universal code that works with ANY number of topics
+let done = [];
+let T = 0; // Will be set dynamically
 
-    function up() {
-        const total = 30;
-        const n = done.length;
-        const pct = Math.round(n / total * 100);
-        document.getElementById('dc').textContent = n;
-        document.getElementById('ps').textContent = pct + '%';
-        document.getElementById('pt').textContent = 'Progress: ' + n + ' / ' + total;
-        document.getElementById('pp').textContent = pct + '%';
-        document.getElementById('pf').style.width = pct + '%';
-    }
+// Detect total topics by counting cards
+function detectTotalTopics() {
+  const cards = document.querySelectorAll('[id^="card-"]');
+  T = cards.length;
+  console.log('Detected ' + T + ' topics');
+  return T;
+}
 
-    function tg(i) {
-        const ex = document.getElementById('ex-' + i);
-        const cv = document.getElementById('cv-' + i);
-        const open = ex.classList.toggle('open');
-        cv.classList.toggle('open', open);
-    }
+// Get storage key from current page (or use default)
+function getStorageKey() {
+  const url = window.location.pathname;
+  if (url.includes('python')) return 'python-mastery';
+  if (url.includes('aws')) return 'aws-ai-practitioner';
+  if (url.includes('power-bi')) return 'powerbi-master';
+  if (url.includes('sql')) return 'sql-mastery';
+  return 'mastery-progress'; // Default fallback
+}
 
-    function ri(el) {
-        const ans = el.parentElement.querySelector('.iq-a');
-        const btn = el.querySelector('.rbtn');
-        const open = ans.classList.toggle('open');
-        btn.classList.toggle('on', open);
-        btn.textContent = open ? 'Hide' : 'Reveal';
-    }
+const KEY = getStorageKey();
 
-    function md(i) {
+// Load progress from localStorage
+try {
+  done = JSON.parse(localStorage.getItem(KEY) || '[]');
+} catch(e) {}
+
+// Save progress to localStorage
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(done));
+  } catch(e) {}
+}
+
+// Toggle topic expand/collapse
+function tg(i) {
+  const ex = document.getElementById('ex-' + i);
+  const cv = document.getElementById('cv-' + i);
+  if (ex) ex.classList.toggle('open');
+  if (cv) cv.classList.toggle('open');
+}
+
+// Reveal/Hide answer
+function ri(qEl) {
+  const card = qEl.closest('.pq-card') || qEl.closest('.iq-card');
+  if (!card) return;
+  
+  const ans = card.querySelector('.pq-a') || card.querySelector('.iq-a');
+  const btn = card.querySelector('.rbtn');
+  
+  if (!ans || !btn) return;
+  
+  const isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show' : 'Hide';
+  btn.classList.toggle('on', !isOpen);
+}
+
+// Mark done / Undo with auto-collapse and auto-scroll
+function md(i) {
   const btn = document.getElementById('dn-' + i);
   const num = document.getElementById('num-' + i);
   const card = document.getElementById('card-' + i);
+  const ex = document.getElementById('ex-' + i);
+  const cv = document.getElementById('cv-' + i);
+  
+  if (!btn || !num || !card) return;
   
   if (done.includes(i)) {
     // UNDO: Remove from done
@@ -4479,6 +4515,11 @@ Roadmap" />
     card.classList.remove('done');
     btn.textContent = '✓ Mark Done';
     btn.disabled = false;
+    // Expand topic when undoing
+    if (ex && cv) {
+      ex.classList.add('open');
+      cv.classList.add('open');
+    }
   } else {
     // MARK DONE
     done.push(i);
@@ -4486,31 +4527,110 @@ Roadmap" />
     card.classList.add('done');
     btn.textContent = '✗ Undo';
     btn.disabled = false;
+    // Auto-collapse topic
+    if (ex && cv) {
+      ex.classList.remove('open');
+      cv.classList.remove('open');
+    }
+    // Auto-scroll to next topic
+    setTimeout(() => {
+      const nextCard = document.getElementById('card-' + (i + 1));
+      if (nextCard) {
+        nextCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
   }
   
-  localStorage.setItem(KEY, JSON.stringify(done));
+  save();
   up();
 }
 
-    function sw(name, el) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById('tab-' + name).classList.add('active');
-        el.classList.add('active');
-    }
+// Update progress counter
+function up() {
+  const n = done.length;
+  const p = T > 0 ? Math.round((n / T) * 100) : 0;
+  
+  const dc = document.getElementById('dc');
+  const ps = document.getElementById('ps');
+  const pf = document.getElementById('pf');
+  const pt = document.getElementById('pt');
+  const pp = document.getElementById('pp');
+  
+  if (dc) dc.textContent = n;
+  if (ps) ps.textContent = p + '%';
+  if (pf) pf.style.width = p + '%';
+  if (pt) pt.textContent = 'Progress: ' + n + ' / ' + T;
+  if (pp) pp.textContent = p + '%';
+}
 
-    // Restore state on load
-    window.addEventListener('DOMContentLoaded', () => {
-        done.forEach(i => {
-            const num = document.getElementById('num-' + i);
-            const card = document.getElementById('card-' + i);
-            const btn = document.getElementById('dn-' + i);
-            if (num) num.classList.add('dn');
-            if (card) card.classList.add('done');
-            if (btn) { btn.textContent = '\u2713 Done!'; btn.disabled = true; }
-        });
-        up();
-    });
+// Switch tabs (works with any tab names)
+function sw(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  
+  const section = document.getElementById('tab-' + name);
+  if (section) section.classList.add('active');
+  
+  if (el) el.classList.add('active');
+}
+
+// RESET ALL PROGRESS - Works with any number of topics
+function doReset() {
+  if (!confirm('Reset all ' + done.length + ' completed topics?\n\nClick OK to confirm.')) {
+    return;
+  }
+  
+  // Clear localStorage
+  localStorage.removeItem(KEY);
+  done = [];
+  
+  // Reset all detected topics
+  for (let i = 0; i < T; i++) {
+    const num = document.getElementById('num-' + i);
+    const card = document.getElementById('card-' + i);
+    const btn = document.getElementById('dn-' + i);
+    const ex = document.getElementById('ex-' + i);
+    const cv = document.getElementById('cv-' + i);
+    
+    if (num) {
+      num.classList.remove('dn');
+      num.innerHTML = (i + 1);
+    }
+    if (card) card.classList.remove('done');
+    if (btn) {
+      btn.textContent = '✓ Mark Done';
+      btn.disabled = false;
+    }
+    if (ex) ex.classList.remove('open');
+    if (cv) cv.classList.remove('open');
+  }
+  
+  up();
+  alert('✅ All progress cleared!\n\nProgress: 0/' + T + '\n\nStart learning again!');
+}
+
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', () => {
+  detectTotalTopics();
+  
+  done.forEach(i => {
+    const c = document.getElementById('card-' + i);
+    const n = document.getElementById('num-' + i);
+    const b = document.getElementById('dn-' + i);
+    
+    if (c) c.classList.add('done');
+    if (n) {
+      n.classList.add('dn');
+      n.innerHTML = '&#10003;';
+    }
+    if (b) {
+      b.disabled = false;
+      b.textContent = '✗ Undo';
+    }
+  });
+  
+  up();
+});
 </script>
 
 </html>
